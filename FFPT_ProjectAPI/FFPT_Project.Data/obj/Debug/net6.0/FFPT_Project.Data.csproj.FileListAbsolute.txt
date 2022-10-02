@@ -1,0 +1,15 @@
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\bin\Debug\net6.0\FFPT_Project.Data.deps.json
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\bin\Debug\net6.0\FFPT_Project.Data.runtimeconfig.json
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\bin\Debug\net6.0\FFPT_Project.Data.dll
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\bin\Debug\net6.0\FFPT_Project.Data.pdb
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\FFPT_Project.Data.csproj.AssemblyReference.cache
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\FFPT_Project.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\FFPT_Project.Data.AssemblyInfoInputs.cache
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\FFPT_Project.Data.AssemblyInfo.cs
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\FFPT_Project.Data.csproj.CoreCompileInputs.cache
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\EFCoreSqlServerNetTopologySuite.cs
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\FFPT_Project.Data.dll
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\refint\FFPT_Project.Data.dll
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\FFPT_Project.Data.pdb
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\FFPT_Project.Data.genruntimeconfig.cache
+C:\Users\MyTDV\source\repos\FreeFit_Project_Api\FFPT_ProjectAPI\FFPT_Project.Data\obj\Debug\net6.0\ref\FFPT_Project.Data.dll
