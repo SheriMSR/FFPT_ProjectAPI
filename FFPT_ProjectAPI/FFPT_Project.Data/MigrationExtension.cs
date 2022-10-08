@@ -17,7 +17,7 @@ namespace FFPT_Project.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{DateTime.UtcNow.AddHours(7).ToString("yyyy-MM-dd HH:mm:ss.fff")}||fail: TradeMap.Data.Migrations.MigrationExtension[0]\n{ex.ToString()}");
+                Console.WriteLine($"{DateTime.UtcNow.AddHours(7).ToString("yyyy-MM-dd HH:mm:ss.fff")}||fail: FFPT_Project.Data.MigrationExtension[0]\n{ex.ToString()}");
             }
         }
     }

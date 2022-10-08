@@ -1,4 +1,4 @@
-﻿namespace FFPt_Project.Service.Commons
+﻿namespace FFPT_Project.Service.Commons
 {
     public static class Constants
     {

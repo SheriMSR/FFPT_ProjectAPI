@@ -11,7 +11,7 @@ namespace FFPT_Project.Data.Entity
         }
 
         public int Id { get; set; }
-        public int FloorNumber { get; set; }
+        public string FloorNumber { get; set; } = null!;
 
         public virtual ICollection<Room> Rooms { get; set; }
     }

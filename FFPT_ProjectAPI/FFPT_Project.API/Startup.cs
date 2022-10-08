@@ -1,5 +1,5 @@
 using Autofac;
-using FFPt_Project.Service.Helpers;
+using FFPT_Project.Service.Helpers;
 using FFPT_Project.API.Helpers;
 using FFPT_Project.API.Mapper;
 using FFPT_Project.Data;
@@ -24,6 +24,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using FFPT_Project.Service.Service;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 namespace FFPT_Project.API
 {
@@ -76,7 +79,7 @@ namespace FFPT_Project.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Trade Zone Map API",
+                    Title = "FFPT Project API",
                     Version = "v1"
                 });
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
@@ -138,8 +141,8 @@ namespace FFPT_Project.API
 
             #endregion JWT
 
-            ////===============================================
-            ////firebase
+            //===============================================
+            //firebase
             //System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "loginkhanhnd-firebase-adminsdk-q13rl-0583fba703.json");
             //FirebaseApp.Create(new AppOptions()
             //{
@@ -153,8 +156,8 @@ namespace FFPT_Project.API
             //    //  c.CronExpression = @"0 0 * * *"; every day
             //});
 
-            //services.AddDbContext<TradeMapContext>(options =>
-            //options.UseSqlServer(Configuration["ConnectionStrings:SQLServerDatabase"]), ServiceLifetime.Singleton);
+            services.AddDbContext<FFPTProjectDBContext>(options =>
+            options.UseSqlServer(Configuration["ConnectionStrings:SQLServerDatabase"]), ServiceLifetime.Singleton);
 
             //services.ConfigureHangfireServices(Configuration);
 
@@ -175,6 +178,7 @@ namespace FFPT_Project.API
             // Register your own things directly with Autofac, like:
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+            builder.RegisterType<ProductServices>().As<IProductServices>();
             builder.RegisterGeneric(typeof(GenericRepository<>))
             .As(typeof(IGenericRepository<>))
             .InstancePerLifetimeScope();
@@ -191,7 +195,7 @@ namespace FFPT_Project.API
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TRADE ZONE Api V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FFPT Api V1");
                 c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
             });
             app.UseRouting();

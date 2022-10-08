@@ -1,4 +1,4 @@
-﻿namespace FFPt_Project.Service.Helpers
+﻿namespace FFPT_Project.Service.Helpers
 {
     public class AppSettings
     {

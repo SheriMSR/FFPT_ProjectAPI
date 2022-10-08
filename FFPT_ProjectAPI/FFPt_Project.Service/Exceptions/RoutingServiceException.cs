@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FFPt_Project.Service.Exceptions
+namespace FFPT_Project.Service.Exceptions
 {
     public class RoutingServiceException : Exception
     {

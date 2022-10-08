@@ -17,7 +17,7 @@ namespace FFPT_Project.Data.Context
         {
         }
 
-        public virtual DbSet<AreaId> AreaIds { get; set; } = null!;
+        public virtual DbSet<Area> Areas { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<ComboProduct> ComboProducts { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
@@ -32,11 +32,20 @@ namespace FFPT_Project.Data.Context
         public virtual DbSet<Store> Stores { get; set; } = null!;
         public virtual DbSet<TimeSlot> TimeSlots { get; set; } = null!;
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                //optionsBuilder.UseSqlServer("server =MonMon; database=FFPTProjectDB;uid=sa;pwd=1234;TrustServerCertificate=True", x => x.UseNetTopologySuite());
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AreaId>(entity =>
+            modelBuilder.Entity<Area>(entity =>
             {
-                entity.ToTable("AreaId");
+                entity.ToTable("Area");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
@@ -97,6 +106,8 @@ namespace FFPT_Project.Data.Context
                 entity.ToTable("Floor");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.FloorNumber).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Menu>(entity =>
@@ -249,11 +260,13 @@ namespace FFPT_Project.Data.Context
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
+                entity.Property(e => e.RoomNumber).HasMaxLength(50);
+
                 entity.HasOne(d => d.Area)
                     .WithMany(p => p.Rooms)
                     .HasForeignKey(d => d.AreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Room_AreaId1");
+                    .HasConstraintName("FK_Room_Area");
 
                 entity.HasOne(d => d.Floor)
                     .WithMany(p => p.Rooms)
@@ -279,8 +292,6 @@ namespace FFPT_Project.Data.Context
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Adress).HasMaxLength(50);
-
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -297,10 +308,6 @@ namespace FFPT_Project.Data.Context
                 entity.ToTable("TimeSlot");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.ArriveTime).HasMaxLength(50);
-
-                entity.Property(e => e.CheckoutTime).HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

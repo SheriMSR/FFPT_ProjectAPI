@@ -15,7 +15,6 @@ namespace FFPT_Project.Data.Entity
 
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public string? Adress { get; set; }
         public string? Phone { get; set; }
         public string StoreCode { get; set; } = null!;
         public DateTime CreateAt { get; set; }

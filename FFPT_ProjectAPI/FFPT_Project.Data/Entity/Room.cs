@@ -11,10 +11,11 @@ namespace FFPT_Project.Data.Entity
         }
 
         public int Id { get; set; }
+        public string RoomNumber { get; set; } = null!;
         public int FloorId { get; set; }
         public int AreaId { get; set; }
 
-        public virtual AreaId Area { get; set; } = null!;
+        public virtual Area Area { get; set; } = null!;
         public virtual Floor Floor { get; set; } = null!;
         public virtual ICollection<Order> Orders { get; set; }
     }

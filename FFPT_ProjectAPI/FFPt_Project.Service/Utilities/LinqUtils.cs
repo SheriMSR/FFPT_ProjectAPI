@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Reflection;
 using System.Text;
-using FFPt_Project.Service.Commons;
+using FFPT_Project.Service.Commons;
 
-namespace FFPt_Project.Service.Utilities
+namespace FFPT_Project.Service.Utilities
 {
     public static class LinqUtils
     {

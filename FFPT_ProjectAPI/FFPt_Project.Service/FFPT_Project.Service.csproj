@@ -11,15 +11,13 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.9" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Reso.Sdk" Version="1.0.13" />
     <PackageReference Include="StackExchange.Redis" Version="2.6.66" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.20" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DTO\Request\" />
   </ItemGroup>
 
   <ItemGroup>

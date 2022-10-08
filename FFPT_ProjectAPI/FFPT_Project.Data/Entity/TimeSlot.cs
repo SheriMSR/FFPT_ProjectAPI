@@ -11,10 +11,10 @@ namespace FFPT_Project.Data.Entity
         }
 
         public int Id { get; set; }
-        public string ArriveTime { get; set; } = null!;
-        public string CheckoutTime { get; set; } = null!;
+        public TimeSpan ArriveTime { get; set; }
+        public TimeSpan CheckoutTime { get; set; }
         public bool? IsActive { get; set; }
-        public bool? IsAvailable { get; set; }
+        public int Status { get; set; }
 
         public virtual ICollection<Menu> Menus { get; set; }
     }
