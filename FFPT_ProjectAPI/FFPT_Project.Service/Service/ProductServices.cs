@@ -6,6 +6,7 @@ using FFPT_Project.Data.UnitOfWork;
 using FFPT_Project.Service.DTO.Request;
 using FFPT_Project.Service.DTO.Response;
 using FFPT_Project.Service.Exceptions;
+using FFPT_Project.Service.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Reso.Sdk.Core.Utilities;
 using System;
@@ -20,7 +21,7 @@ namespace FFPT_Project.Service.Service
 {
     public interface IProductServices
     {
-        Task<PagedResults<ProductResponse>> GetProducts(ProductRequest request);
+        Task<PagedResults<ProductResponse>> GetProducts(ProductRequest request, PagingRequest paging);
         Task<ProductResponse> GetProductById(int productId);
         Task<ProductResponse> GetProductByStore(int storeId);
         //Task<ProductResponse> GetProductByTimeSlot(TimeOnly request);
@@ -38,29 +39,29 @@ namespace FFPT_Project.Service.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PagedResults<ProductResponse>> GetProducts(ProductRequest request)
+        public async Task<PagedResults<ProductResponse>> GetProducts(ProductRequest request, PagingRequest paging)
         {
             try
             {
-                var product = _unitOfWork.Repository<Product>().GetAll()
+                List<ProductResponse> list = null;
+                var product = await _unitOfWork.Repository<Product>().GetAll()
                     .Where(x => request.Status == null || x.Status == (int)request.Status)
-                    .OrderByDescending(x => x.Id)
-                    .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
-                    .PagingIQueryable(request.Page, request.PageSize, 500, 50);
+                    .ToArrayAsync();
 
-                return new PagedResults<ProductResponse>()
-                {
-                    PageNumber = request.Page,
-                    PageSize = request.PageSize,
-                    TotalNumberOfPages = (int)Math.Ceiling((double)product.Item1 / request.PageSize),
-                    TotalNumberOfRecords = product.Item1,
-                    Results = product.Item2.ToList()
-                };
+                IEnumerable<ProductResponse> rs = _mapper.Map<Product[], ProductResponse[]>(product);
+                list = PageHelper<ProductResponse>.Sorting(request.SortType, rs, request.ColName);
+                var result = PageHelper<ProductResponse>.Paging(list, paging.Page, paging.PageSize);
+
+                return result;
 
             }
             catch (CrudException ex)
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Get Product Error!!!!", ex?.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
         }
 
