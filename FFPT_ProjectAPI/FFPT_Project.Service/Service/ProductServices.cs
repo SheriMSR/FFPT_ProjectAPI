@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Azure.Core;
 using FFPT_Project.Data.Context;
 using FFPT_Project.Data.Entity;
 using FFPT_Project.Data.UnitOfWork;
@@ -7,8 +8,8 @@ using FFPT_Project.Service.DTO.Request;
 using FFPT_Project.Service.DTO.Response;
 using FFPT_Project.Service.Exceptions;
 using FFPT_Project.Service.Helpers;
+using FFPT_Project.Service.Utilities;
 using Microsoft.EntityFrameworkCore;
-using Reso.Sdk.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace FFPT_Project.Service.Service
 {
     public interface IProductServices
     {
-        Task<PagedResults<ProductResponse>> GetProducts(ProductRequest request, PagingRequest paging);
+        Task<PagedResults<ProductResponse>> GetProducts(ProductResponse request, PagingRequest paging);
         Task<ProductResponse> GetProductById(int productId);
         Task<ProductResponse> GetProductByStore(int storeId);
         //Task<ProductResponse> GetProductByTimeSlot(TimeOnly request);
@@ -39,21 +40,16 @@ namespace FFPT_Project.Service.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PagedResults<ProductResponse>> GetProducts(ProductRequest request, PagingRequest paging)
+        public async Task<PagedResults<ProductResponse>> GetProducts(ProductResponse request, PagingRequest paging)
         {
             try
             {
-                List<ProductResponse> list = null;
                 var product = await _unitOfWork.Repository<Product>().GetAll()
-                    .Where(x => request.Status == null || x.Status == (int)request.Status)
-                    .ToArrayAsync();
-
-                IEnumerable<ProductResponse> rs = _mapper.Map<Product[], ProductResponse[]>(product);
-                list = PageHelper<ProductResponse>.Sorting(request.SortType, rs, request.ColName);
-                var result = PageHelper<ProductResponse>.Paging(list, paging.Page, paging.PageSize);
-
+                                               .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
+                                               .DynamicFilter(request)
+                                               .ToListAsync();
+                var result = PageHelper<ProductResponse>.Paging(product, paging.Page, paging.PageSize);
                 return result;
-
             }
             catch (CrudException ex)
             {

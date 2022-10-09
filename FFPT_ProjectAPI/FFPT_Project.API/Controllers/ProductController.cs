@@ -25,7 +25,7 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProducts([FromQuery] ProductRequest request, [FromQuery] PagingRequest paging)
+        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProducts([FromQuery] ProductResponse request, [FromQuery] PagingRequest paging)
         {
             var rs = await _productService.GetProducts(request, paging);
             return Ok(rs);
