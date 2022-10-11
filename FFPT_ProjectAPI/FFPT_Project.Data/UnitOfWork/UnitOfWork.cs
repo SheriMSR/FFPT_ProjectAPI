@@ -8,9 +8,9 @@ namespace FFPT_Project.Data.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly FFPTProjectDBContext _context;
+        private readonly FFPT_ProjectDboContext _context;
 
-        public UnitOfWork(FFPTProjectDBContext context)
+        public UnitOfWork(FFPT_ProjectDboContext context)
         {
             _context = context;
         }

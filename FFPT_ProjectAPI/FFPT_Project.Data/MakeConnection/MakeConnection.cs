@@ -10,7 +10,7 @@ namespace FFPT_Project.Data.MakeConnection
     {
         public static IServiceCollection ConnectToConnectionString(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<FFPTProjectDBContext>(options =>
+            services.AddDbContext<FFPT_ProjectDboContext>(options =>
             {
                 options.UseLazyLoadingProxies();
                 options.UseSqlServer(configuration.GetConnectionString("SQLServerDatabase"), sql => sql.UseNetTopologySuite());

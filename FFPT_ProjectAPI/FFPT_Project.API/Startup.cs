@@ -156,7 +156,7 @@ namespace FFPT_Project.API
             //    //  c.CronExpression = @"0 0 * * *"; every day
             //});
 
-            services.AddDbContext<FFPTProjectDBContext>(options =>
+            services.AddDbContext<FFPT_ProjectDboContext>(options =>
             options.UseSqlServer(Configuration["ConnectionStrings:SQLServerDatabase"]), ServiceLifetime.Singleton);
 
             //services.ConfigureHangfireServices(Configuration);
@@ -187,7 +187,7 @@ namespace FFPT_Project.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
-            app.ConfigMigration<FFPTProjectDBContext>();
+            app.ConfigMigration<FFPT_ProjectDboContext>();
             app.UseCors(MyAllowSpecificOrigins);
             app.UseExceptionHandler("/error");
             app.UseHttpsRedirection();

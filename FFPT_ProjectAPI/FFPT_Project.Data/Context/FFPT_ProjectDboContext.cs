@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FFPT_Project.Data.Context
 {
-    public partial class FFPTProjectDBContext : DbContext
+    public partial class FFPT_ProjectDboContext : DbContext
     {
-        public FFPTProjectDBContext()
+        public FFPT_ProjectDboContext()
         {
         }
 
-        public FFPTProjectDBContext(DbContextOptions<FFPTProjectDBContext> options)
+        public FFPT_ProjectDboContext(DbContextOptions<FFPT_ProjectDboContext> options)
             : base(options)
         {
         }
@@ -37,7 +37,7 @@ namespace FFPT_Project.Data.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                //optionsBuilder.UseSqlServer("server =MonMon; database=FFPTProjectDB;uid=sa;pwd=1234;TrustServerCertificate=True", x => x.UseNetTopologySuite());
+                optionsBuilder.UseSqlServer("Server=tcp:ffpt-project.database.windows.net,1433;Initial Catalog=FFPT_ProjectDbo;Persist Security Info=False;User ID=administrators;Password=zaQ@1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -116,13 +116,11 @@ namespace FFPT_Project.Data.Context
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
+                entity.Property(e => e.CreateAt).HasColumnType("datetime");
+
                 entity.Property(e => e.MenuName).HasMaxLength(50);
 
-                entity.HasOne(d => d.Store)
-                    .WithMany(p => p.Menus)
-                    .HasForeignKey(d => d.StoreId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Menu_Store1");
+                entity.Property(e => e.UpdateAt).HasColumnType("datetime");
 
                 entity.HasOne(d => d.TimeSlot)
                     .WithMany(p => p.Menus)
@@ -220,12 +218,6 @@ namespace FFPT_Project.Data.Context
                     .HasForeignKey(d => d.GeneralProductId)
                     .HasConstraintName("FK_Product_Product");
 
-                entity.HasOne(d => d.ProductInMenu)
-                    .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.ProductInMenuId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Product_ProductInMenu");
-
                 entity.HasOne(d => d.SupplierStore)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.SupplierStoreId)
@@ -241,11 +233,19 @@ namespace FFPT_Project.Data.Context
 
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
 
+                entity.Property(e => e.UpdateAt).HasColumnType("datetime");
+
                 entity.HasOne(d => d.Menu)
                     .WithMany(p => p.ProductInMenus)
                     .HasForeignKey(d => d.MenuId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductInMenu_Menu");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductInMenus)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductInMenu_Product");
 
                 entity.HasOne(d => d.Store)
                     .WithMany(p => p.ProductInMenus)

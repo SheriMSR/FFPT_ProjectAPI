@@ -13,10 +13,10 @@ namespace FFPT_Project.Data.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private static FFPTProjectDBContext Context;
+        private static FFPT_ProjectDboContext Context;
         private static DbSet<T> Table { get; set; }
 
-        public GenericRepository(FFPTProjectDBContext context)
+        public GenericRepository(FFPT_ProjectDboContext context)
         {
             Context = context;
             Table = Context.Set<T>();

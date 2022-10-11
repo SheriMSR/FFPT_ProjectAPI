@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FFPT_Project.Data.Entity
+namespace FFPT_Project.API.Entity
 {
     public partial class Store
     {
