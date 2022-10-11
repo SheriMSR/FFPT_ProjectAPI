@@ -21,14 +21,14 @@ namespace FFPT_Project.Service.Helpers
         //12h 12h30
         //2h45- 3h15
 
-        public enum ProductStatusEmun
+        public enum ProductStatusEnum
         {
             New = 0,
             Avaliable = 1,
             OutOfStock = 2
         }
 
-        public enum OrderStatusEmun
+        public enum OrderStatusEnum
         {
             StoreCancel = 0,
             Cancel = 1,
