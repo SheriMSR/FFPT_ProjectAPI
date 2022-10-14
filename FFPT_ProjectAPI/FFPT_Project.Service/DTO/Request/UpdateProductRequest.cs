@@ -17,6 +17,5 @@ namespace FFPT_Project.Service.DTO.Request
         public int SupplierStoreId { get; set; }
         public int? GeneralProductId { get; set; }
         public string Code { get; set; } = null!;
-        public int ProductInMenuId { get; set; }
     }
 }

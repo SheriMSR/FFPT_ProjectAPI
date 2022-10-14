@@ -10,6 +10,8 @@ namespace FFPT_Project.Service.DTO.Response
 {
     public class ProductResponse
     {
+        [Int]
+        public int Id { get; set; }
         [String]
         public string? Name { get; set; } 
         public string? Image { get; set; }
@@ -24,6 +26,5 @@ namespace FFPT_Project.Service.DTO.Response
         public int? GeneralProductId { get; set; }
         [String]
         public string? Code { get; set; } 
-        public int ProductInMenuId { get; set; }
     }
 }

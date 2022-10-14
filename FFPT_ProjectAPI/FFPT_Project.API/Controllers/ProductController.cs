@@ -9,7 +9,6 @@ namespace FFPT_Project.API.Controllers
 {
     [Route(Helpers.SettingVersionApi.ApiVersion)]
     [ApiController]
-
     public class ProductController : Controller
     {
         private readonly IProductServices _productService;
@@ -37,9 +36,9 @@ namespace FFPT_Project.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductById([FromQuery] int productId, [FromQuery] PagingRequest paging)
+        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductById([FromQuery] int id)
         {
-            var rs = await _productService.GetProductById(productId);
+            var rs = await _productService.GetProductById(id);
             return Ok(rs);
         }
 
