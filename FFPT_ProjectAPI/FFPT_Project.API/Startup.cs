@@ -27,6 +27,7 @@ using System.Text;
 using FFPT_Project.Service.Service;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Google.Apis.Auth.AspNetCore3;
 
 namespace FFPT_Project.API
 {
@@ -60,17 +61,6 @@ namespace FFPT_Project.API
                     });
             });
             services.AddControllersWithViews();
-            //services.AddControllers(x => x.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()))).AddNewtonsoftJson(options =>
-            //{
-            //    options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-            //    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            //    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            //    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            //    foreach (var converter in GeoJsonSerializer.Create(new GeometryFactory(new PrecisionModel(), 4326)).Converters)
-            //    {
-            //        options.SerializerSettings.Converters.Add(converter);
-            //    }
-            //}).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers(options =>
             {
                 options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
@@ -97,19 +87,13 @@ namespace FFPT_Project.API
                         Id = "Bearer"
                     }
                 };
-                c.AddSecurityDefinition("Bearer", securitySchema
-                    );
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
+                c.AddSecurityDefinition("Bearer", securitySchema);
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement {
                 {
                         securitySchema,
                     new string[] { "Bearer" }
                     }
-                }
-
-                );
+                });
             });
             services.ConnectToConnectionString(Configuration);
 
@@ -123,62 +107,24 @@ namespace FFPT_Project.API
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(cfg =>
-            {
-                cfg.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = Configuration.GetValue<string>("AppSettings:Issuer"),
-                    ValidateAudience = true,
-                    ValidAudience = Configuration.GetValue<string>("AppSettings:Issuer"),
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                };
+                x.DefaultAuthenticateScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
             });
 
             #endregion JWT
 
-            //===============================================
-            //firebase
-            //System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "loginkhanhnd-firebase-adminsdk-q13rl-0583fba703.json");
-            //FirebaseApp.Create(new AppOptions()
-            //{
-            //    Credential = GoogleCredential.GetApplicationDefault(),
-            //});
-
-            //services.AddCronJob<MyCronJob>(c =>
-            //{
-            //    c.TimeZoneInfo = TimeZoneInfo.Local;
-            //    c.CronExpression = @"0 * * * *";
-            //    //  c.CronExpression = @"0 0 * * *"; every day
-            //});
-
-            services.AddDbContext<FFPT_ProjectDboContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:SQLServerDatabase"]), ServiceLifetime.Singleton);
-
-            //services.ConfigureHangfireServices(Configuration);
-
-            //services.AddSingleton<IConnectionMultiplexer>(_ =>
-            //   ConnectionMultiplexer.Connect(Configuration["Endpoint:RedisEndpoint"]));
-            //services.ConfigMemoryCacheAndRedisCache(Configuration["Endpoint:RedisEndpoint"]);
         }
-
-        //private string[] GetDomain()
-        //{
-        //    var domains = Configuration.GetSection("Domain").Get<Dictionary<string, string>>()
-        //        .SelectMany(s => s.Value.Split(",")).ToArray();
-        //    return domains;
-        //}
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
             // Register your own things directly with Autofac, like:
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+
             builder.RegisterType<ProductServices>().As<IProductServices>();
+            builder.RegisterType<CustomerService>().As<ICustomerService>();
+            builder.RegisterType<MenuService>().As<IMenuService>();
+
             builder.RegisterGeneric(typeof(GenericRepository<>))
             .As(typeof(IGenericRepository<>))
             .InstancePerLifetimeScope();
@@ -201,11 +147,11 @@ namespace FFPT_Project.API
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseDeveloperExceptionPage();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-           // app.UseHangfireDashboard();
         }
     }
 }
