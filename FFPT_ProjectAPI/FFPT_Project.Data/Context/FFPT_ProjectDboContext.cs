@@ -203,7 +203,7 @@ namespace FFPT_Project.Data.Context
 
                 entity.Property(e => e.Detail).HasMaxLength(100);
 
-                entity.Property(e => e.Image).HasMaxLength(50);
+                entity.Property(e => e.Image).HasMaxLength(255);
 
                 entity.Property(e => e.Name).HasMaxLength(100);
 
@@ -214,11 +214,6 @@ namespace FFPT_Project.Data.Context
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Product_Category");
-
-                entity.HasOne(d => d.GeneralProduct)
-                    .WithMany(p => p.InverseGeneralProduct)
-                    .HasForeignKey(d => d.GeneralProductId)
-                    .HasConstraintName("FK_Product_Product");
 
                 entity.HasOne(d => d.SupplierStore)
                     .WithMany(p => p.Products)

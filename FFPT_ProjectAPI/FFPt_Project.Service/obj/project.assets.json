@@ -100,6 +100,15 @@
           }
         }
       },
+      "chilkat-x64/9.5.0.92": {
+        "type": "package",
+        "compile": {
+          "lib/net461/ChilkatDotNet46.dll": {}
+        },
+        "runtime": {
+          "lib/net461/ChilkatDotNet46.dll": {}
+        }
+      },
       "EntityFramework/6.4.4": {
         "type": "package",
         "dependencies": {
@@ -173,6 +182,75 @@
           "lib/net6.0/EPPlus.System.Drawing.dll": {}
         }
       },
+      "Google.Apis/1.57.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Core": "1.57.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Auth/1.57.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.57.0",
+          "Google.Apis.Core": "1.57.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/netstandard2.0/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/netstandard2.0/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Auth.AspNetCore3/1.57.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Auth": "1.57.0",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.0.3",
+          "Microsoft.AspNetCore.Authorization": "3.0.3"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Core/1.57.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.9": {
         "type": "package",
         "dependencies": {
@@ -208,6 +286,43 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Microsoft.AspNetCore.Authorization/3.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "3.0.3",
+          "Microsoft.Extensions.Logging.Abstractions": "3.0.3",
+          "Microsoft.Extensions.Options": "3.0.3"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
+        }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/5.0.17": {
         "type": "package",
@@ -301,6 +416,19 @@
         },
         "runtime": {
           "lib/net6.0/Microsoft.AspNetCore.JsonPatch.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Metadata/3.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll": {
             "related": ".xml"
           }
         }
@@ -3346,6 +3474,8 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
+          "Google.Apis.Auth": "1.57.0",
+          "Google.Apis.Auth.AspNetCore3": "1.57.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.9",
           "Microsoft.EntityFrameworkCore": "6.0.9",
@@ -3455,6 +3585,31 @@
         "lib/netstandard1.5/Castle.Core.dll",
         "lib/netstandard1.5/Castle.Core.xml",
         "readme.txt"
+      ]
+    },
+    "chilkat-x64/9.5.0.92": {
+      "sha512": "w6+lDYoA5I0GXzGyWxJhZHeYr5Dt+Km6pdTyVg3Tx3J4CU4c7VoZkI+3kcvUba3sf505Vl4s8IvyYLlMTSuKlg==",
+      "type": "package",
+      "path": "chilkat-x64/9.5.0.92",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "chilkat-x64.9.5.0.92.nupkg.sha512",
+        "chilkat-x64.nuspec",
+        "lib/net20/ChilkatDotNet2.dll",
+        "lib/net35/ChilkatDotNet2.dll",
+        "lib/net40/ChilkatDotNet4.dll",
+        "lib/net403/ChilkatDotNet4.dll",
+        "lib/net45/ChilkatDotNet45.dll",
+        "lib/net451/ChilkatDotNet45.dll",
+        "lib/net452/ChilkatDotNet45.dll",
+        "lib/net46/ChilkatDotNet46.dll",
+        "lib/net461/ChilkatDotNet46.dll",
+        "lib/net462/ChilkatDotNet46.dll",
+        "lib/net47/ChilkatDotNet47.dll",
+        "lib/net471/ChilkatDotNet47.dll",
+        "lib/net48/ChilkatDotNet48.dll",
+        "signPackage.cmd"
       ]
     },
     "EntityFramework/6.4.4": {
@@ -3580,6 +3735,96 @@
         "readme.md"
       ]
     },
+    "Google.Apis/1.57.0": {
+      "sha512": "30V7T2G98HQjfI6y0AzBOXJUu7j7Trl1ZzH0e6DKmUaXNCvdMPwxApjBKESeTOkWjMdFRmkpAGyDEoxim+Xq1A==",
+      "type": "package",
+      "path": "google.apis/1.57.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.1.57.0.nupkg.sha512",
+        "google.apis.nuspec",
+        "lib/net45/Google.Apis.PlatformServices.dll",
+        "lib/net45/Google.Apis.dll",
+        "lib/net45/Google.Apis.pdb",
+        "lib/net45/Google.Apis.xml",
+        "lib/netstandard1.3/Google.Apis.dll",
+        "lib/netstandard1.3/Google.Apis.pdb",
+        "lib/netstandard1.3/Google.Apis.xml",
+        "lib/netstandard2.0/Google.Apis.dll",
+        "lib/netstandard2.0/Google.Apis.pdb",
+        "lib/netstandard2.0/Google.Apis.xml"
+      ]
+    },
+    "Google.Apis.Auth/1.57.0": {
+      "sha512": "xNY9rprn3iih1H5dymbxxHeZggn4bMYKtYdwO3Yr+Cj06f6xrxnL0LqEi1bmG46LBY2FlVMy9NKIF99tZ6ZBZg==",
+      "type": "package",
+      "path": "google.apis.auth/1.57.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.auth.1.57.0.nupkg.sha512",
+        "google.apis.auth.nuspec",
+        "lib/net45/Google.Apis.Auth.PlatformServices.dll",
+        "lib/net45/Google.Apis.Auth.dll",
+        "lib/net45/Google.Apis.Auth.pdb",
+        "lib/net45/Google.Apis.Auth.xml",
+        "lib/net461/Google.Apis.Auth.PlatformServices.dll",
+        "lib/net461/Google.Apis.Auth.dll",
+        "lib/net461/Google.Apis.Auth.pdb",
+        "lib/net461/Google.Apis.Auth.xml",
+        "lib/netstandard1.3/Google.Apis.Auth.PlatformServices.dll",
+        "lib/netstandard1.3/Google.Apis.Auth.dll",
+        "lib/netstandard1.3/Google.Apis.Auth.pdb",
+        "lib/netstandard1.3/Google.Apis.Auth.xml",
+        "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll",
+        "lib/netstandard2.0/Google.Apis.Auth.dll",
+        "lib/netstandard2.0/Google.Apis.Auth.pdb",
+        "lib/netstandard2.0/Google.Apis.Auth.xml"
+      ]
+    },
+    "Google.Apis.Auth.AspNetCore3/1.57.0": {
+      "sha512": "sQOCrFld7DvcEKCck8lLeCi94oscev4/wcbFEwU2tJKJtxOYa/HdjOgsyPYWuvjvQPsy2XI9U6BnR6vO7RaoOA==",
+      "type": "package",
+      "path": "google.apis.auth.aspnetcore3/1.57.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.auth.aspnetcore3.1.57.0.nupkg.sha512",
+        "google.apis.auth.aspnetcore3.nuspec",
+        "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.dll",
+        "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.pdb",
+        "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.xml"
+      ]
+    },
+    "Google.Apis.Core/1.57.0": {
+      "sha512": "5wuY88PewhfaWsk37EEHcwU6CFqxpaWMm20ogWLXmaCw8NbTlV/Lna0gjtr2jpTLgb3mtVa7RC1AG/mgi530SQ==",
+      "type": "package",
+      "path": "google.apis.core/1.57.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.core.1.57.0.nupkg.sha512",
+        "google.apis.core.nuspec",
+        "lib/net45/Google.Apis.Core.dll",
+        "lib/net45/Google.Apis.Core.pdb",
+        "lib/net45/Google.Apis.Core.xml",
+        "lib/netstandard1.3/Google.Apis.Core.dll",
+        "lib/netstandard1.3/Google.Apis.Core.pdb",
+        "lib/netstandard1.3/Google.Apis.Core.xml",
+        "lib/netstandard2.0/Google.Apis.Core.dll",
+        "lib/netstandard2.0/Google.Apis.Core.pdb",
+        "lib/netstandard2.0/Google.Apis.Core.xml"
+      ]
+    },
     "Microsoft.AspNet.WebApi.Client/5.2.9": {
       "sha512": "cuVhPjjNMSEFpKXweMNBbsG4RUFuuZpFBm8tSyw309U9JEjcnbB6n3EPb4xwgcy9bJ38ctIbv5G8zXUBhlrPWw==",
       "type": "package",
@@ -3612,6 +3857,36 @@
         "lib/net5.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
         "microsoft.aspnetcore.authentication.jwtbearer.5.0.17.nupkg.sha512",
         "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.0.3": {
+      "sha512": "Ovzy0Yd3cO7xeDuams4lTHW4z+3OHU0yyBERdi9qOLcBnbtz5rQqtIdPpog20jhZWMX2AcA9HB4mCUqPHyLz2w==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.openidconnect/3.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.xml",
+        "microsoft.aspnetcore.authentication.openidconnect.3.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.openidconnect.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authorization/3.0.3": {
+      "sha512": "4pL4KAgfHUeY6QBGudmL5XfegTxPbXIX2LHm40ZHcvmVQFFoCsKr+dcwVN710f0qQIYsS6QttsO3ZB2gFOTwtA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authorization/3.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authorization.dll",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authorization.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.xml",
+        "microsoft.aspnetcore.authorization.3.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.authorization.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/5.0.17": {
@@ -3712,6 +3987,20 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.xml",
         "microsoft.aspnetcore.jsonpatch.6.0.9.nupkg.sha512",
         "microsoft.aspnetcore.jsonpatch.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Metadata/3.0.3": {
+      "sha512": "4PYUwzlV5GKRHt1fjiGWEX3/zOudrQXrgKrkxHqOtTa79UFx0y2EE6k+zNZ58xSjVcbHuVh4ec0LaUiAdlf7dA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.metadata/3.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.xml",
+        "microsoft.aspnetcore.metadata.3.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.metadata.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Mvc.Abstractions/2.2.0": {
@@ -9871,6 +10160,8 @@
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.0",
       "EntityFramework >= 6.4.4",
       "FFPT_Project.Data >= 1.0.0",
+      "Google.Apis.Auth >= 1.57.0",
+      "Google.Apis.Auth.AspNetCore3 >= 1.57.0",
       "Microsoft.AspNet.WebApi.Client >= 5.2.9",
       "Microsoft.AspNetCore.Mvc.Abstractions >= 2.2.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 6.0.9",
@@ -9879,7 +10170,8 @@
       "Microsoft.Extensions.Hosting.Abstractions >= 6.0.0",
       "Reso.Sdk >= 1.0.13",
       "StackExchange.Redis >= 2.6.66",
-      "System.Linq.Dynamic.Core >= 1.2.20"
+      "System.Linq.Dynamic.Core >= 1.2.20",
+      "chilkat-x64 >= 9.5.0.92"
     ]
   },
   "packageFolders": {
@@ -9938,6 +10230,14 @@
             "target": "Package",
             "version": "[6.4.4, )"
           },
+          "Google.Apis.Auth": {
+            "target": "Package",
+            "version": "[1.57.0, )"
+          },
+          "Google.Apis.Auth.AspNetCore3": {
+            "target": "Package",
+            "version": "[1.57.0, )"
+          },
           "Microsoft.AspNet.WebApi.Client": {
             "target": "Package",
             "version": "[5.2.9, )"
@@ -9973,6 +10273,10 @@
           "System.Linq.Dynamic.Core": {
             "target": "Package",
             "version": "[1.2.20, )"
+          },
+          "chilkat-x64": {
+            "target": "Package",
+            "version": "[9.5.0.92, )"
           }
         },
         "imports": [
@@ -9994,5 +10298,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'chilkat-x64 9.5.0.92' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "chilkat-x64",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

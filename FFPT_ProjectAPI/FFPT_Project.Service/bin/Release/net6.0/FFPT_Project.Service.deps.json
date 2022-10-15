@@ -11,6 +11,8 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
           "EntityFramework": "6.4.4",
           "FFPT_Project.Data": "1.0.0",
+          "Google.Apis.Auth": "1.57.0",
+          "Google.Apis.Auth.AspNetCore3": "1.57.0",
           "Microsoft.AspNet.WebApi.Client": "5.2.9",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.9",
@@ -19,7 +21,8 @@
           "Microsoft.Extensions.Hosting.Abstractions": "6.0.0",
           "Reso.Sdk": "1.0.13",
           "StackExchange.Redis": "2.6.66",
-          "System.Linq.Dynamic.Core": "1.2.20"
+          "System.Linq.Dynamic.Core": "1.2.20",
+          "chilkat-x64": "9.5.0.92"
         },
         "runtime": {
           "FFPT_Project.Service.dll": {}
@@ -102,6 +105,14 @@
           }
         }
       },
+      "chilkat-x64/9.5.0.92": {
+        "runtime": {
+          "lib/net461/ChilkatDotNet46.dll": {
+            "assemblyVersion": "9.5.0.92",
+            "fileVersion": "9.5.0.92"
+          }
+        }
+      },
       "EntityFramework/6.4.4": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -157,6 +168,57 @@
           }
         }
       },
+      "Google.Apis/1.57.0": {
+        "dependencies": {
+          "Google.Apis.Core": "1.57.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.dll": {
+            "assemblyVersion": "1.57.0.0",
+            "fileVersion": "1.57.0.0"
+          }
+        }
+      },
+      "Google.Apis.Auth/1.57.0": {
+        "dependencies": {
+          "Google.Apis": "1.57.0",
+          "Google.Apis.Core": "1.57.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll": {
+            "assemblyVersion": "1.57.0.0",
+            "fileVersion": "1.57.0.0"
+          },
+          "lib/netstandard2.0/Google.Apis.Auth.dll": {
+            "assemblyVersion": "1.57.0.0",
+            "fileVersion": "1.57.0.0"
+          }
+        }
+      },
+      "Google.Apis.Auth.AspNetCore3/1.57.0": {
+        "dependencies": {
+          "Google.Apis.Auth": "1.57.0",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.0.3",
+          "Microsoft.AspNetCore.Authorization": "3.0.3"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.dll": {
+            "assemblyVersion": "1.57.0.0",
+            "fileVersion": "1.57.0.0"
+          }
+        }
+      },
+      "Google.Apis.Core/1.57.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Core.dll": {
+            "assemblyVersion": "1.57.0.0",
+            "fileVersion": "1.57.0.0"
+          }
+        }
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.9": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
@@ -178,6 +240,24 @@
             "assemblyVersion": "5.0.17.0",
             "fileVersion": "5.0.1722.21507"
           }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.0.3": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.21.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll": {
+            "assemblyVersion": "3.0.3.0",
+            "fileVersion": "3.0.320.7303"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authorization/3.0.3": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "3.0.3",
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
+          "Microsoft.Extensions.Options": "6.0.0"
         }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/5.0.17": {},
@@ -221,6 +301,7 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Metadata/3.0.3": {},
       "Microsoft.AspNetCore.Mvc.Abstractions/2.2.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Routing.Abstractions": "2.2.0",
@@ -1863,6 +1944,8 @@
       "FFPT_Project.Data/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
+          "Google.Apis.Auth": "1.57.0",
+          "Google.Apis.Auth.AspNetCore3": "1.57.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.9",
           "Microsoft.EntityFrameworkCore": "6.0.9",
@@ -1919,6 +2002,13 @@
       "path": "castle.core/4.4.1",
       "hashPath": "castle.core.4.4.1.nupkg.sha512"
     },
+    "chilkat-x64/9.5.0.92": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-w6+lDYoA5I0GXzGyWxJhZHeYr5Dt+Km6pdTyVg3Tx3J4CU4c7VoZkI+3kcvUba3sf505Vl4s8IvyYLlMTSuKlg==",
+      "path": "chilkat-x64/9.5.0.92",
+      "hashPath": "chilkat-x64.9.5.0.92.nupkg.sha512"
+    },
     "EntityFramework/6.4.4": {
       "type": "package",
       "serviceable": true,
@@ -1947,6 +2037,34 @@
       "path": "epplus.system.drawing/6.0.0",
       "hashPath": "epplus.system.drawing.6.0.0.nupkg.sha512"
     },
+    "Google.Apis/1.57.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-30V7T2G98HQjfI6y0AzBOXJUu7j7Trl1ZzH0e6DKmUaXNCvdMPwxApjBKESeTOkWjMdFRmkpAGyDEoxim+Xq1A==",
+      "path": "google.apis/1.57.0",
+      "hashPath": "google.apis.1.57.0.nupkg.sha512"
+    },
+    "Google.Apis.Auth/1.57.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xNY9rprn3iih1H5dymbxxHeZggn4bMYKtYdwO3Yr+Cj06f6xrxnL0LqEi1bmG46LBY2FlVMy9NKIF99tZ6ZBZg==",
+      "path": "google.apis.auth/1.57.0",
+      "hashPath": "google.apis.auth.1.57.0.nupkg.sha512"
+    },
+    "Google.Apis.Auth.AspNetCore3/1.57.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sQOCrFld7DvcEKCck8lLeCi94oscev4/wcbFEwU2tJKJtxOYa/HdjOgsyPYWuvjvQPsy2XI9U6BnR6vO7RaoOA==",
+      "path": "google.apis.auth.aspnetcore3/1.57.0",
+      "hashPath": "google.apis.auth.aspnetcore3.1.57.0.nupkg.sha512"
+    },
+    "Google.Apis.Core/1.57.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5wuY88PewhfaWsk37EEHcwU6CFqxpaWMm20ogWLXmaCw8NbTlV/Lna0gjtr2jpTLgb3mtVa7RC1AG/mgi530SQ==",
+      "path": "google.apis.core/1.57.0",
+      "hashPath": "google.apis.core.1.57.0.nupkg.sha512"
+    },
     "Microsoft.AspNet.WebApi.Client/5.2.9": {
       "type": "package",
       "serviceable": true,
@@ -1960,6 +2078,20 @@
       "sha512": "sha512-jXMB2+jOG9JvGVCjsKvc5Bo1iSgzdbQw+Iq3BM+eIZ1inDg8rnEVUcWKpRevi9Z6F1/UnSJZ0+rhElT2/aVhhQ==",
       "path": "microsoft.aspnetcore.authentication.jwtbearer/5.0.17",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.5.0.17.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ovzy0Yd3cO7xeDuams4lTHW4z+3OHU0yyBERdi9qOLcBnbtz5rQqtIdPpog20jhZWMX2AcA9HB4mCUqPHyLz2w==",
+      "path": "microsoft.aspnetcore.authentication.openidconnect/3.0.3",
+      "hashPath": "microsoft.aspnetcore.authentication.openidconnect.3.0.3.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authorization/3.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4pL4KAgfHUeY6QBGudmL5XfegTxPbXIX2LHm40ZHcvmVQFFoCsKr+dcwVN710f0qQIYsS6QttsO3ZB2gFOTwtA==",
+      "path": "microsoft.aspnetcore.authorization/3.0.3",
+      "hashPath": "microsoft.aspnetcore.authorization.3.0.3.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/5.0.17": {
       "type": "package",
@@ -2002,6 +2134,13 @@
       "sha512": "sha512-1d31TnoW0na1vYI0qE/vbrB534CWKo70o3ACGz0N0m/SchcZMKc0D/4WTyI0w0emxx63YiyYKWkkyO+EUbQfeg==",
       "path": "microsoft.aspnetcore.jsonpatch/6.0.9",
       "hashPath": "microsoft.aspnetcore.jsonpatch.6.0.9.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Metadata/3.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4PYUwzlV5GKRHt1fjiGWEX3/zOudrQXrgKrkxHqOtTa79UFx0y2EE6k+zNZ58xSjVcbHuVh4ec0LaUiAdlf7dA==",
+      "path": "microsoft.aspnetcore.metadata/3.0.3",
+      "hashPath": "microsoft.aspnetcore.metadata.3.0.3.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Mvc.Abstractions/2.2.0": {
       "type": "package",

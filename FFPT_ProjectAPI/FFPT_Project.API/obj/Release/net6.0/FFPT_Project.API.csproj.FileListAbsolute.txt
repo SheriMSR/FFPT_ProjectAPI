@@ -233,3 +233,6 @@ C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\FFPT_Project.API.pdb
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\FFPT_Project.API.genruntimeconfig.cache
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\ref\FFPT_Project.API.dll
+C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\bin\Release\net6.0\ChilkatDotNet46.dll
+C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\bin\Release\net6.0\Google.Apis.Auth.AspNetCore3.dll
+C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\bin\Release\net6.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll

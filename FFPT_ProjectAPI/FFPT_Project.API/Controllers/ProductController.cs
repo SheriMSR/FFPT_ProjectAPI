@@ -24,9 +24,9 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProducts([FromQuery] ProductResponse request, [FromQuery] PagingRequest paging)
+        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProducts([FromQuery] PagingRequest paging)
         {
-            var rs = await _productService.GetProducts(request, paging);
+            var rs = await _productService.GetProducts(paging);
             return Ok(rs);
         }
 
@@ -35,7 +35,7 @@ namespace FFPT_Project.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<ProductResponse>> GetProductById([FromQuery] int id)
         {
             var rs = await _productService.GetProductById(id);
@@ -45,9 +45,21 @@ namespace FFPT_Project.API.Controllers
         /// <summary>
         /// Get Product By Store
         /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [HttpGet("GetProductByCode")]
+        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductByCode([FromQuery] string code)
+        {
+            var rs = await _productService.GetProductByCode(code);
+            return Ok(rs);
+        }
+
+        /// <summary>
+        /// Get Product By Store
+        /// </summary>
         /// <param name="storeId"></param>
         /// <returns></returns>
-        [HttpGet("GetProductByStore/{storeId}")]
+        [HttpGet("GetProductByStore")]
         public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductByStore([FromQuery] int storeId, [FromQuery] PagingRequest paging)
         {
             var rs = await _productService.GetProductByStore(storeId, paging);
@@ -57,7 +69,7 @@ namespace FFPT_Project.API.Controllers
         /// <summary>
         /// Get Product By Time Slot
         /// </summary>
-        [HttpGet("GetProductByTimeSlot/{timeSlotId}")]
+        [HttpGet("GetProductByTimeSlot")]
         public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductByTimeSlot([FromQuery] int timeSlotId, [FromQuery] PagingRequest paging)
         {
             var rs = await _productService.GetProductByTimeSlot(timeSlotId, paging);
@@ -70,7 +82,7 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<ProductResponse>> CreateProduct([FromQuery] CreateProductRequest request)
+        public async Task<ActionResult<ProductResponse>> CreateProduct([FromBody] CreateProductRequest request)
         {
             var rs = await _productService.CreateProduct(request);
             return Ok(rs);
@@ -82,7 +94,7 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<ActionResult<ProductResponse>> UpdateProduct([FromQuery] int productId,[FromQuery] UpdateProductRequest request)
+        public async Task<ActionResult<ProductResponse>> UpdateProduct([FromQuery] int productId,[FromBody] UpdateProductRequest request)
         {
             var rs = await _productService.UpdateProduct(productId, request);
             return Ok(rs);

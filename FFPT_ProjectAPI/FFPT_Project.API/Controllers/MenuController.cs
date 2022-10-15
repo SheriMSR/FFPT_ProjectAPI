@@ -34,5 +34,7 @@ namespace FFPT_Project.API.Controllers
                 throw new Exception(ex.Message);
             }
         }
+    
+
     }
 }

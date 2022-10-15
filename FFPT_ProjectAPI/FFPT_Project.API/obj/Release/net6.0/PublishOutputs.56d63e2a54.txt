@@ -11,6 +11,7 @@ C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Azure.Core.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Azure.Identity.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Castle.Core.dll
+C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\ChilkatDotNet46.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\EntityFramework.SqlServer.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\EntityFramework.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\EPPlus.dll
@@ -23,9 +24,11 @@ C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Google.Apis.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Google.Apis.Auth.PlatformServices.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Google.Apis.Auth.dll
+C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Google.Apis.Auth.AspNetCore3.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Google.Apis.Core.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\System.Net.Http.Formatting.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\MyTDV\source\repoStudy\FFPT_ProjectAPi\FFPT_ProjectAPI\FFPT_Project.API\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll

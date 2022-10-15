@@ -1,0 +1,1111 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FFPT Project API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1.0/category/GetListCategory": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "PageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "KeySearch",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SearchBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SortType"
+          },
+          {
+            "in": "query",
+            "name": "ColName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CategoryResponsePagedResults"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/customer": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Name",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Phone",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "ImageUrl",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "PageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "KeySearch",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SearchBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SortType"
+          },
+          {
+            "in": "query",
+            "name": "ColName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerResponsePagedResults"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/customer/{id}": {
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Name",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Phone",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "ImageUrl",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/customer/Login": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ExternalAuthRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/menu/GetListTimeslot": {
+      "get": {
+        "tags": [
+          "Menu"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "ArriveTime"
+          },
+          {
+            "in": "query",
+            "name": "CheckoutTime"
+          },
+          {
+            "in": "query",
+            "name": "IsActive",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Status",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "PageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "KeySearch",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SearchBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SortType"
+          },
+          {
+            "in": "query",
+            "name": "ColName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TimeslotResponsePagedResults"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/product": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Name",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Image",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Price",
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "in": "query",
+            "name": "Detail",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Status"
+          },
+          {
+            "in": "query",
+            "name": "CreateAt",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "name": "UpdatedAt",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "name": "CategoryId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Quantity",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "SupplierStoreId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Code",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "PageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "KeySearch",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SearchBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SortType"
+          },
+          {
+            "in": "query",
+            "name": "ColName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductResponsePagedResults"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Code",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Name",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Image",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Price",
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "in": "query",
+            "name": "Detail",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "CategoryId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Quantity",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "SupplierStoreId",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "productId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Name",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Image",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Price",
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "in": "query",
+            "name": "Detail",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "CategoryId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Quantity",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "SupplierStoreId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Code",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/product/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/product/GetProductByStore/{storeId}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "storeId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "PageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "KeySearch",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SearchBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SortType"
+          },
+          {
+            "in": "query",
+            "name": "ColName",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "storeId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductResponsePagedResults"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/product/GetProductByTimeSlot/{timeSlotId}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "timeSlotId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "PageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "KeySearch",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SearchBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SortType"
+          },
+          {
+            "in": "query",
+            "name": "ColName",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "timeSlotId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductResponsePagedResults"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/product/SearchProduct": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "searchString",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "timeSlotId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "PageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "KeySearch",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SearchBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SortType"
+          },
+          {
+            "in": "query",
+            "name": "ColName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductResponsePagedResults"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CategoryResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "categoryName": {
+          "type": "string"
+        },
+        "status": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "createAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "updateAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CategoryResponsePagedResults": {
+      "type": "object",
+      "properties": {
+        "pageNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalNumberOfPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalNumberOfRecords": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CategoryResponse"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "CustomerResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CustomerResponsePagedResults": {
+      "type": "object",
+      "properties": {
+        "pageNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalNumberOfPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalNumberOfRecords": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerResponse"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ExternalAuthRequest": {
+      "type": "object",
+      "properties": {
+        "idToken": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProductResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "price": {
+          "format": "double",
+          "type": "number"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/ProductStatusEnum"
+        },
+        "createAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "categoryId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "supplierStoreId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProductResponsePagedResults": {
+      "type": "object",
+      "properties": {
+        "pageNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalNumberOfPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalNumberOfRecords": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductResponse"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProductStatusEnum": {
+      "format": "int32",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "type": "integer"
+    },
+    "SortOrder": {
+      "format": "int32",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "type": "integer"
+    },
+    "TimeSpan": {
+      "type": "object",
+      "properties": {
+        "ticks": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "days": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        },
+        "hours": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        },
+        "milliseconds": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        },
+        "minutes": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        },
+        "seconds": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        },
+        "totalDays": {
+          "format": "double",
+          "type": "number",
+          "readOnly": true
+        },
+        "totalHours": {
+          "format": "double",
+          "type": "number",
+          "readOnly": true
+        },
+        "totalMilliseconds": {
+          "format": "double",
+          "type": "number",
+          "readOnly": true
+        },
+        "totalMinutes": {
+          "format": "double",
+          "type": "number",
+          "readOnly": true
+        },
+        "totalSeconds": {
+          "format": "double",
+          "type": "number",
+          "readOnly": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "TimeslotResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "arriveTime": {
+          "$ref": "#/definitions/TimeSpan"
+        },
+        "checkoutTime": {
+          "$ref": "#/definitions/TimeSpan"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "status": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TimeslotResponsePagedResults": {
+      "type": "object",
+      "properties": {
+        "pageNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalNumberOfPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalNumberOfRecords": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeslotResponse"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": { }
+  },
+  "security": [
+    {
+      "Bearer": [
+        "Bearer"
+      ]
+    }
+  ]
+}

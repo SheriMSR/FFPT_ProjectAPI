@@ -133,6 +133,15 @@
           }
         }
       },
+      "chilkat-x64/9.5.0.92": {
+        "type": "package",
+        "compile": {
+          "lib/net461/ChilkatDotNet46.dll": {}
+        },
+        "runtime": {
+          "lib/net461/ChilkatDotNet46.dll": {}
+        }
+      },
       "EntityFramework/6.4.4": {
         "type": "package",
         "dependencies": {
@@ -306,6 +315,24 @@
           }
         }
       },
+      "Google.Apis.Auth.AspNetCore3/1.57.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Auth": "1.57.0",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.0.3",
+          "Microsoft.AspNetCore.Authorization": "3.0.3"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Google.Apis.Core/1.57.0": {
         "type": "package",
         "dependencies": {
@@ -427,19 +454,39 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Microsoft.AspNetCore.Authorization/2.2.0": {
+      "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.0.3": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
-          "Microsoft.Extensions.Options": "2.2.0"
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Microsoft.AspNetCore.Authorization/3.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "3.0.3",
+          "Microsoft.Extensions.Logging.Abstractions": "3.0.3",
+          "Microsoft.Extensions.Options": "3.0.3"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authorization.dll": {
             "related": ".xml"
           }
         }
@@ -732,6 +779,19 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Localization.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Metadata/3.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll": {
             "related": ".xml"
           }
         }
@@ -4552,6 +4612,8 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
+          "Google.Apis.Auth": "1.57.0",
+          "Google.Apis.Auth.AspNetCore3": "1.57.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.9",
           "Microsoft.EntityFrameworkCore": "6.0.9",
@@ -4575,6 +4637,8 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
           "EntityFramework": "6.4.4",
           "FFPT_Project.Data": "1.0.0",
+          "Google.Apis.Auth": "1.57.0",
+          "Google.Apis.Auth.AspNetCore3": "1.57.0",
           "Microsoft.AspNet.WebApi.Client": "5.2.9",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.9",
@@ -4583,7 +4647,8 @@
           "Microsoft.Extensions.Hosting.Abstractions": "6.0.0",
           "Reso.Sdk": "1.0.13",
           "StackExchange.Redis": "2.6.66",
-          "System.Linq.Dynamic.Core": "1.2.20"
+          "System.Linq.Dynamic.Core": "1.2.20",
+          "chilkat-x64": "9.5.0.92"
         },
         "compile": {
           "bin/placeholder/FFPT_Project.Service.dll": {}
@@ -4726,6 +4791,31 @@
         "lib/netstandard1.5/Castle.Core.dll",
         "lib/netstandard1.5/Castle.Core.xml",
         "readme.txt"
+      ]
+    },
+    "chilkat-x64/9.5.0.92": {
+      "sha512": "w6+lDYoA5I0GXzGyWxJhZHeYr5Dt+Km6pdTyVg3Tx3J4CU4c7VoZkI+3kcvUba3sf505Vl4s8IvyYLlMTSuKlg==",
+      "type": "package",
+      "path": "chilkat-x64/9.5.0.92",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "chilkat-x64.9.5.0.92.nupkg.sha512",
+        "chilkat-x64.nuspec",
+        "lib/net20/ChilkatDotNet2.dll",
+        "lib/net35/ChilkatDotNet2.dll",
+        "lib/net40/ChilkatDotNet4.dll",
+        "lib/net403/ChilkatDotNet4.dll",
+        "lib/net45/ChilkatDotNet45.dll",
+        "lib/net451/ChilkatDotNet45.dll",
+        "lib/net452/ChilkatDotNet45.dll",
+        "lib/net46/ChilkatDotNet46.dll",
+        "lib/net461/ChilkatDotNet46.dll",
+        "lib/net462/ChilkatDotNet46.dll",
+        "lib/net47/ChilkatDotNet47.dll",
+        "lib/net471/ChilkatDotNet47.dll",
+        "lib/net48/ChilkatDotNet48.dll",
+        "signPackage.cmd"
       ]
     },
     "EntityFramework/6.4.4": {
@@ -5055,6 +5145,22 @@
         "lib/netstandard2.0/Google.Apis.Auth.xml"
       ]
     },
+    "Google.Apis.Auth.AspNetCore3/1.57.0": {
+      "sha512": "sQOCrFld7DvcEKCck8lLeCi94oscev4/wcbFEwU2tJKJtxOYa/HdjOgsyPYWuvjvQPsy2XI9U6BnR6vO7RaoOA==",
+      "type": "package",
+      "path": "google.apis.auth.aspnetcore3/1.57.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.auth.aspnetcore3.1.57.0.nupkg.sha512",
+        "google.apis.auth.aspnetcore3.nuspec",
+        "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.dll",
+        "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.pdb",
+        "lib/netcoreapp3.0/Google.Apis.Auth.AspNetCore3.xml"
+      ]
+    },
     "Google.Apis.Core/1.57.0": {
       "sha512": "5wuY88PewhfaWsk37EEHcwU6CFqxpaWMm20ogWLXmaCw8NbTlV/Lna0gjtr2jpTLgb3mtVa7RC1AG/mgi530SQ==",
       "type": "package",
@@ -5166,16 +5272,33 @@
         "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Authorization/2.2.0": {
-      "sha512": "/L0W8H3jMYWyaeA9gBJqS/tSWBegP9aaTM0mjRhxTttBY9z4RVDRYJ2CwPAmAXIuPr3r1sOw+CS8jFVRGHRezQ==",
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.0.3": {
+      "sha512": "Ovzy0Yd3cO7xeDuams4lTHW4z+3OHU0yyBERdi9qOLcBnbtz5rQqtIdPpog20jhZWMX2AcA9HB4mCUqPHyLz2w==",
       "type": "package",
-      "path": "microsoft.aspnetcore.authorization/2.2.0",
+      "path": "microsoft.aspnetcore.authentication.openidconnect/3.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.xml",
+        "microsoft.aspnetcore.authentication.openidconnect.3.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.openidconnect.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authorization/3.0.3": {
+      "sha512": "4pL4KAgfHUeY6QBGudmL5XfegTxPbXIX2LHm40ZHcvmVQFFoCsKr+dcwVN710f0qQIYsS6QttsO3ZB2gFOTwtA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authorization/3.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authorization.dll",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authorization.xml",
         "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.xml",
-        "microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.authorization.3.0.3.nupkg.sha512",
         "microsoft.aspnetcore.authorization.nuspec"
       ]
     },
@@ -5420,6 +5543,20 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Localization.xml",
         "microsoft.aspnetcore.localization.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.localization.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Metadata/3.0.3": {
+      "sha512": "4PYUwzlV5GKRHt1fjiGWEX3/zOudrQXrgKrkxHqOtTa79UFx0y2EE6k+zNZ58xSjVcbHuVh4ec0LaUiAdlf7dA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.metadata/3.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.xml",
+        "microsoft.aspnetcore.metadata.3.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.metadata.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Mvc/2.2.0": {
@@ -12595,6 +12732,7 @@
       "FFPT_Project.Service >= 1.0.0",
       "FirebaseAdmin >= 2.3.0",
       "Google.Apis.Auth >= 1.57.0",
+      "Google.Apis.Auth.AspNetCore3 >= 1.57.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.9",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 6.0.9",
@@ -12682,6 +12820,10 @@
             "target": "Package",
             "version": "[1.57.0, )"
           },
+          "Google.Apis.Auth.AspNetCore3": {
+            "target": "Package",
+            "version": "[1.57.0, )"
+          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[6.0.9, )"
@@ -12747,5 +12889,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'chilkat-x64 9.5.0.92' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "chilkat-x64",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ELi71mUbhIGwpZgLBjJAuiuHEumVXVBy6KFxr6OF/iKdt7OXSICeYqJG+Px+Ohg2gYfL0ta1wTGqlzQHve3llQ==",
+  "dgSpecHash": "eNnOA/zwtS1AJln5cO8SGit/yF/zG0QOwkvVdNFaBg3GEX7/d3NYXvyvlZLtrIQ9KyetdeTpCA9Pk2JH+AwTfw==",
   "success": true,
   "projectFilePath": "C:\\Users\\MyTDV\\source\\repoStudy\\FFPT_ProjectAPi\\FFPT_ProjectAPI\\FFPt_Project.Service\\FFPT_Project.Service.csproj",
   "expectedPackageFiles": [
@@ -9,18 +9,26 @@
     "C:\\Users\\MyTDV\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\chilkat-x64\\9.5.0.92\\chilkat-x64.9.5.0.92.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\epplus\\6.0.6\\epplus.6.0.6.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\epplus.interfaces\\6.0.0\\epplus.interfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\epplus.system.drawing\\6.0.0\\epplus.system.drawing.6.0.0.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\google.apis\\1.57.0\\google.apis.1.57.0.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\google.apis.auth\\1.57.0\\google.apis.auth.1.57.0.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\google.apis.auth.aspnetcore3\\1.57.0\\google.apis.auth.aspnetcore3.1.57.0.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\google.apis.core\\1.57.0\\google.apis.core.1.57.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.9\\microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.17\\microsoft.aspnetcore.authentication.jwtbearer.5.0.17.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.authentication.openidconnect\\3.0.3\\microsoft.aspnetcore.authentication.openidconnect.3.0.3.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.0.3\\microsoft.aspnetcore.authorization.3.0.3.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.17\\microsoft.aspnetcore.cryptography.internal.5.0.17.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.17\\microsoft.aspnetcore.cryptography.keyderivation.5.0.17.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\5.0.17\\microsoft.aspnetcore.identity.entityframeworkcore.5.0.17.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\6.0.9\\microsoft.aspnetcore.jsonpatch.6.0.9.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.metadata\\3.0.3\\microsoft.aspnetcore.metadata.3.0.3.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.mvc.abstractions\\2.2.0\\microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\6.0.9\\microsoft.aspnetcore.mvc.newtonsoftjson.6.0.9.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.0.0\\microsoft.aspnetcore.mvc.versioning.5.0.0.nupkg.sha512",
@@ -197,5 +205,16 @@
     "C:\\Users\\MyTDV\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'chilkat-x64 9.5.0.92' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "chilkat-x64",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

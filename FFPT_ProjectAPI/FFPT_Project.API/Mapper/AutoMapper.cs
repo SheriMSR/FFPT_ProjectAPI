@@ -9,13 +9,14 @@ namespace FFPT_Project.API.Mapper
     {
         public AutoMapperProfile()
         {
-            #region product
+            #region Product
             CreateMap<Product, ProductResponse>().ReverseMap();
+            CreateMap<ProductInMenu, ProductResponse>().ReverseMap();
             CreateMap<CreateProductRequest, Product>();
             CreateMap<UpdateProductRequest, Product>();
             #endregion
 
-            #region customer
+            #region Customer
             CreateMap<Customer, CustomerResponse>().ReverseMap();
             CreateMap<CreateCustomerRequest, Customer>();
             CreateMap<UpdateCustomerRequest, Customer>();
@@ -26,6 +27,10 @@ namespace FFPT_Project.API.Mapper
             CreateMap<TimeSlot, TimeslotResponse>().ReverseMap();
             CreateMap<CreateMenuRequest, Menu>();
             CreateMap<UpdateMenuRequest, Menu>();
+            #endregion
+
+            #region Category
+            CreateMap<Category, CategoryResponse>().ReverseMap();
             #endregion
         }
     }
