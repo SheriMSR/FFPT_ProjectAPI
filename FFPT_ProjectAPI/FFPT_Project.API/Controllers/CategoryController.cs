@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FFPT_Project.API.Controllers
 {
+    [Route(Helpers.SettingVersionApi.ApiVersion)]
+    [ApiController]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
