@@ -26,7 +26,7 @@ namespace FFPT_Project.Service.Service
         Task<PagedResults<ProductResponse>> GetProducts(ProductResponse request, PagingRequest paging);
         Task<ProductResponse> GetProductById(int productId);
         Task<PagedResults<ProductResponse>> GetProductByStore(int storeId, PagingRequest paging);
-        Task<PagedResults<ProductResponse>> GetProductByTimeSlot(DateTime request, PagingRequest paging);
+        Task<PagedResults<ProductResponse>> GetProductByTimeSlot(int request, PagingRequest paging);
         Task<ProductResponse> CreateProduct(CreateProductRequest request);
         Task<ProductResponse> UpdateProduct(int productId, UpdateProductRequest request);
         //Task<int> DeleteProduct (int productId);
@@ -63,8 +63,6 @@ namespace FFPT_Project.Service.Service
         }
         public async Task<ProductResponse> GetProductById(int productId)
         {
-            try
-            {
                 Product product = null;
                 product = await _unitOfWork.Repository<Product>().GetAll()
                     .Where(x => x.Id == productId)
@@ -74,17 +72,7 @@ namespace FFPT_Project.Service.Service
                 {
                     throw new CrudException(HttpStatusCode.NotFound, "Not found product with id", productId.ToString());
                 }
-
                 return _mapper.Map<Product, ProductResponse>(product);
-            }
-            catch(CrudException ex)
-            {
-                throw ex;
-            }
-            catch(Exception e)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get product error!!!!", e?.Message);
-            }
         }
         public async Task<PagedResults<ProductResponse>> GetProductByStore(int storeId, PagingRequest paging)
         {
@@ -158,16 +146,13 @@ namespace FFPT_Project.Service.Service
                 throw new CrudException(HttpStatusCode.BadRequest, "Update product error!!!!", ex?.Message);
             }
         }
-        public async Task<PagedResults<ProductResponse>> GetProductByTimeSlot(DateTime request, PagingRequest paging)
+        public async Task<PagedResults<ProductResponse>> GetProductByTimeSlot(int timeSlotId, PagingRequest paging)
         {
             try
             {
 
-                var timeSlot = await _unitOfWork.Repository<TimeSlot>().GetAll()
-                    .Where(x => x.ArriveTime < request.TimeOfDay && x.CheckoutTime > request.TimeOfDay)
-                    .FirstOrDefaultAsync();
                 var productInMenu = await _unitOfWork.Repository<ProductInMenu>().GetAll()
-                                    .Where(x => x.Menu.TimeSlotId == timeSlot.Id)
+                                    .Where(x => x.Menu.TimeSlotId == timeSlotId)
                                     .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
                                     .ToListAsync();
 

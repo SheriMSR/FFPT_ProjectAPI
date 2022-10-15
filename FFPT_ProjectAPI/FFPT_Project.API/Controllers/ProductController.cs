@@ -36,7 +36,7 @@ namespace FFPT_Project.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductById([FromQuery] int id)
+        public async Task<ActionResult<ProductResponse>> GetProductById([FromQuery] int id)
         {
             var rs = await _productService.GetProductById(id);
             return Ok(rs);
