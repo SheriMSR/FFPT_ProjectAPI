@@ -83,9 +83,22 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProductResponse>> UpdateProduct(int id,[FromQuery] UpdateProductRequest request)
+        public async Task<ActionResult<ProductResponse>> UpdateProduct([FromQuery] int id,[FromQuery] UpdateProductRequest request)
         {
             var rs = await _productService.UpdateProduct(id, request);
+            return Ok(rs);
+        }
+
+        /// <summary>
+        /// Search Product
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="timeSlotId"></param>
+        /// <returns></returns>
+        [HttpGet("SearchProduct")]
+        public async Task<ActionResult<PagedResults<ProductResponse>>> SearchProduct([FromQuery] string searchString, [FromQuery] int timeSlotId, [FromQuery] PagingRequest paging)
+        {
+            var rs = await _productService.SearchProduct(searchString, timeSlotId, paging);
             return Ok(rs);
         }
     }

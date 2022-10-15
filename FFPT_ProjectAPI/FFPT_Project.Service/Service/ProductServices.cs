@@ -26,10 +26,10 @@ namespace FFPT_Project.Service.Service
         Task<PagedResults<ProductResponse>> GetProducts(ProductResponse request, PagingRequest paging);
         Task<ProductResponse> GetProductById(int productId);
         Task<PagedResults<ProductResponse>> GetProductByStore(int storeId, PagingRequest paging);
-        Task<PagedResults<ProductResponse>> GetProductByTimeSlot(int request, PagingRequest paging);
+        Task<PagedResults<ProductResponse>> GetProductByTimeSlot(int timeSlotId, PagingRequest paging);
         Task<ProductResponse> CreateProduct(CreateProductRequest request);
         Task<ProductResponse> UpdateProduct(int productId, UpdateProductRequest request);
-        //Task<int> DeleteProduct (int productId);
+        Task<PagedResults<ProductResponse>> SearchProduct(string searchString, int timeSlotId, PagingRequest paging);
     }
     public class ProductServices : IProductServices
     {
@@ -167,6 +167,17 @@ namespace FFPT_Project.Service.Service
             {
                 throw new Exception(e.Message);
             }
+        }
+
+        public async Task<PagedResults<ProductResponse>> SearchProduct(string searchString, int timeSlotId, PagingRequest paging)
+        {
+            var productInMenu = _unitOfWork.Repository<ProductInMenu>().GetAll()
+                                .Where(x => x.Menu.TimeSlotId == timeSlotId && x.Product.Name.Contains(searchString))
+                                .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
+                                .ToList();
+
+            var result = PageHelper<ProductResponse>.Paging(productInMenu, paging.Page, paging.PageSize);
+            return result;
         }
     }
 }
