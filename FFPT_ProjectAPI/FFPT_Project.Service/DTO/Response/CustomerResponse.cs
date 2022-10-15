@@ -10,13 +10,13 @@ namespace FFPT_Project.Service.DTO.Response
     public class CustomerResponse
     {
         [Int]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [String]
-        public string Name { get; set; } 
+        public string? Name { get; set; } 
         [String]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
         [String]
-        public string Email { get; set; }
-        public string ImageUrl { get; set; }
+        public string? Email { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

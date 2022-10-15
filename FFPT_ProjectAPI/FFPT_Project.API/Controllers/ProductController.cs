@@ -57,10 +57,10 @@ namespace FFPT_Project.API.Controllers
         /// <summary>
         /// Get Product By Time Slot
         /// </summary>
-        [HttpGet("GetProductByTimeSlot/{request}")]
-        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductByTimeSlot([FromQuery] DateTime request, [FromQuery] PagingRequest paging)
+        [HttpGet("GetProductByTimeSlot/{timeSlotId}")]
+        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductByTimeSlot([FromQuery] int timeSlotId, [FromQuery] PagingRequest paging)
         {
-            var rs = await _productService.GetProductByTimeSlot(request, paging);
+            var rs = await _productService.GetProductByTimeSlot(timeSlotId, paging);
             return Ok(rs);
         }
 

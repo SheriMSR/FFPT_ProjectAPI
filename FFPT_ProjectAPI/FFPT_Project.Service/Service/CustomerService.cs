@@ -96,10 +96,10 @@ namespace FFPT_Project.Service.Service
         {
             try
             {
-                var customers = await _unitOfWork.Repository<Customer>().GetAll()
+                var customers =  _unitOfWork.Repository<Customer>().GetAll()
                                            .ProjectTo<CustomerResponse>(_mapper.ConfigurationProvider)
                                            .DynamicFilter(request)
-                                           .ToListAsync();
+                                           .ToList();
                 var result = PageHelper<CustomerResponse>.Paging(customers, paging.Page, paging.PageSize);
                 return result;
             }
