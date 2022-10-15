@@ -28,6 +28,7 @@ using FFPT_Project.Service.Service;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.AspNetCore3;
+using FFPT_Project.Data.Entity;
 
 namespace FFPT_Project.API
 {
@@ -123,6 +124,7 @@ namespace FFPT_Project.API
 
             builder.RegisterType<ProductServices>().As<IProductServices>();
             builder.RegisterType<CustomerService>().As<ICustomerService>();
+            builder.RegisterType<CategoryService>().As<ICategoryService>();
             builder.RegisterType<MenuService>().As<IMenuService>();
 
             builder.RegisterGeneric(typeof(GenericRepository<>))
