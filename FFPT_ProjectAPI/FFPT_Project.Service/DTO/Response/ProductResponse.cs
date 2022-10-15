@@ -23,7 +23,6 @@ namespace FFPT_Project.Service.DTO.Response
         public int CategoryId { get; set; }
         public int Quantity { get; set; }
         public int SupplierStoreId { get; set; }
-        public int? GeneralProductId { get; set; }
         [String]
         public string? Code { get; set; } 
     }

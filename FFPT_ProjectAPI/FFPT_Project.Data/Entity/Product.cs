@@ -8,7 +8,6 @@ namespace FFPT_Project.Data.Entity
         public Product()
         {
             ComboProducts = new HashSet<ComboProduct>();
-            InverseGeneralProduct = new HashSet<Product>();
             ProductInMenus = new HashSet<ProductInMenu>();
         }
 
@@ -23,14 +22,11 @@ namespace FFPT_Project.Data.Entity
         public int CategoryId { get; set; }
         public int Quantity { get; set; }
         public int SupplierStoreId { get; set; }
-        public int? GeneralProductId { get; set; }
         public string Code { get; set; } = null!;
 
         public virtual Category Category { get; set; } = null!;
-        public virtual Product? GeneralProduct { get; set; }
         public virtual Store SupplierStore { get; set; } = null!;
         public virtual ICollection<ComboProduct> ComboProducts { get; set; }
-        public virtual ICollection<Product> InverseGeneralProduct { get; set; }
         public virtual ICollection<ProductInMenu> ProductInMenus { get; set; }
     }
 }

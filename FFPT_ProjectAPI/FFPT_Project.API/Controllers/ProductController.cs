@@ -79,13 +79,12 @@ namespace FFPT_Project.API.Controllers
         /// <summary>
         /// Update Product
         /// </summary>
-        /// <param name="id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPut("{id}")]
-        public async Task<ActionResult<ProductResponse>> UpdateProduct([FromQuery] int id,[FromQuery] UpdateProductRequest request)
+        [HttpPut]
+        public async Task<ActionResult<ProductResponse>> UpdateProduct([FromQuery] int productId,[FromQuery] UpdateProductRequest request)
         {
-            var rs = await _productService.UpdateProduct(id, request);
+            var rs = await _productService.UpdateProduct(productId, request);
             return Ok(rs);
         }
 
