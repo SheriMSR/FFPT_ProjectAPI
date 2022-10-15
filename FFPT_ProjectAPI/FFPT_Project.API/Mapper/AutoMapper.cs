@@ -23,6 +23,7 @@ namespace FFPT_Project.API.Mapper
 
             #region Menu
             CreateMap<Menu, MenuResponse>().ReverseMap();
+            CreateMap<TimeSlot, TimeslotResponse>().ReverseMap();
             CreateMap<CreateMenuRequest, Menu>();
             CreateMap<UpdateMenuRequest, Menu>();
             #endregion

@@ -96,12 +96,11 @@ namespace FFPT_Project.Data.Context
 
                 entity.Property(e => e.Email).HasMaxLength(50);
 
+                entity.Property(e => e.ImageUrl).HasMaxLength(255);
+
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.Phone).HasMaxLength(50);
-
-                entity.Property(e => e.ImageUrl).HasMaxLength(255);
-
             });
 
             modelBuilder.Entity<Floor>(entity =>
