@@ -92,7 +92,7 @@ namespace FFPT_Project.Service.Service
             }
         }
 
-        public async Task<PagedResults<CustomerResponse>> GetCustomers(CustomerResponse request, PagingRequest paging)
+        public async Task<PagedResults<CustomerResponse>> GetCustomers(CustomerResponse request, PagingRequest paging)                
         {
             try
             {
