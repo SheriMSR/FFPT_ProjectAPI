@@ -46,8 +46,15 @@ namespace FFPT_Project.API.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<CustomerResponse>> Login([FromBody] ExternalAuthRequest data)
         {
-            var result = await _customerService.Login(data);          
-            return Ok(result);
-        }
+            try
+            {
+                var result = await _customerService.Login(data);
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Invalid External Authentication.");
+            }
+            }
     }
-}
+    }
