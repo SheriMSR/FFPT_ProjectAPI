@@ -35,6 +35,8 @@ namespace FFPT_Project.API.Controllers
             return Ok(rs);
         }
 
+
+
         /// <summary>
         /// Login
         /// </summary>
@@ -42,7 +44,7 @@ namespace FFPT_Project.API.Controllers
         /// <returns></returns>
         /// [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<ActionResult<AuthResponse>> Login([FromBody] ExternalAuthRequest data)
+        public async Task<ActionResult<CustomerResponse>> Login([FromBody] ExternalAuthRequest data)
         {
             var result = await _customerService.Login(data);          
             return Ok(result);

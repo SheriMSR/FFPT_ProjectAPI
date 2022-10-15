@@ -33,7 +33,7 @@ namespace FFPT_Project.Service.Service
     public interface ICustomerService
     {
         Task<PagedResults<CustomerResponse>> GetCustomers(CustomerResponse request, PagingRequest paging);
-        Task<AuthResponse>Login(ExternalAuthRequest data);
+        Task<CustomerResponse> Login(ExternalAuthRequest data);
         Task<CustomerResponse> CreateCustomer(CreateCustomerRequest request);
         Task<CustomerResponse> GetCustomerByEmail(string email);
         Task<CustomerResponse> UpdateCustomer(int customerId, UpdateCustomerRequest request);
@@ -43,7 +43,7 @@ namespace FFPT_Project.Service.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public CustomerService(IUnitOfWork unitOfWork,  IMapper mapper)
+        public CustomerService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
@@ -113,40 +113,26 @@ namespace FFPT_Project.Service.Service
             }
         }
 
-        public async Task<AuthResponse> Login (ExternalAuthRequest data)
+        public async Task<CustomerResponse> Login(ExternalAuthRequest data)
         {
-            var newCustomer = new CustomerResponse();
             GoogleJsonWebSignature.ValidationSettings settings = new GoogleJsonWebSignature.ValidationSettings();
             // Change this to your google client ID
             settings.Audience = new List<string>() { "336558258554-0kocf8i3i9arsv4ik9h0jc2clft4u36s.apps.googleusercontent.com" };
 
             GoogleJsonWebSignature.Payload payload = GoogleJsonWebSignature.ValidateAsync(data.IdToken, settings).Result;
-            AuthResponse authResponse = new AuthResponse()
-            {
-                IsAuthSuccessful = true,
-                customer = new CustomerResponse()
-                {
-                    Email = payload.Email,
-                    Name = payload.Name,
-                    ImageUrl = payload.Picture,
-                }
-            };
 
-            authResponse.IsNewCustomer = false;
-
-            var check = await GetCustomerByEmail(payload.Email);
-            if (check == null)
+            var customer = await GetCustomerByEmail(payload.Email);
+            if (customer == null)
             {
-                CreateCustomerRequest req = new CreateCustomerRequest()
+                CreateCustomerRequest newCustomer = new CreateCustomerRequest()
                 {
                     Name = payload.Name,
                     Email = payload.Email,
                     ImageUrl = payload.Picture
                 };
-                authResponse.IsNewCustomer = true;
-                newCustomer = await CreateCustomer(req);
+                await CreateCustomer(newCustomer);
             }
-            return authResponse;
+            return customer;
         }
 
         public async Task<CustomerResponse> UpdateCustomer(int customerId, UpdateCustomerRequest request)
@@ -157,7 +143,7 @@ namespace FFPT_Project.Service.Service
                 customer = _unitOfWork.Repository<Customer>()
                     .Find(c => c.Id == customerId);
 
-                if(customer == null)
+                if (customer == null)
                 {
                     throw new CrudException(HttpStatusCode.NotFound, "Not found customer with id", customerId.ToString());
                 }
@@ -168,11 +154,11 @@ namespace FFPT_Project.Service.Service
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<Customer, CustomerResponse>(customer);
             }
-            catch(CrudException ex)
+            catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest,"Update customer error!!!!!",ex.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Update customer error!!!!!", ex.Message);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
