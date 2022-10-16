@@ -125,6 +125,7 @@ namespace FFPT_Project.API
             builder.RegisterType<ProductServices>().As<IProductServices>();
             builder.RegisterType<CustomerService>().As<ICustomerService>();
             builder.RegisterType<CategoryService>().As<ICategoryService>();
+            builder.RegisterType<OrderService>().As<IOrderService>();
             builder.RegisterType<MenuService>().As<IMenuService>();
 
             builder.RegisterGeneric(typeof(GenericRepository<>))

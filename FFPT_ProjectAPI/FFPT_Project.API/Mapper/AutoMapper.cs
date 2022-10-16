@@ -32,6 +32,17 @@ namespace FFPT_Project.API.Mapper
             #region Category
             CreateMap<Category, CategoryResponse>().ReverseMap();
             #endregion
+
+            #region Order
+            CreateMap<Order, OrderResponse>().ReverseMap();
+            CreateMap<CreateOrderRequest, Order>();
+            CreateMap<CreateOrderRequest, Order>()
+            .ForMember(c => c.Customer, option => option.Ignore())
+            .ForMember(c => c.Room, option => option.Ignore())
+            .ForMember(c => c.Shipper, option => option.Ignore())
+            .ForMember(c => c.SupplierStore, option => option.Ignore())
+            .ForMember(c => c.OrderDetails, option => option.Ignore());
+            #endregion
         }
     }
 }
