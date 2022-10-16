@@ -9,6 +9,7 @@ using FFPT_Project.Service.DTO.Response;
 using FFPT_Project.Service.Exceptions;
 using FFPT_Project.Service.Helpers;
 using FFPT_Project.Service.Utilities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,17 @@ namespace FFPT_Project.Service.Service
 {
     public interface IProductServices
     {
-        Task<PagedResults<ProductResponse>> GetProducts(PagingRequest paging);
+        Task<PagedResults<ProductResponse>> GetProducts(ProductResponse request, PagingRequest paging);
         Task<ProductResponse> GetProductById(int productId);
         Task<ProductResponse> GetProductByCode(string code);
         Task<PagedResults<ProductResponse>> GetProductByStore(int storeId, PagingRequest paging);
+        Task<PagedResults<ProductResponse>> GetProductByCategory(int cateId, PagingRequest paging);
         Task<PagedResults<ProductResponse>> GetProductByTimeSlot(int timeSlotId, PagingRequest paging);
         Task<ProductResponse> CreateProduct(CreateProductRequest request);
         Task<ProductResponse> UpdateProduct(int productId, UpdateProductRequest request);
         Task<PagedResults<ProductResponse>> SearchProduct(string searchString, int timeSlotId, PagingRequest paging);
+        Task<PagedResults<ProductResponse>> SearchProductInMenu(string searchString, int timeSlotId, PagingRequest paging);
+
     }
     public class ProductServices : IProductServices
     {
@@ -42,7 +46,7 @@ namespace FFPT_Project.Service.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PagedResults<ProductResponse>> GetProducts(PagingRequest paging)
+        public async Task<PagedResults<ProductResponse>> GetProducts(ProductResponse request, PagingRequest paging)
         {
             try
             {
@@ -114,10 +118,10 @@ namespace FFPT_Project.Service.Service
             }
         }
         public async Task<ProductResponse> CreateProduct(CreateProductRequest request)
-        {
+         {
             try
             {
-                var checkProduct = await GetProductByCode(request.Code);
+                var checkProduct = _unitOfWork.Repository<Product>().Find(x => x.Code == request.Code);
                 if (checkProduct != null)
                 {
                     throw new CrudException(HttpStatusCode.NotFound, "Product all ready exist!!!!!", request.Code);
@@ -189,7 +193,7 @@ namespace FFPT_Project.Service.Service
             }
         }
 
-        public async Task<PagedResults<ProductResponse>> SearchProduct(string searchString, int timeSlotId, PagingRequest paging)
+        public async Task<PagedResults<ProductResponse>> SearchProductInMenu(string searchString, int timeSlotId, PagingRequest paging)
         {
             var productInMenu = _unitOfWork.Repository<ProductInMenu>().GetAll()
                                 .Where(x => x.Menu.TimeSlotId == timeSlotId && x.Product.Name.Contains(searchString))
@@ -198,6 +202,35 @@ namespace FFPT_Project.Service.Service
 
             var result = PageHelper<ProductResponse>.Paging(productInMenu, paging.Page, paging.PageSize);
             return result;
+        }
+
+        public async Task<PagedResults<ProductResponse>> SearchProduct(string searchString, int timeSlotId, PagingRequest paging)
+        {
+            var product = _unitOfWork.Repository<Product>().GetAll()
+                                .Where(x => x.Name.Contains(searchString))
+                                .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
+                                .ToList();
+
+            var result = PageHelper<ProductResponse>.Paging(product, paging.Page, paging.PageSize);
+            return result;
+        }
+
+        public async Task<PagedResults<ProductResponse>> GetProductByCategory(int cateId, PagingRequest paging)
+        {
+            try
+            {
+                var product = await _unitOfWork.Repository<Product>().GetAll()
+                                .Where(x => x.CategoryId == cateId)
+                                .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
+                                .ToListAsync();
+
+                var result = PageHelper<ProductResponse>.Paging(product, paging.Page, paging.PageSize);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
