@@ -42,7 +42,7 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<CustomerResponse>> UpdateCustomer(int id, [FromQuery] UpdateCustomerRequest request)
+        public async Task<ActionResult<CustomerResponse>> UpdateCustomer(int id, [FromBody] UpdateCustomerRequest request)
         {
             var rs = await _customerService.UpdateCustomer(id, request);
             return Ok(rs);
