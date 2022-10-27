@@ -56,6 +56,43 @@ namespace FFPT_Project.API.Controllers
         }
 
         /// <summary>
+        /// Get Product In Menu By Time Slot
+        /// </summary>
+        /// <param name="timeSlotId"></param>
+        /// <returns></returns>
+        [HttpGet("GetProductInMenuByTimeSlot")]
+        public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductInMenuByTimeSlot([FromQuery] int timeSlotId, [FromQuery] PagingRequest paging)
+        {
+            var rs = await _productInMenuService.GetProductInMenuByTimeSlot(timeSlotId, paging);
+            return Ok(rs);
+        }
+
+        /// <summary>
+        /// Search Product
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="timeSlotId"></param>
+        /// <returns></returns>
+        [HttpGet("SearchProduct")]
+        public async Task<ActionResult<PagedResults<ProductInMenuResponse>>> SearchProductInMenu([FromQuery] string searchString, [FromQuery] int timeSlotId, [FromQuery] PagingRequest paging)
+        {
+            var rs = await _productInMenuService.SearchProductInMenu(searchString, timeSlotId, paging);
+            return Ok(rs);
+        }
+
+        /// <summary>
+        /// Get Product Menu By Category
+        /// </summary>
+        /// <param name="cateId"></param>
+        /// <returns></returns>
+        [HttpGet("GetProductByCategory")]
+        public async Task<ActionResult<PagedResults<ProductInMenuResponse>>> GetProductInMenuByCategory([FromQuery] int cateId, [FromQuery] PagingRequest paging)
+        {
+            var rs = await _productInMenuService.GetProductInMenuByCategory(cateId, paging);
+            return Ok(rs);
+        }
+
+        /// <summary>
         /// Create Product Menu
         /// </summary>
         /// <param name="request"></param>

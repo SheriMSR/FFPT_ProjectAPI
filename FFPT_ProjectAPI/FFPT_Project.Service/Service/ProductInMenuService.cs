@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FFPT_Project.Data.Entity;
 using FFPT_Project.Data.UnitOfWork;
 using FFPT_Project.Service.DTO.Request;
@@ -22,11 +23,14 @@ namespace FFPT_Project.Service.Service
     {
         Task<PagedResults<ProductInMenuResponse>> GetProductInMenu(ProductInMenuResponse request, PagingRequest paging);
         Task<ProductInMenuResponse> GetProductInMenuById(int productMenuId);
-        Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByTimeSlot(int timeSlotId);
+        Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByTimeSlot(int timeSlotId, PagingRequest paging);
         Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByStore(int storeId, PagingRequest paging);
+        Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByCategory(int cateId, PagingRequest paging);
+        Task<PagedResults<ProductInMenuResponse>> SearchProductInMenu(string searchString, int timeSlotId, PagingRequest paging);
         Task<StatusCodeResult> CreateProductInMenu(CreateProductInMenuRequest request);
         Task<StatusCodeResult> UpdateProductInMenu(int productMenuId, UpdateProductInMenuRequest request);
         Task<StatusCodeResult> DeleteProductInMenu(int productMenuId);
+
     }
     public class ProductInMenuService : IProductInMenuService
     {
@@ -64,13 +68,14 @@ namespace FFPT_Project.Service.Service
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get list product in menu", ex.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get list product in menu error!!!!", ex.Message);
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
         }
+
         public async Task<ProductInMenuResponse> GetProductInMenuById(int productMenuId)
         {
             try
@@ -96,7 +101,7 @@ namespace FFPT_Project.Service.Service
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get list product in menu", ex.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get product in menu by id error!!!!", ex.Message);
             }
             catch (Exception e)
             {
@@ -132,7 +137,7 @@ namespace FFPT_Project.Service.Service
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get list product in menu", ex.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get product in menu by store error!!!", ex.Message);
             }
             catch (Exception e)
             {
@@ -140,9 +145,96 @@ namespace FFPT_Project.Service.Service
             }
         }
 
-        public Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByTimeSlot(int timeSlotId)
+        public async Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByCategory(int cateId, PagingRequest paging)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var products = await _unitOfWork.Repository<ProductInMenu>().GetAll()
+                    .Include(x => x.Store)
+                    .Include(x => x.Product)
+                    .Where(x => x.Product.CategoryId == cateId)
+                    .Select(x => new ProductInMenuResponse
+                    {
+                        StoreName = x.Store.Name,
+                        ProductName = x.Product.Name,
+                        Image = x.Product.Image,
+                        Detail = x.Product.Detail,
+                        MenuId = x.MenuId,
+                        MenuName = x.Menu.MenuName,
+                        Price = x.Price,
+                        CreateAt = x.CreateAt,
+                        UpdateAt = x.UpdateAt
+                    })
+                .ToListAsync();
+
+                var result = PageHelper<ProductInMenuResponse>.Paging(products, paging.Page, paging.PageSize);
+
+                return result;
+            }
+            catch (CrudException ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Get product in menu by category error!!!!", ex.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByTimeSlot(int timeSlotId, PagingRequest paging)
+        {
+            try
+            {
+                var products = await _unitOfWork.Repository<ProductInMenu>().GetAll()
+                    .Where(x => x.Menu.TimeSlotId == timeSlotId)
+                    .Select(x => new ProductInMenuResponse
+                    {
+                        StoreName = x.Store.Name,
+                        ProductName = x.Product.Name,
+                        Image = x.Product.Image,
+                        Detail = x.Product.Detail,
+                        MenuId = x.MenuId,
+                        MenuName = x.Menu.MenuName,
+                        Price = x.Price,
+                        CreateAt = x.CreateAt,
+                        UpdateAt = x.UpdateAt
+                    })
+                .ToListAsync();
+
+                var result = PageHelper<ProductInMenuResponse>.Paging(products, paging.Page, paging.PageSize);
+
+                return result;
+            }
+            catch (CrudException ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Get product in menu by category error!!!!", ex.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<PagedResults<ProductInMenuResponse>> SearchProductInMenu(string searchString, int timeSlotId, PagingRequest paging)
+        {
+            try
+            {
+                var productInMenu = _unitOfWork.Repository<ProductInMenu>().GetAll()
+                    .Where(x => x.Product.Name.Contains(searchString))
+                    .ProjectTo<ProductInMenuResponse>(_mapper.ConfigurationProvider)
+                    .ToList();
+
+                var result = PageHelper<ProductInMenuResponse>.Paging(productInMenu, paging.Page, paging.PageSize);
+                return result;
+            }
+            catch (CrudException ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Search product in menu error!!!!", ex.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task<StatusCodeResult> CreateProductInMenu(CreateProductInMenuRequest request)
@@ -162,7 +254,7 @@ namespace FFPT_Project.Service.Service
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get Product for this menu error!!!!!", ex.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Create product for this menu error!!!!!", ex.Message);
             }
             catch (Exception e)
             {
@@ -191,7 +283,7 @@ namespace FFPT_Project.Service.Service
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get list product in menu", ex.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Delete product in this menu error!!!!", ex.Message);
             }
             catch (Exception e)
             {
@@ -221,7 +313,7 @@ namespace FFPT_Project.Service.Service
             }
             catch (Exception ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Update product error!!!!", ex?.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Update product in menu error!!!!", ex?.Message);
             }
         }
     }
