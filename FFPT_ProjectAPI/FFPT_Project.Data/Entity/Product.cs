@@ -22,6 +22,7 @@ namespace FFPT_Project.Data.Entity
         public int CategoryId { get; set; }
         public int Quantity { get; set; }
         public int SupplierStoreId { get; set; }
+        public int? GeneralProductId { get; set; }
         public string Code { get; set; } = null!;
 
         public virtual Category Category { get; set; } = null!;

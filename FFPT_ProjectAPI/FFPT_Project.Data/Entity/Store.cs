@@ -7,8 +7,6 @@ namespace FFPT_Project.Data.Entity
     {
         public Store()
         {
-            Orders = new HashSet<Order>();
-            ProductInMenus = new HashSet<ProductInMenu>();
             Products = new HashSet<Product>();
         }
 
@@ -20,8 +18,6 @@ namespace FFPT_Project.Data.Entity
         public DateTime? UpdateAt { get; set; }
         public bool Active { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<ProductInMenu> ProductInMenus { get; set; }
         public virtual ICollection<Product> Products { get; set; }
     }
 }

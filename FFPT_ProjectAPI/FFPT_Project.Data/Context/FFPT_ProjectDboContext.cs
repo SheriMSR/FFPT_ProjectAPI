@@ -154,18 +154,6 @@ namespace FFPT_Project.Data.Context
                     .HasForeignKey(d => d.RoomId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Order_Room1");
-
-                entity.HasOne(d => d.Shipper)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.ShipperId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_Shipper");
-
-                entity.HasOne(d => d.SupplierStore)
-                    .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.SupplierStoreId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_Store");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
@@ -243,12 +231,6 @@ namespace FFPT_Project.Data.Context
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductInMenu_Product");
-
-                entity.HasOne(d => d.Store)
-                    .WithMany(p => p.ProductInMenus)
-                    .HasForeignKey(d => d.StoreId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductInMenu_Store");
             });
 
             modelBuilder.Entity<Room>(entity =>

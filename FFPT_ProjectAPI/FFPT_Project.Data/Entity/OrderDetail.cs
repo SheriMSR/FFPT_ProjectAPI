@@ -12,7 +12,6 @@ namespace FFPT_Project.Data.Entity
         public double FinalAmount { get; set; }
         public int Status { get; set; }
         public int ProductInMenuId { get; set; }
-        public int SupplierStoreId { get; set; }
 
         public virtual Order Order { get; set; } = null!;
         public virtual ProductInMenu ProductInMenu { get; set; } = null!;

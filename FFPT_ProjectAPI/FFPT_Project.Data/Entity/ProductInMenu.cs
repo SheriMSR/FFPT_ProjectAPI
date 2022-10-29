@@ -11,7 +11,6 @@ namespace FFPT_Project.Data.Entity
         }
 
         public int Id { get; set; }
-        public int StoreId { get; set; }
         public int ProductId { get; set; }
         public int MenuId { get; set; }
         public double? Price { get; set; }
@@ -21,7 +20,6 @@ namespace FFPT_Project.Data.Entity
 
         public virtual Menu Menu { get; set; } = null!;
         public virtual Product Product { get; set; } = null!;
-        public virtual Store Store { get; set; } = null!;
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }
