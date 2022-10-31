@@ -83,7 +83,7 @@ namespace FFPT_Project.API.Controllers
         /// </summary>
         /// <param name="storeId"></param>
         /// <returns></returns>
-        [HttpGet("GetProductInMenuByStore")]
+        [HttpGet("GetProductInMenuByMenu")]
         public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductInMenuByMenu([FromQuery] int menuId, [FromQuery] PagingRequest paging)
         {
             try
