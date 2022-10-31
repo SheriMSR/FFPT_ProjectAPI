@@ -261,7 +261,7 @@ namespace FFPT_Project.Service.Service
             }
             catch (Exception e)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Search product in menu error!!!!", ex.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Search product in menu error!!!!", e.Message);
             }
         }
 
