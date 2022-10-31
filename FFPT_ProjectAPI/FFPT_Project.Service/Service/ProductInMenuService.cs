@@ -279,13 +279,17 @@ namespace FFPT_Project.Service.Service
                 {
                     var check = _unitOfWork.Repository<ProductInMenu>()
                         .Find(x => x.MenuId == menuId);
-                    if (check == null)
+                    if (check != null)
                     {
                         product.Id = _unitOfWork.Repository<ProductInMenu>().GetAll().Count() + 1;
                         product.MenuId = menuId;
 
                         await _unitOfWork.Repository<ProductInMenu>().InsertAsync(product);
                         await _unitOfWork.CommitAsync();
+                    }
+                    else
+                    {
+                        throw new CrudException(HttpStatusCode.NotFound, "not found menu!!!!", menuId.ToString());
                     }
                 }
                 return new ProductInMenuResponse
@@ -302,6 +306,10 @@ namespace FFPT_Project.Service.Service
                     CreateAt = product.CreateAt,
                     UpdateAt = product.UpdateAt
                 };
+            }
+            catch(CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception e)
             {
