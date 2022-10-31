@@ -28,9 +28,9 @@ namespace FFPT_Project.Service.Service
         Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByCategory(int cateId, int timeSlotId, PagingRequest paging);
         Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByMenu(int menuId, PagingRequest paging);
         Task<PagedResults<ProductInMenuResponse>> SearchProductInMenu(string searchString, int timeSlotId, PagingRequest paging);
-        Task<BaseResponseMsg> CreateProductInMenu(int storeId, CreateProductInMenuRequest request);
-        Task<BaseResponseMsg> UpdateProductInMenu(int productMenuId, UpdateProductInMenuRequest request);
-        Task<BaseResponseMsg> DeleteProductInMenu(int productMenuId);
+        Task<ProductInMenuResponse> CreateProductInMenu(CreateProductInMenuRequest request);
+        Task<ProductInMenuResponse> UpdateProductInMenu(int productMenuId, UpdateProductInMenuRequest request);
+        Task<int> DeleteProductInMenu(int productMenuId);
 
     }
     public class ProductInMenuService : IProductInMenuService
@@ -48,13 +48,12 @@ namespace FFPT_Project.Service.Service
             try
             {
                 var products = await _unitOfWork.Repository<ProductInMenu>().GetAll()
-                    .Include(x => x.Store)
                     .Include(x => x.Product)
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
-                        StoreId = x.StoreId,
-                        StoreName = x.Store.Name,
+                        StoreId = x.Product.SupplierStoreId,
+                        StoreName = x.Product.SupplierStore.Name,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -69,13 +68,9 @@ namespace FFPT_Project.Service.Service
                 var result = PageHelper<ProductInMenuResponse>.Paging(products, paging.Page, paging.PageSize);
                 return result;
             }
-            catch (CrudException ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get list product in menu error!!!!", ex.Message);
-            }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get list product error!!!!", e.Message);
             }
         }
 
@@ -84,14 +79,13 @@ namespace FFPT_Project.Service.Service
             try
             {
                 var products = await _unitOfWork.Repository<ProductInMenu>().GetAll()
-                    .Include(x => x.Store)
                     .Include(x => x.Product)
                     .Where(x => x.Id == productMenuId)
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
-                        StoreId = x.StoreId,
-                        StoreName = x.Store.Name,
+                        StoreId = x.Product.SupplierStoreId,
+                        StoreName = x.Product.SupplierStore.Name,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -104,13 +98,9 @@ namespace FFPT_Project.Service.Service
                 .FirstOrDefaultAsync();
                 return products;
             }
-            catch (CrudException ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get product in menu by id error!!!!", ex.Message);
-            }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get product by id error!!!!", e.Message);
             }
         }
 
@@ -119,14 +109,13 @@ namespace FFPT_Project.Service.Service
             try
             {
                 var products = await _unitOfWork.Repository<ProductInMenu>().GetAll()
-                    .Include(x => x.Store)
                     .Include(x => x.Product)
-                    .Where(x => x.StoreId == storeId)
+                    .Where(x => x.Product.SupplierStoreId == storeId)
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
-                        StoreId = x.StoreId,
-                        StoreName = x.Store.Name,
+                        StoreId = x.Product.SupplierStoreId,
+                        StoreName = x.Product.SupplierStore.Name,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -142,13 +131,9 @@ namespace FFPT_Project.Service.Service
 
                 return result;
             }
-            catch (CrudException ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get product in menu by store error!!!", ex.Message);
-            }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get product by store error!!!", e.Message);
             }
         }
 
@@ -157,14 +142,13 @@ namespace FFPT_Project.Service.Service
             try
             {
                 var products = await _unitOfWork.Repository<ProductInMenu>().GetAll()
-                    .Include(x => x.Store)
                     .Include(x => x.Product)
                     .Where(x => x.Product.CategoryId == cateId && x.Menu.TimeSlotId == timeSlotId)
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
-                        StoreId = x.StoreId,
-                        StoreName = x.Store.Name,
+                        StoreId = x.Product.SupplierStoreId,
+                        StoreName = x.Product.SupplierStore.Name,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -180,13 +164,9 @@ namespace FFPT_Project.Service.Service
 
                 return result;
             }
-            catch (CrudException ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get product in menu by category error!!!!", ex.Message);
-            }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get product by category error!!!!", e.Message);
             }
         }
 
@@ -199,8 +179,8 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
-                        StoreId = x.StoreId,
-                        StoreName = x.Store.Name,
+                        StoreId = x.Product.SupplierStoreId,
+                        StoreName = x.Product.SupplierStore.Name,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -216,13 +196,9 @@ namespace FFPT_Project.Service.Service
 
                 return result;
             }
-            catch (CrudException ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get product in menu by category error!!!!", ex.Message);
-            }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get product by time slot error!!!!", e.Message);
             }
         }
 
@@ -235,8 +211,8 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
-                        StoreId = x.StoreId,
-                        StoreName = x.Store.Name,
+                        StoreId = x.Product.SupplierStoreId,
+                        StoreName = x.Product.SupplierStore.Name,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -252,13 +228,9 @@ namespace FFPT_Project.Service.Service
 
                 return result;
             }
-            catch (CrudException ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get product by menu error!!!!", ex.Message);
-            }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get product by menu error!!!!", e.Message);
             }
         }
 
@@ -271,8 +243,8 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
-                        StoreId = x.StoreId,
-                        StoreName = x.Store.Name,
+                        StoreId = x.Product.SupplierStoreId,
+                        StoreName = x.Product.SupplierStore.Name,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -287,26 +259,21 @@ namespace FFPT_Project.Service.Service
                 var result = PageHelper<ProductInMenuResponse>.Paging(productInMenu, paging.Page, paging.PageSize);
                 return result;
             }
-            catch (CrudException ex)
+            catch (Exception e)
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Search product in menu error!!!!", ex.Message);
             }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
         }
 
-        public async Task<BaseResponseMsg> CreateProductInMenu(int storeId, CreateProductInMenuRequest request)
+        public async Task<ProductInMenuResponse> CreateProductInMenu(CreateProductInMenuRequest request)
         {
             try
             {
-                var productInMenu = new ProductInMenu();
-                productInMenu.StoreId = storeId;
-                productInMenu.ProductId = request.ProductId;
-                productInMenu.Price = request.Price;
-                productInMenu.CreateAt = DateTime.Now;
-                productInMenu.Active = 1;
+                var product = new ProductInMenu();
+                product.ProductId = request.ProductId;
+                product.Price = request.Price;
+                product.CreateAt = DateTime.Now;
+                product.Active = 1;
 
                 foreach (var menuId in request.Menu)
                 {
@@ -314,31 +281,35 @@ namespace FFPT_Project.Service.Service
                         .Find(x => x.MenuId == menuId);
                     if (check == null)
                     {
-                        productInMenu.Id = _unitOfWork.Repository<ProductInMenu>().GetAll().Count() + 1;
-                        productInMenu.MenuId = menuId;
+                        product.Id = _unitOfWork.Repository<ProductInMenu>().GetAll().Count() + 1;
+                        product.MenuId = menuId;
 
-                        await _unitOfWork.Repository<ProductInMenu>().InsertAsync(productInMenu);
+                        await _unitOfWork.Repository<ProductInMenu>().InsertAsync(product);
                         await _unitOfWork.CommitAsync();
                     }
                 }
-                return new BaseResponseMsg()
+                return new ProductInMenuResponse
                 {
-                    StatusCode = 200,
-                    Message = "Sản phẩm đã được tạo thành công."
+                    ProductMenuId = product.Id,
+                    StoreId = product.Product.SupplierStoreId,
+                    StoreName = product.Product.SupplierStore.Name,
+                    ProductName = product.Product.Name,
+                    Image = product.Product.Image,
+                    Detail = product.Product.Detail,
+                    MenuId = product.MenuId,
+                    MenuName = product.Menu.MenuName,
+                    Price = product.Price,
+                    CreateAt = product.CreateAt,
+                    UpdateAt = product.UpdateAt
                 };
-
-            }
-            catch (CrudException ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Sản phẩm tạo thất bại.", ex.Message);
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Create product error!!!!", e.Message);
             }
         }
 
-        public async Task<BaseResponseMsg> DeleteProductInMenu(int productMenuId)
+        public async Task<int> DeleteProductInMenu(int productMenuId)
         {
             try
             {
@@ -347,34 +318,26 @@ namespace FFPT_Project.Service.Service
                 .FirstOrDefaultAsync();
                 if (product == null)
                 {
-                    return new BaseResponseMsg()
-                    {
-                        StatusCode = 400,
-                        Message = "Sản phẩm không tồn tại."
-                    };
+                    throw new CrudException(HttpStatusCode.NotFound, "Product not found.", productMenuId.ToString());
                 }
                 else
                 {
                     _unitOfWork.Repository<ProductInMenu>().Delete(product);
                     await _unitOfWork.CommitAsync();
-                    return new BaseResponseMsg()
-                    {
-                        StatusCode = 200,
-                        Message = "Sản phẩm đã được xóa."
-                    };
                 }
+                return productMenuId;
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Delete product in this menu error!!!!", ex.Message);
+                throw ex;
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Delete product error!!!!", e.Message);
             }
         }
 
-        public async Task<BaseResponseMsg> UpdateProductInMenu(int productMenuId, UpdateProductInMenuRequest request)
+        public async Task<ProductInMenuResponse> UpdateProductInMenu(int productMenuId, UpdateProductInMenuRequest request)
         {
             try
             {
@@ -383,11 +346,7 @@ namespace FFPT_Project.Service.Service
                     .Find(p => p.Id == productMenuId);
                 if (product == null)
                 {
-                    return new BaseResponseMsg()
-                    {
-                        StatusCode = 400,
-                        Message = "Sản phẩm không tồn tại."
-                    };
+                    throw new CrudException(HttpStatusCode.NotFound, "Product not found.", productMenuId.ToString());
                 }
                 _mapper.Map<UpdateProductInMenuRequest, ProductInMenu>(request, product);
                 product.UpdateAt = DateTime.Now;
@@ -395,15 +354,28 @@ namespace FFPT_Project.Service.Service
                 await _unitOfWork.Repository<ProductInMenu>().UpdateDetached(product);
                 await _unitOfWork.CommitAsync();
 
-                return new BaseResponseMsg()
+                return new ProductInMenuResponse
                 {
-                    StatusCode = 200,
-                    Message = "Sản phẩm đã được cập nhật thành công."
+                    ProductMenuId = product.Id,
+                    StoreId = product.Product.SupplierStoreId,
+                    StoreName = product.Product.SupplierStore.Name,
+                    ProductName = product.Product.Name,
+                    Image = product.Product.Image,
+                    Detail = product.Product.Detail,
+                    MenuId = product.MenuId,
+                    MenuName = product.Menu.MenuName,
+                    Price = product.Price,
+                    CreateAt = product.CreateAt,
+                    UpdateAt = product.UpdateAt
                 };
             }
-            catch (Exception ex)
+            catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Sản phẩm cập nhật thất bại.", ex?.Message);
+                throw ex;
+            }
+            catch (Exception e)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Update product error!!!!", e.Message);
             }
         }
     }

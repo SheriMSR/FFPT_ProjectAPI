@@ -1,9 +1,11 @@
-﻿using FFPT_Project.Service.DTO.Request;
+﻿using FFPT_Project.Data.Entity;
+using FFPT_Project.Service.DTO.Request;
 using FFPT_Project.Service.DTO.Response;
 using FFPT_Project.Service.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Linq.Dynamic.Core;
+using System.Net.NetworkInformation;
 
 namespace FFPT_Project.API.Controllers
 {
@@ -27,8 +29,15 @@ namespace FFPT_Project.API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedResults<ProductInMenuResponse>>> GetProductInMenu([FromQuery] ProductInMenuResponse request, [FromQuery] PagingRequest paging)
         {
-            var result = await _productInMenuService.GetProductInMenu(request, paging);
-            return Ok(result);
+            try
+            {
+                var rs = await _productInMenuService.GetProductInMenu(request, paging);
+                return Ok(rs);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -39,8 +48,15 @@ namespace FFPT_Project.API.Controllers
         [HttpGet("GetProductInMenuById")]
         public async Task<ActionResult<ProductInMenuResponse>> GetProductInMenuById([FromQuery] int Id)
         {
-            var result = await _productInMenuService.GetProductInMenuById(Id);
-            return Ok(result);
+            try
+            {
+                var rs = await _productInMenuService.GetProductInMenuById(Id);
+                return Ok(rs);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -51,8 +67,15 @@ namespace FFPT_Project.API.Controllers
         [HttpGet("GetProductInMenuByStore")]
         public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductInMenuByStore([FromQuery] int storeId, [FromQuery] PagingRequest paging)
         {
-            var rs = await _productInMenuService.GetProductInMenuByStore(storeId, paging);
-            return Ok(rs);
+            try
+            {
+                var rs = await _productInMenuService.GetProductInMenuByStore(storeId, paging);
+                return Ok(rs);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -63,8 +86,15 @@ namespace FFPT_Project.API.Controllers
         [HttpGet("GetProductInMenuByStore")]
         public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductInMenuByMenu([FromQuery] int menuId, [FromQuery] PagingRequest paging)
         {
-            var rs = await _productInMenuService.GetProductInMenuByMenu(menuId, paging);
-            return Ok(rs);
+            try
+            {
+                var rs = await _productInMenuService.GetProductInMenuByMenu(menuId, paging);
+                return Ok(rs);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -75,8 +105,15 @@ namespace FFPT_Project.API.Controllers
         [HttpGet("GetProductInMenuByTimeSlot")]
         public async Task<ActionResult<PagedResults<ProductResponse>>> GetProductInMenuByTimeSlot([FromQuery] int timeSlotId, [FromQuery] PagingRequest paging)
         {
-            var rs = await _productInMenuService.GetProductInMenuByTimeSlot(timeSlotId, paging);
-            return Ok(rs);
+            try
+            {
+                var rs = await _productInMenuService.GetProductInMenuByTimeSlot(timeSlotId, paging);
+                return Ok(rs);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -88,8 +125,15 @@ namespace FFPT_Project.API.Controllers
         [HttpGet("SearchProduct")]
         public async Task<ActionResult<PagedResults<ProductInMenuResponse>>> SearchProductInMenu([FromQuery] string searchString, [FromQuery] int timeSlotId, [FromQuery] PagingRequest paging)
         {
-            var rs = await _productInMenuService.SearchProductInMenu(searchString, timeSlotId, paging);
-            return Ok(rs);
+            try
+            {
+                var rs = await _productInMenuService.SearchProductInMenu(searchString, timeSlotId, paging);
+                return Ok(rs);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -100,8 +144,15 @@ namespace FFPT_Project.API.Controllers
         [HttpGet("GetProductByCategory")]
         public async Task<ActionResult<PagedResults<ProductInMenuResponse>>> GetProductInMenuByCategory([FromQuery] int cateId, [FromQuery] int timeSlotId, [FromQuery] PagingRequest paging)
         {
-            var rs = await _productInMenuService.GetProductInMenuByCategory(cateId, timeSlotId, paging);
-            return Ok(rs);
+            try
+            {
+                var rs = await _productInMenuService.GetProductInMenuByCategory(cateId, timeSlotId, paging);
+                return Ok(rs);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -110,10 +161,17 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("CreateProductInMenu")]
-        public async Task<BaseResponseMsg> CreateProductInMenu([FromQuery] int storeId, [FromBody] CreateProductInMenuRequest request)
+        public async Task<ActionResult<ProductInMenuResponse>> CreateProductInMenu([FromBody] CreateProductInMenuRequest request)
         {
-            var rs = await _productInMenuService.CreateProductInMenu(storeId, request);
-            return rs;
+            try
+            {
+                var rs = await _productInMenuService.CreateProductInMenu(request);
+                return Ok(rs);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -122,10 +180,17 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPut("UpdateProductInMenu")]
-        public async Task<BaseResponseMsg> UpdateProductInMenu([FromQuery] int productInMenuId, [FromBody] UpdateProductInMenuRequest request)
+        public async Task<ActionResult<ProductInMenuResponse>> UpdateProductInMenu([FromQuery] int productInMenuId, [FromBody] UpdateProductInMenuRequest request)
         {
-            var rs = await _productInMenuService.UpdateProductInMenu(productInMenuId, request);
-            return rs;
+            try
+            {
+                var rs = await _productInMenuService.UpdateProductInMenu(productInMenuId, request);
+                return Ok(rs);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
@@ -134,10 +199,17 @@ namespace FFPT_Project.API.Controllers
         /// <param name="productInMenuId"></param>
         /// <returns></returns>
         [HttpDelete("DeleteProductInMenu")]
-        public async Task<BaseResponseMsg> DeleteProductInMenu([FromQuery] int productInMenuId)
+        public async Task<ActionResult<ProductInMenuResponse>> DeleteProductInMenu([FromQuery] int productInMenuId)
         {
-            var rs = await _productInMenuService.DeleteProductInMenu(productInMenuId);
-            return rs;
+            try
+            {
+                var rs = await _productInMenuService.DeleteProductInMenu(productInMenuId);
+                return Ok(rs);
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
         }
     }
 }
