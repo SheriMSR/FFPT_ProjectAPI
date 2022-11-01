@@ -10,13 +10,14 @@ using FFPT_Project.Service.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using FFPT_Project.Data.Entity;
 using System.Linq.Dynamic.Core;
+using Azure.Core;
 
 namespace FFPT_Project.Service.Service
 {
@@ -24,10 +25,10 @@ namespace FFPT_Project.Service.Service
     {
         Task<PagedResults<MenuResponse>> GetListMenu(MenuResponse request, PagingRequest paging);
         Task<MenuResponse> GetMenuById(int menuId);
-        Task<PagedResults<MenuResponse>> GetMenuByTimeSlot(DateTime request, PagingRequest paging);
+        Task<PagedResults<MenuResponse>> GetMenuByTimeSlot(int timeSlotId, PagingRequest paging);
         Task<MenuResponse> CreateMenu(CreateMenuRequest request);
         Task<MenuResponse> UpdateMenu(int productId, UpdateMenuRequest request);
-        Task<PagedResults<TimeslotResponse>> GetListTimeslot(TimeslotResponse request, PagingRequest paging);
+        Task<int> DeleteMenu(int menuId);
     }
     public class MenuService : IMenuService
     {
@@ -43,20 +44,16 @@ namespace FFPT_Project.Service.Service
         {
             try
             {
-                var menu = await _unitOfWork.Repository<Menu>().GetAll()
+                var menu =await _unitOfWork.Repository<Menu>().GetAll()
                                                .ProjectTo<MenuResponse>(_mapper.ConfigurationProvider)
                                                .DynamicFilter(request)
                                                .ToListAsync();
                 var result = PageHelper<MenuResponse>.Paging(menu, paging.Page, paging.PageSize);
                 return result;
             }
-            catch (CrudException ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get Menu Error!!!!", ex?.Message);
-            }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Get Menu Error!!!!", e?.Message);
             }
         }
 
@@ -85,9 +82,21 @@ namespace FFPT_Project.Service.Service
                 throw new CrudException(HttpStatusCode.BadRequest, "Get menu error!!!!", e?.Message);
             }
         }
-        public Task<PagedResults<MenuResponse>> GetMenuByTimeSlot(DateTime request, PagingRequest paging)
+        public async Task<PagedResults<MenuResponse>> GetMenuByTimeSlot(int timeSlotId, PagingRequest paging)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var menu = await _unitOfWork.Repository<Menu>().GetAll()
+                                            .Where(x => x.TimeSlot.Id == timeSlotId)
+                                            .ProjectTo<MenuResponse>(_mapper.ConfigurationProvider)
+                                            .ToListAsync();
+                var result = PageHelper<MenuResponse>.Paging(menu, paging.Page, paging.PageSize);
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Get Menu Error!!!!", e?.Message);
+            }
         }
 
         public async Task<MenuResponse> CreateMenu(CreateMenuRequest request)
@@ -104,13 +113,9 @@ namespace FFPT_Project.Service.Service
 
                 return _mapper.Map<Menu, MenuResponse>(menu);
             }
-            catch (CrudException e)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Create menu error!!!", e?.Message);
-            }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Create menu error!!!", ex?.Message);
             }
         }
 
@@ -135,30 +140,39 @@ namespace FFPT_Project.Service.Service
             }
             catch (CrudException e)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Update menu error!!!!", e?.Message);
+                throw e;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Update menu error!!!!", ex?.Message);
             }
         }
 
-        public async Task<PagedResults<TimeslotResponse>> GetListTimeslot(TimeslotResponse request, PagingRequest paging)
+        public async Task<int> DeleteMenu(int menuId)
         {
             try
             {
-                TimeSlot[] list =  _unitOfWork.Repository<TimeSlot>().GetAll().ToArray();
-                List<TimeslotResponse> listResult = _mapper.Map<TimeSlot[], TimeslotResponse[]>(list).ToList();
-                var result = PageHelper<TimeslotResponse>.Paging(listResult, paging.Page, paging.PageSize);
-                return result;
+                var menu = await _unitOfWork.Repository<Menu>().GetAll()
+                    .Where(x => x.Id == menuId)
+                .FirstOrDefaultAsync();
+                if (menu == null)
+                {
+                    throw new CrudException(HttpStatusCode.NotFound, "Menu not found.", menuId.ToString());
+                }
+                else
+                {
+                    _unitOfWork.Repository<Menu>().Delete(menu);
+                    await _unitOfWork.CommitAsync();
+                }
+                return menuId;
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "", ex.Message);
+                throw ex;
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Delete product error!!!!", e.Message);
             }
         }
     }
