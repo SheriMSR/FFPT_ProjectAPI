@@ -161,7 +161,7 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("CreateProductInMenu")]
-        public async Task<ActionResult<ProductInMenuResponse>> CreateProductInMenu([FromBody] CreateProductInMenuRequest request)
+        public async Task<ActionResult<List<ProductInMenuResponse>>> CreateProductInMenu([FromBody] CreateProductInMenuRequest request)
         {
             try
             {

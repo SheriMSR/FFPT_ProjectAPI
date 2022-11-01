@@ -28,7 +28,7 @@ namespace FFPT_Project.Service.Service
         Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByCategory(int cateId, int timeSlotId, PagingRequest paging);
         Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByMenu(int menuId, PagingRequest paging);
         Task<PagedResults<ProductInMenuResponse>> SearchProductInMenu(string searchString, int timeSlotId, PagingRequest paging);
-        Task<ProductInMenuResponse> CreateProductInMenu(CreateProductInMenuRequest request);
+        Task<List<ProductInMenuResponse>> CreateProductInMenu(CreateProductInMenuRequest request);
         Task<ProductInMenuResponse> UpdateProductInMenu(int productMenuId, UpdateProductInMenuRequest request);
         Task<int> DeleteProductInMenu(int productMenuId);
 
@@ -54,6 +54,7 @@ namespace FFPT_Project.Service.Service
                         ProductMenuId = x.Id,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
+                        ProductId = x.ProductId,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -86,6 +87,7 @@ namespace FFPT_Project.Service.Service
                         ProductMenuId = x.Id,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
+                        ProductId = x.ProductId,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -116,6 +118,7 @@ namespace FFPT_Project.Service.Service
                         ProductMenuId = x.Id,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
+                        ProductId = x.ProductId,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -149,6 +152,7 @@ namespace FFPT_Project.Service.Service
                         ProductMenuId = x.Id,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
+                        ProductId = x.ProductId,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -181,6 +185,7 @@ namespace FFPT_Project.Service.Service
                         ProductMenuId = x.Id,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
+                        ProductId = x.ProductId,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -213,6 +218,7 @@ namespace FFPT_Project.Service.Service
                         ProductMenuId = x.Id,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
+                        ProductId = x.ProductId,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -245,6 +251,7 @@ namespace FFPT_Project.Service.Service
                         ProductMenuId = x.Id,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
+                        ProductId = x.ProductId,
                         ProductName = x.Product.Name,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
@@ -265,49 +272,40 @@ namespace FFPT_Project.Service.Service
             }
         }
 
-        public async Task<ProductInMenuResponse> CreateProductInMenu(CreateProductInMenuRequest request)
+        public async Task<List<ProductInMenuResponse>> CreateProductInMenu(CreateProductInMenuRequest request)
         {
             try
             {
-                var product = new ProductInMenu();
-                product.ProductId = request.ProductId;
-                product.Price = request.Price;
-                product.CreateAt = DateTime.Now;
-                product.Active = 1;
+                var result = new List<ProductInMenuResponse>(); 
+                var check = _unitOfWork.Repository<Menu>()
+                        .Find(x => x.Id == request.MenuId);
 
-                foreach (var menuId in request.Menu)
+                if(check == null)
                 {
-                    var check = _unitOfWork.Repository<ProductInMenu>()
-                        .Find(x => x.MenuId == menuId);
-                    if (check != null)
-                    {
-                        product.Id = _unitOfWork.Repository<ProductInMenu>().GetAll().Count() + 1;
-                        product.MenuId = menuId;
+                    throw new CrudException(HttpStatusCode.NotFound, "not found menu!!!!", request.MenuId.ToString());
+                }
 
-                        await _unitOfWork.Repository<ProductInMenu>().InsertAsync(product);
-                        await _unitOfWork.CommitAsync();
-                    }
-                    else
+                foreach (var item in request.Products)
+                {
+                    var product = _unitOfWork.Repository<Product>().GetById((int)item.ProductId);
+                    if (product != null)
                     {
-                        throw new CrudException(HttpStatusCode.NotFound, "not found menu!!!!", menuId.ToString());
+                        var productInMenu = new ProductInMenu();
+                        productInMenu.ProductId = (int)item.ProductId;
+                        productInMenu.MenuId = request.MenuId;
+                        productInMenu.Price = item.Price;
+                        productInMenu.CreateAt = DateTime.Now;
+                        productInMenu.Active = 1;
+
+                        await _unitOfWork.Repository<ProductInMenu>().InsertAsync(productInMenu);
+                        await _unitOfWork.CommitAsync();
+                        var rs = _mapper.Map<ProductInMenu, ProductInMenuResponse>(productInMenu);
+                        result.Add(rs);
                     }
                 }
-                return new ProductInMenuResponse
-                {
-                    ProductMenuId = product.Id,
-                    StoreId = product.Product.SupplierStoreId,
-                    StoreName = product.Product.SupplierStore.Name,
-                    ProductName = product.Product.Name,
-                    Image = product.Product.Image,
-                    Detail = product.Product.Detail,
-                    MenuId = product.MenuId,
-                    MenuName = product.Menu.MenuName,
-                    Price = product.Price,
-                    CreateAt = product.CreateAt,
-                    UpdateAt = product.UpdateAt
-                };
+                return result;
             }
-            catch(CrudException ex)
+            catch (CrudException ex)
             {
                 throw ex;
             }
@@ -316,6 +314,8 @@ namespace FFPT_Project.Service.Service
                 throw new CrudException(HttpStatusCode.BadRequest, "Create product error!!!!", e.Message);
             }
         }
+
+
 
         public async Task<int> DeleteProductInMenu(int productMenuId)
         {
@@ -367,6 +367,7 @@ namespace FFPT_Project.Service.Service
                     ProductMenuId = product.Id,
                     StoreId = product.Product.SupplierStoreId,
                     StoreName = product.Product.SupplierStore.Name,
+                    ProductId = product.ProductId,
                     ProductName = product.Product.Name,
                     Image = product.Product.Image,
                     Detail = product.Product.Detail,
