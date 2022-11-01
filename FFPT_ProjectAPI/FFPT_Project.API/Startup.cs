@@ -28,7 +28,6 @@ using FFPT_Project.Service.Service;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.AspNetCore3;
-using FFPT_Project.Data.Entity;
 using Hangfire;
 
 namespace FFPT_Project.API
@@ -129,6 +128,7 @@ namespace FFPT_Project.API
             builder.RegisterType<OrderService>().As<IOrderService>();
             builder.RegisterType<ProductInMenuService>().As<IProductInMenuService>();
             builder.RegisterType<ProductServices>().As<IProductServices>();
+            builder.RegisterType<SettingsService>().As<ISettingsService>();
 
             builder.RegisterGeneric(typeof(GenericRepository<>))
             .As(typeof(IGenericRepository<>))

@@ -21,6 +21,12 @@ namespace FFPT_Project.Service.Helpers
         //12h 12h30
         //2h45- 3h15
 
+        public enum OrderTypeEnum
+        {
+            AtStore = 1,
+            Delivery = 2
+        }
+
         public enum ProductStatusEnum
         {
             New = 0,
@@ -34,8 +40,10 @@ namespace FFPT_Project.Service.Helpers
             Cancel = 1,
             Pending = 2,
             Assign = 3,
-            Delivery =4,
-            Finish =5,
+            Finish = 4,
+
+            PreOrder = 7,
+            CancelPre = 8
         }
     }
 }

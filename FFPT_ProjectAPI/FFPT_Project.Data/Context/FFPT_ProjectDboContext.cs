@@ -47,16 +47,12 @@ namespace FFPT_Project.Data.Context
             {
                 entity.ToTable("Area");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CategoryName).HasMaxLength(50);
 
@@ -70,8 +66,6 @@ namespace FFPT_Project.Data.Context
             modelBuilder.Entity<ComboProduct>(entity =>
             {
                 entity.ToTable("ComboProduct");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Discount)
                     .HasMaxLength(10)
@@ -92,8 +86,6 @@ namespace FFPT_Project.Data.Context
             {
                 entity.ToTable("Customer");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.ImageUrl).HasMaxLength(255);
@@ -107,16 +99,12 @@ namespace FFPT_Project.Data.Context
             {
                 entity.ToTable("Floor");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.FloorNumber).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Menu>(entity =>
             {
                 entity.ToTable("Menu");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
 
@@ -134,8 +122,6 @@ namespace FFPT_Project.Data.Context
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.ToTable("Order");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CheckInDate).HasColumnType("datetime");
 
@@ -160,8 +146,6 @@ namespace FFPT_Project.Data.Context
             {
                 entity.ToTable("OrderDetail");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.ProductName)
                     .HasMaxLength(10)
                     .IsFixedLength();
@@ -182,8 +166,6 @@ namespace FFPT_Project.Data.Context
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Code).HasMaxLength(50);
 
@@ -214,8 +196,6 @@ namespace FFPT_Project.Data.Context
             {
                 entity.ToTable("ProductInMenu");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
 
                 entity.Property(e => e.UpdateAt).HasColumnType("datetime");
@@ -237,8 +217,6 @@ namespace FFPT_Project.Data.Context
             {
                 entity.ToTable("Room");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.RoomNumber).HasMaxLength(50);
 
                 entity.HasOne(d => d.Area)
@@ -258,8 +236,6 @@ namespace FFPT_Project.Data.Context
             {
                 entity.ToTable("Shipper");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Phone).HasMaxLength(50);
 
                 entity.Property(e => e.ShipperName).HasMaxLength(50);
@@ -268,8 +244,6 @@ namespace FFPT_Project.Data.Context
             modelBuilder.Entity<Store>(entity =>
             {
                 entity.ToTable("Store");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
 
@@ -285,8 +259,6 @@ namespace FFPT_Project.Data.Context
             modelBuilder.Entity<TimeSlot>(entity =>
             {
                 entity.ToTable("TimeSlot");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             OnModelCreatingPartial(modelBuilder);
