@@ -52,6 +52,7 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
+                        TimeSlotId= x.Menu.TimeSlotId,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
@@ -85,6 +86,7 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
+                        TimeSlotId = x.Menu.TimeSlotId,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
@@ -116,6 +118,7 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
+                        TimeSlotId = x.Menu.TimeSlotId,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
@@ -150,6 +153,7 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
+                        TimeSlotId = x.Menu.TimeSlotId,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
@@ -183,6 +187,7 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
+                        TimeSlotId = x.Menu.TimeSlotId,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
@@ -216,6 +221,7 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
+                        TimeSlotId = x.Menu.TimeSlotId,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
@@ -249,6 +255,7 @@ namespace FFPT_Project.Service.Service
                     .Select(x => new ProductInMenuResponse
                     {
                         ProductMenuId = x.Id,
+                        TimeSlotId = x.Menu.TimeSlotId,
                         StoreId = x.Product.SupplierStoreId,
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,

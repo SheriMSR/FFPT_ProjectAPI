@@ -9,6 +9,7 @@ namespace FFPT_Project.Service.DTO.Response
     public class ProductInMenuResponse
     {
         public int ProductMenuId { get; set; }
+        public int TimeSlotId { get; set; }
         public int StoreId { get; set; }
         public String? StoreName { get; set; }
         public int? ProductId { get; set; }
