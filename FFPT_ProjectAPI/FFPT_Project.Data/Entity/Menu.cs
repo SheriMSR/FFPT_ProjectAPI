@@ -13,6 +13,7 @@ namespace FFPT_Project.Data.Entity
         public int Id { get; set; }
         public string? MenuName { get; set; }
         public int? Type { get; set; }
+        public string? PicUrl { get; set; }
         public int TimeSlotId { get; set; }
         public DateTime? CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
