@@ -14,6 +14,9 @@ namespace FFPT_Project.Service.DTO.Response
         public String? StoreName { get; set; }
         public int? ProductId { get; set; }
         public String? ProductName { get; set; }
+        public string? ProductCode { get; set; }
+        public int? CategoryId { get; set; }
+        public string? CategoryName { get; set; }
         public string? Image { get; set; }
         public string? Detail { get; set; }
         public int? MenuId { get; set; }

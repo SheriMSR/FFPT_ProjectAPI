@@ -34,9 +34,9 @@ namespace FFPT_Project.API.Controllers
                 var rs = await _productInMenuService.GetProductInMenu(request, paging);
                 return Ok(rs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -53,9 +53,9 @@ namespace FFPT_Project.API.Controllers
                 var rs = await _productInMenuService.GetProductInMenuById(Id);
                 return Ok(rs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -72,9 +72,9 @@ namespace FFPT_Project.API.Controllers
                 var rs = await _productInMenuService.GetProductInMenuByStore(storeId, paging);
                 return Ok(rs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -91,9 +91,9 @@ namespace FFPT_Project.API.Controllers
                 var rs = await _productInMenuService.GetProductInMenuByMenu(menuId, paging);
                 return Ok(rs);
             }
-            catch (Exception)
+            catch (Exception ex )
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -110,9 +110,9 @@ namespace FFPT_Project.API.Controllers
                 var rs = await _productInMenuService.GetProductInMenuByTimeSlot(timeSlotId, paging);
                 return Ok(rs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -137,6 +137,25 @@ namespace FFPT_Project.API.Controllers
         }
 
         /// <summary>
+        /// Check Product
+        /// </summary>
+        /// <param name="productCode"></param>
+        /// <returns></returns>
+        [HttpGet("CheckProduct")]
+        public async Task<ActionResult<bool>> CheckProductInMenu([FromQuery] string productCode)
+        {
+            try
+            {
+                var rs = await _productInMenuService.CheckProductInMenu(productCode);
+                return Ok(rs);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Get Product Menu By Category
         /// </summary>
         /// <param name="cateId"></param>
@@ -149,9 +168,9 @@ namespace FFPT_Project.API.Controllers
                 var rs = await _productInMenuService.GetProductInMenuByCategory(cateId, timeSlotId, paging);
                 return Ok(rs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -168,9 +187,9 @@ namespace FFPT_Project.API.Controllers
                 var rs = await _productInMenuService.CreateProductInMenu(request);
                 return Ok(rs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -187,9 +206,9 @@ namespace FFPT_Project.API.Controllers
                 var rs = await _productInMenuService.UpdateProductInMenu(productInMenuId, request);
                 return Ok(rs);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -206,9 +225,9 @@ namespace FFPT_Project.API.Controllers
                 var rs = await _productInMenuService.DeleteProductInMenu(productInMenuId);
                 return Ok(rs);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
     }

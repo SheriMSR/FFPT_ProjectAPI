@@ -28,6 +28,7 @@ namespace FFPT_Project.Service.Service
         Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByCategory(int cateId, int timeSlotId, PagingRequest paging);
         Task<PagedResults<ProductInMenuResponse>> GetProductInMenuByMenu(int menuId, PagingRequest paging);
         Task<PagedResults<ProductInMenuResponse>> SearchProductInMenu(string searchString, int timeSlotId, PagingRequest paging);
+        Task<bool> CheckProductInMenu(string productCode);
         Task<List<ProductInMenuResponse>> CreateProductInMenu(CreateProductInMenuRequest request);
         Task<ProductInMenuResponse> UpdateProductInMenu(int productMenuId, UpdateProductInMenuRequest request);
         Task<int> DeleteProductInMenu(int productMenuId);
@@ -57,6 +58,9 @@ namespace FFPT_Project.Service.Service
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
                         ProductName = x.Product.Name,
+                        ProductCode = x.Product.Code,
+                        CategoryId = x.Product.CategoryId,
+                        CategoryName = x.Product.Category.CategoryName,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
                         MenuId = x.MenuId,
@@ -91,6 +95,9 @@ namespace FFPT_Project.Service.Service
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
                         ProductName = x.Product.Name,
+                        ProductCode = x.Product.Code,
+                        CategoryId = x.Product.CategoryId,
+                        CategoryName = x.Product.Category.CategoryName,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
                         MenuId = x.MenuId,
@@ -100,7 +107,15 @@ namespace FFPT_Project.Service.Service
                         UpdateAt = x.UpdateAt
                     })
                 .FirstOrDefaultAsync();
+
+                if(products == null)
+                    throw new CrudException(HttpStatusCode.NotFound, "Product Id not found!!!", productMenuId.ToString());  
+
                 return products;
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception e)
             {
@@ -112,6 +127,10 @@ namespace FFPT_Project.Service.Service
         {
             try
             {
+                var storeCheck = await _unitOfWork.Repository<Store>()
+                                        .FindAsync(x => x.Id == storeId);
+                if (storeCheck == null)
+                    throw new CrudException(HttpStatusCode.NotFound, "Store Id not found!!!", storeId.ToString());
                 var products = await _unitOfWork.Repository<ProductInMenu>().GetAll()
                     .Include(x => x.Product)
                     .Where(x => x.Product.SupplierStoreId == storeId)
@@ -123,6 +142,9 @@ namespace FFPT_Project.Service.Service
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
                         ProductName = x.Product.Name,
+                        ProductCode = x.Product.Code,
+                        CategoryId = x.Product.CategoryId,
+                        CategoryName = x.Product.Category.CategoryName,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
                         MenuId = x.MenuId,
@@ -136,6 +158,10 @@ namespace FFPT_Project.Service.Service
                 var result = PageHelper<ProductInMenuResponse>.Paging(products, paging.Page, paging.PageSize);
 
                 return result;
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception e)
             {
@@ -158,6 +184,9 @@ namespace FFPT_Project.Service.Service
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
                         ProductName = x.Product.Name,
+                        ProductCode = x.Product.Code,
+                        CategoryId = x.Product.CategoryId,
+                        CategoryName = x.Product.Category.CategoryName,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
                         MenuId = x.MenuId,
@@ -183,6 +212,7 @@ namespace FFPT_Project.Service.Service
             try
             {
                 var products = await _unitOfWork.Repository<ProductInMenu>().GetAll()
+                    .Include(x => x.Product)
                     .Where(x => x.Menu.TimeSlotId == timeSlotId)
                     .Select(x => new ProductInMenuResponse
                     {
@@ -192,6 +222,9 @@ namespace FFPT_Project.Service.Service
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
                         ProductName = x.Product.Name,
+                        ProductCode = x.Product.Code,
+                        CategoryId = x.Product.CategoryId,
+                        CategoryName = x.Product.Category.CategoryName,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
                         MenuId = x.MenuId,
@@ -217,6 +250,7 @@ namespace FFPT_Project.Service.Service
             try
             {
                 var products = await _unitOfWork.Repository<ProductInMenu>().GetAll()
+                    .Include(x => x.Product)
                     .Where(x => x.MenuId == menuId)
                     .Select(x => new ProductInMenuResponse
                     {
@@ -226,6 +260,9 @@ namespace FFPT_Project.Service.Service
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
                         ProductName = x.Product.Name,
+                        ProductCode = x.Product.Code,
+                        CategoryId = x.Product.CategoryId,
+                        CategoryName = x.Product.Category.CategoryName,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
                         MenuId = x.MenuId,
@@ -251,6 +288,7 @@ namespace FFPT_Project.Service.Service
             try
             {
                 var productInMenu = _unitOfWork.Repository<ProductInMenu>().GetAll()
+                    .Include(x => x.Product)
                     .Where(x => x.Product.Name.Contains(searchString))
                     .Select(x => new ProductInMenuResponse
                     {
@@ -260,6 +298,9 @@ namespace FFPT_Project.Service.Service
                         StoreName = x.Product.SupplierStore.Name,
                         ProductId = x.ProductId,
                         ProductName = x.Product.Name,
+                        ProductCode = x.Product.Code,
+                        CategoryId = x.Product.CategoryId,
+                        CategoryName = x.Product.Category.CategoryName,
                         Image = x.Product.Image,
                         Detail = x.Product.Detail,
                         MenuId = x.MenuId,
@@ -302,7 +343,7 @@ namespace FFPT_Project.Service.Service
                         productInMenu.MenuId = request.MenuId;
                         productInMenu.Price = item.Price;
                         productInMenu.CreateAt = DateTime.Now;
-                        productInMenu.Active = 1;
+                        productInMenu.Active = true;
 
                         await _unitOfWork.Repository<ProductInMenu>().InsertAsync(productInMenu);
                         await _unitOfWork.CommitAsync();
@@ -321,8 +362,6 @@ namespace FFPT_Project.Service.Service
                 throw new CrudException(HttpStatusCode.BadRequest, "Create product error!!!!", e.Message);
             }
         }
-
-
 
         public async Task<int> DeleteProductInMenu(int productMenuId)
         {
@@ -372,10 +411,14 @@ namespace FFPT_Project.Service.Service
                 return new ProductInMenuResponse
                 {
                     ProductMenuId = product.Id,
+                    TimeSlotId = product.Menu.TimeSlotId,
                     StoreId = product.Product.SupplierStoreId,
                     StoreName = product.Product.SupplierStore.Name,
                     ProductId = product.ProductId,
                     ProductName = product.Product.Name,
+                    ProductCode = product.Product.Code,
+                    CategoryId = product.Product.CategoryId,
+                    CategoryName = product.Product.Category.CategoryName,
                     Image = product.Product.Image,
                     Detail = product.Product.Detail,
                     MenuId = product.MenuId,
@@ -392,6 +435,29 @@ namespace FFPT_Project.Service.Service
             catch (Exception e)
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Update product error!!!!", e.Message);
+            }
+        }
+
+        public async Task<bool> CheckProductInMenu(string productCode)
+        {
+            try
+            {
+                var productCheck = await _unitOfWork.Repository<ProductInMenu>().GetAll()
+                                    .Where(x => x.Product.Code == productCode)
+                                    .FirstOrDefaultAsync();
+                var timeSlot = await _unitOfWork.Repository<TimeSlot>().GetAll()
+                                    .Where(x => TimeSpan.Compare(x.ArriveTime, DateTime.Now.TimeOfDay) >= 0 &&
+                                    TimeSpan.Compare(x.CheckoutTime, DateTime.Now.TimeOfDay) <= 0)
+                                    .FirstOrDefaultAsync();
+                if (timeSlot != null && (productCheck.Active == true && productCheck.Menu.TimeSlotId == timeSlot.Id))
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Check product error !!", e.Message);
             }
         }
     }
