@@ -5,7 +5,9 @@ using FFPT_Project.Service.DTO.Request;
 using FFPT_Project.Service.DTO.Response;
 using FFPT_Project.Service.Exceptions;
 using Hangfire;
-using QRCoder;
+using IronBarCode;
+using Microsoft.EntityFrameworkCore;
+using Reso.Sdk.Core.Custom;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,6 +15,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static FFPT_Project.Service.Helpers.Enum;
 
@@ -20,8 +23,8 @@ namespace FFPT_Project.Service.Service
 {
     public interface IOrderService
     {
-        Task<bool> CreateMailMessage(string mail);
-        Task<OrderResponse> CreateOrder(CreateOrderRequest request);
+        //Task<bool> CreateMailMessage(string mail, string orderName);
+        Task<List<OrderResponse>> CreateOrder(CreateOrderRequest request);
     }
     public class OrderService : IOrderService
     {
@@ -34,33 +37,22 @@ namespace FFPT_Project.Service.Service
             _unitOfWork = unitOfWork;
         }
 
-        //    public static QRCodeData GenerateQRCode(int orderId)
-        //    {
-        //        QRCodeGenerator qrGenerator = new QRCodeGenerator();
-        //        QRCodeData qrCodeData = qrGenerator.CreateQrCode(orderId.ToString(), QRCodeGenerator.ECCLevel.Q);
-        //        var qrCode = new QRCode(qrCodeData);
-        //        Bitmap qrCodeImage = qrCode.GetGraphic(20);
-
-        //        Set color by using Color-class types
-        //        qrCodeImage = qrCode.GetGraphic(20, Color.DarkRed, Color.PaleGreen, true);
-        //        Set color by using HTML hex color notation
-        //        qrCodeImage = qrCode.GetGraphic(20, "#000ff0", "#0ff000");
-
-        //PayloadGenerator.WiFi wifiPayload = new PayloadGenerator.WiFi("MyWiFi-SSID", "MyWiFi-Pass", PayloadGenerator.WiFi.Authentication.WPA);
-        //qrCodeData = qrGenerator.CreateQrCode(wifiPayload.ToString(), QRCodeGenerator.ECCLevel.Q);
-
-        //        return qrCodeData;
-        //    }
-
-        public async Task<bool> CreateMailMessage(string mail)
+        public async Task<bool> CreateMailMessage(int CustomerId, string orderName)
         {
-            bool success = false;
-            string to = mail;
-            string from = "mytdvse151417@fpt.edu.vn";
-            MailMessage message = new MailMessage(from, to);
+            var myBarcode = BarcodeWriter.CreateBarcode(orderName, BarcodeWriterEncoding.Code128);
+            Image myBarcodeImage = myBarcode.Image;
 
-            message.Subject = "Đơn hàng của bạn đã được đặt thành công";
-            message.Body = @"Vui lòng đưa mã QR này cho shipper để xác nhận đã giao hàng thành công nhé!";
+            var customer = _unitOfWork.Repository<Customer>().GetAll()
+                            .FirstOrDefault(x => x.Id == CustomerId);
+
+            bool success = false;
+            string to = customer.Email;
+            string from = "ffpt.ffood@gmail.com";
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "Đơn hàng " + orderName + " Đơn hàng của bạn đã được shipper tiếp nhận";
+            message.Body = @"Vui lòng đưa mã QR này cho shipper để xác nhận đã giao hàng thành công nhé!" + myBarcodeImage;
+            // $"<font style=\"vertical-align: inherit\">Cảm ơn {orderInfo.Customer.Name} đã đặt món</font></font><br />  ;
+            message.IsBodyHtml = true;
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
             SmtpServer.UseDefaultCredentials = false;
             SmtpServer.Port = 587;
@@ -79,36 +71,92 @@ namespace FFPT_Project.Service.Service
             }
             return success;
         }
-        public async Task<OrderResponse> CreateOrder(CreateOrderRequest request)
+        public async Task<List<OrderResponse>> CreateOrder(CreateOrderRequest request)
         {
             try
             {
-                string refixOrderName = "FFPT";
-                var orderCount = _unitOfWork.Repository<Order>().GetAll()
-                    .Where(x => ((DateTime)x.CheckInDate).Date.Equals(DateTime.Now.Date)).Count() + 1;
-
-                request.OrderName = refixOrderName + "-" + orderCount.ToString().PadLeft(3, '0');
-                var order = _mapper.Map<CreateOrderRequest, Order>(request);
-
-                order.OrderStatus = (int)OrderStatusEnum.Pending;
-
-                await _unitOfWork.Repository<Order>().InsertAsync(order);
-                await _unitOfWork.CommitAsync();
-                try
+                var result = new List<OrderResponse>();
+                
+                #region checkDeliveryPhone
+                string phone = request.DeliveryPhone;
+                if (phone != null)
                 {
-                    CreateMailMessage(request.CustomerEmail);
-                    BackgroundJob.Enqueue(() => CreateMailMessage(request.CustomerEmail));
-                }
-                catch (Exception e)
+                    var check = CheckVNPhoneEmail(phone);
+                    if (!check)
+                    { 
+                        throw new CrudException(HttpStatusCode.BadRequest, "Wrong Phone", phone.ToString());
+                    }
+                }                
+                #endregion
+
+                HashSet<int> listStore = new HashSet<int>();
+                foreach (var detail in request.OrderDetails)
                 {
-                    throw new Exception(e.Message);
+                    listStore.Add(detail.SupplierStoreId);
                 }
-                return _mapper.Map<Order, OrderResponse>(order);
+
+                if (request.OrderType == (int)OrderTypeEnum.Delivery)
+                {                   
+                    var shippingFee = listStore.Count() * 2000;
+                }
+                
+                foreach(var item in listStore)
+                {
+                    var order = _mapper.Map<CreateOrderRequest, Order>(request);
+                    string refixOrderName = "FFPT";
+                    var orderCount = _unitOfWork.Repository<Order>().GetAll()
+                        .Where(x => ((DateTime)x.CheckInDate).Date.Equals(DateTime.Now.Date)).Count() + 1;
+                    order.OrderName = refixOrderName + "-" + orderCount.ToString().PadLeft(3, '0');
+
+                    var orderDetail = new List<OrderDetailRequest>();
+                    foreach (var detail in request.OrderDetails)
+                    {
+                        if(detail.SupplierStoreId == item)
+                        {
+                            orderDetail.Add(detail);
+                            order.TotalAmount += (double)detail.FinalAmount; 
+                        }
+                    }
+                    request.OrderDetails = orderDetail;
+
+                    order.OrderStatus = (int)OrderStatusEnum.Pending;
+                    await _unitOfWork.Repository<Order>().InsertAsync(order);
+                    await _unitOfWork.CommitAsync();
+
+                    var miniOrder = _mapper.Map<Order, OrderResponse>(order);
+
+                    result.Add(miniOrder);
+
+                    try
+                    {
+                        CreateMailMessage(request.CustomerId, order.OrderName);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.Message);
+                    }
+                }
+                return result;
+                
+                return null;
             }
             catch (Exception e)
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Create Order Error!!!", e.InnerException?.Message);
             }
+        }
+        public static bool CheckVNPhoneEmail(string phoneNumber)
+        {
+            string strRegex = @"(^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$)";
+            Regex re = new Regex(strRegex);
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+
+            if (re.IsMatch(phoneNumber))
+            {
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

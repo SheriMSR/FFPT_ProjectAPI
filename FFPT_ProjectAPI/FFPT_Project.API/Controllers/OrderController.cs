@@ -22,7 +22,7 @@ namespace FFPT_Project.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("CreateOrder")]
-        public async Task<ActionResult<OrderResponse>> CreateOrder(CreateOrderRequest request)
+        public async Task<ActionResult<List<OrderResponse>>> CreateOrder([FromBody] CreateOrderRequest request)
         {
             try
             {
@@ -32,26 +32,27 @@ namespace FFPT_Project.API.Controllers
             catch(Exception ex)
             {
                 throw new Exception(ex.Message)
-;            }
+;           }
         }
 
         /// <summary>
         /// Send QR to mail
         /// </summary>
         /// <param name="mail"></param>
+        /// <param name="orderName"></param>
         /// <returns></returns>
-        [HttpPost("SendQRToMail")]
-        public async Task<ActionResult> CreateMailMessage(string mail)
-        {
-            try
-            {
-                var result = await _orderService.CreateMailMessage(mail);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        //[HttpPost("SendQRToMail")]
+        //public async Task<ActionResult> CreateMailMessage(string mail, string orderName)
+        //{
+        //    try
+        //    {
+        //        var result = await _orderService.CreateMailMessage(mail, orderName);
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
     }
 }

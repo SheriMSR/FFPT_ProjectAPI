@@ -28,6 +28,8 @@ namespace FFPT_Project.API.Mapper
 
             #region Order
             CreateMap<Order, OrderResponse>().ReverseMap();
+            CreateMap<OrderDetail, OrderDetailResponse>().ReverseMap();
+            CreateMap<OrderDetailRequest, OrderDetail>();
             CreateMap<CreateOrderRequest, Order>();
             CreateMap<CreateOrderRequest, Order>()
             .ForMember(c => c.Customer, option => option.Ignore())
