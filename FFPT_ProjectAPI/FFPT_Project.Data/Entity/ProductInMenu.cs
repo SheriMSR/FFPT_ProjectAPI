@@ -14,7 +14,7 @@ namespace FFPT_Project.Data.Entity
         public int ProductId { get; set; }
         public int MenuId { get; set; }
         public double? Price { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
         public DateTime? CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
 

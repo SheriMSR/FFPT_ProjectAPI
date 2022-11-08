@@ -9,6 +9,7 @@ using IronBarCode;
 using Microsoft.EntityFrameworkCore;
 using Reso.Sdk.Core.Custom;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -75,6 +76,7 @@ namespace FFPT_Project.Service.Service
         {
             try
             {
+                var order = _mapper.Map<CreateOrderRequest, Order>(request);
                 var result = new List<OrderResponse>();
                 
                 #region checkDeliveryPhone
@@ -97,29 +99,29 @@ namespace FFPT_Project.Service.Service
 
                 if (request.OrderType == (int)OrderTypeEnum.Delivery)
                 {                   
-                    var shippingFee = listStore.Count() * 2000;
+                    order.ShippingFee = listStore.Count() * 2000;
                 }
                 
                 foreach(var item in listStore)
                 {
-                    var order = _mapper.Map<CreateOrderRequest, Order>(request);
+                    
                     string refixOrderName = "FFPT";
                     var orderCount = _unitOfWork.Repository<Order>().GetAll()
                         .Where(x => ((DateTime)x.CheckInDate).Date.Equals(DateTime.Now.Date)).Count() + 1;
                     order.OrderName = refixOrderName + "-" + orderCount.ToString().PadLeft(3, '0');
 
-                    var orderDetail = new List<OrderDetailRequest>();
                     foreach (var detail in request.OrderDetails)
                     {
-                        if(detail.SupplierStoreId == item)
+                        if (detail.SupplierStoreId == item)
                         {
-                            orderDetail.Add(detail);
-                            order.TotalAmount += (double)detail.FinalAmount; 
+                            order.TotalAmount += (double)detail.FinalAmount;
+                            var orderDetail = _mapper.Map<OrderDetailRequest, OrderDetail>(detail);
+                            order.OrderDetails.Add(orderDetail);
                         }
                     }
-                    request.OrderDetails = orderDetail;
 
-                    order.OrderStatus = (int)OrderStatusEnum.Pending;
+                    order.CheckInDate = DateTime.Now;
+                    order.OrderStatus = (int)OrderStatusEnum.Pending;             
                     await _unitOfWork.Repository<Order>().InsertAsync(order);
                     await _unitOfWork.CommitAsync();
 
@@ -139,6 +141,10 @@ namespace FFPT_Project.Service.Service
                 return result;
                 
                 return null;
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception e)
             {
