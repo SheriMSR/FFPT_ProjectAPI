@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Castle.Core.Resource;
 using Chilkat;
 using FFPT_Project.Data.Entity;
@@ -6,8 +7,10 @@ using FFPT_Project.Data.UnitOfWork;
 using FFPT_Project.Service.DTO.Request;
 using FFPT_Project.Service.DTO.Response;
 using FFPT_Project.Service.Exceptions;
+using FFPT_Project.Service.Helpers;
 using Hangfire;
 using IronBarCode;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Reso.Sdk.Core.Custom;
 using System;
@@ -17,6 +20,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -28,6 +32,8 @@ namespace FFPT_Project.Service.Service
     {
         //Task<bool> CreateMailMessage(string mail, string orderName);
         Task<List<OrderResponse>> CreateOrder(CreateOrderRequest request);
+        Task<PagedResults<OrderResponse>> GetOrderByOrderStatus(OrderStatusEnum orderStatus, int customerId, PagingRequest paging);
+        Task<PagedResults<OrderResponse>> GetOrders(PagingRequest paging);
     }
     public class OrderService : IOrderService
     {
@@ -167,6 +173,38 @@ namespace FFPT_Project.Service.Service
             }
             else
                 return false;
+        }
+
+        public async Task<PagedResults<OrderResponse>> GetOrderByOrderStatus(OrderStatusEnum orderStatus, int customerId, PagingRequest paging)
+        {
+            try
+            {
+                var order = await _unitOfWork.Repository<Order>().GetAll()
+                            .Where(x => x.OrderStatus == (int)orderStatus
+                            && x.Customer.Id == customerId)
+                            .ProjectTo<OrderResponse>(_mapper.ConfigurationProvider)
+                            .ToListAsync();
+                return PageHelper<OrderResponse>.Paging(order, paging.Page, paging.PageSize);
+            }
+            catch (Exception ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Error", ex.Message);
+            }
+        }
+
+        public async Task<PagedResults<OrderResponse>> GetOrders(PagingRequest paging)
+        {
+            try
+            {
+                var order = await _unitOfWork.Repository<Order>().GetAll()
+                            .ProjectTo<OrderResponse>(_mapper.ConfigurationProvider)
+                            .ToListAsync();
+                return PageHelper<OrderResponse>.Paging(order, paging.Page, paging.PageSize);
+            }
+            catch (Exception ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Error", ex.Message);
+            }
         }
     }
 }

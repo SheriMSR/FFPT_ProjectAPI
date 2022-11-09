@@ -2,6 +2,7 @@
 using FFPT_Project.Service.DTO.Response;
 using FFPT_Project.Service.Service;
 using Microsoft.AspNetCore.Mvc;
+using static FFPT_Project.Service.Helpers.Enum;
 
 namespace FFPT_Project.API.Controllers
 {
@@ -54,5 +55,42 @@ namespace FFPT_Project.API.Controllers
         //        throw new Exception(ex.Message);
         //    }
         //}
+        /// <summary>
+        /// Get List Orders By Order Status
+        /// </summary>
+        /// <param name="paging"></param>
+        /// <returns></returns>
+        [HttpGet("GetListOrderByOrderStatus")]
+        public async Task<ActionResult<PagedResults<OrderResponse>>> GetOrderByOrderStatus([FromQuery]OrderStatusEnum orderStatus, [FromQuery] int customerId, [FromQuery] PagingRequest paging)
+        {
+            try
+            {
+                var rs = await _orderService.GetOrderByOrderStatus(orderStatus, customerId, paging);
+                return Ok(rs);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get List Orders
+        /// </summary>
+        /// <param name="paging"></param>
+        /// <returns></returns>
+        [HttpGet("GetListOrders")]
+        public async Task<ActionResult<PagedResults<OrderResponse>>> GetOrders([FromQuery] PagingRequest paging)
+        {
+            try
+            {
+                var rs = await _orderService.GetOrders(paging);
+                return Ok(rs);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
