@@ -28,6 +28,7 @@ namespace FFPT_Project.Service.DTO.Response
     public class OrderDetailResponse
     {
         public string ProductName { get; set; } = null!;
+        public string? Image { get; set; }
         public int Quantity { get; set; }
         public double FinalAmount { get; set; }
         public int Status { get; set; }
