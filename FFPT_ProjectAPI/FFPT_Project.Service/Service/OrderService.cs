@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Castle.Core.Resource;
+using Chilkat;
 using FFPT_Project.Data.Entity;
 using FFPT_Project.Data.UnitOfWork;
 using FFPT_Project.Service.DTO.Request;
@@ -38,16 +40,13 @@ namespace FFPT_Project.Service.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> CreateMailMessage(int CustomerId, string orderName)
+        public async Task<bool> CreateMailMessage(string customerEmail, string orderName)
         {
             var myBarcode = BarcodeWriter.CreateBarcode(orderName, BarcodeWriterEncoding.Code128);
             Image myBarcodeImage = myBarcode.Image;
 
-            var customer = _unitOfWork.Repository<Customer>().GetAll()
-                            .FirstOrDefault(x => x.Id == CustomerId);
-
             bool success = false;
-            string to = customer.Email;
+            string to = customerEmail;
             string from = "ffpt.ffood@gmail.com";
             MailMessage message = new MailMessage(from, to);
             message.Subject = "Đơn hàng " + orderName + " Đơn hàng của bạn đã được shipper tiếp nhận";
@@ -80,15 +79,21 @@ namespace FFPT_Project.Service.Service
                 var result = new List<OrderResponse>();
                 
                 #region checkDeliveryPhone
-                string phone = request.DeliveryPhone;
-                if (phone != null)
+                var customer = _unitOfWork.Repository<Customer>().GetAll()
+                .FirstOrDefault(x => x.Id == request.CustomerId);
+
+                if (request.DeliveryPhone != null)
                 {
-                    var check = CheckVNPhoneEmail(phone);
-                    if (!check)
-                    { 
-                        throw new CrudException(HttpStatusCode.BadRequest, "Wrong Phone", phone.ToString());
+                    var check = CheckVNPhoneEmail(request.DeliveryPhone);
+                    if (check)
+                    {
+                        order.DeliveryPhone = request.DeliveryPhone;
                     }
-                }                
+                }
+                else
+                {
+                    order.DeliveryPhone = customer.Phone;
+                }
                 #endregion
 
                 HashSet<int> listStore = new HashSet<int>();
@@ -103,8 +108,7 @@ namespace FFPT_Project.Service.Service
                 }
                 
                 foreach(var item in listStore)
-                {
-                    
+                {                  
                     string refixOrderName = "FFPT";
                     var orderCount = _unitOfWork.Repository<Order>().GetAll()
                         .Where(x => ((DateTime)x.CheckInDate).Date.Equals(DateTime.Now.Date)).Count() + 1;
@@ -131,7 +135,7 @@ namespace FFPT_Project.Service.Service
 
                     try
                     {
-                        CreateMailMessage(request.CustomerId, order.OrderName);
+                        CreateMailMessage(customer.Email, order.OrderName);
                     }
                     catch (Exception e)
                     {

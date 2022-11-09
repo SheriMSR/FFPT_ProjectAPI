@@ -21,10 +21,10 @@ namespace FFPT_Project.Data.Entity
         public string? DeliveryPhone { get; set; }
         public int OrderType { get; set; }
         public int TimeSlotId { get; set; }
-        public int RoomId { get; set; }
+        public int? RoomId { get; set; }
 
         public virtual Customer Customer { get; set; } = null!;
-        public virtual Room Room { get; set; } = null!;
+        public virtual Room? Room { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

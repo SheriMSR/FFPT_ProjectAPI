@@ -138,7 +138,6 @@ namespace FFPT_Project.Data.Context
                 entity.HasOne(d => d.Room)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.RoomId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Order_Room1");
             });
 
