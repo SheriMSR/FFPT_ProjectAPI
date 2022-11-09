@@ -1,4 +1,6 @@
-﻿using FFPT_Project.Service.DTO.Request;
+﻿using Azure.Core;
+using FFPT_Project.Data.Entity;
+using FFPT_Project.Service.DTO.Request;
 using FFPT_Project.Service.DTO.Response;
 using FFPT_Project.Service.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -91,6 +93,25 @@ namespace FFPT_Project.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        /// <summary>
+        /// Update Order 
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="orderStatus"></param>
+        /// <returns></returns>
+        [HttpGet("UpdateOrderStatus")]
+        public async Task<ActionResult<OrderResponse>> UpdateOrderStatus([FromQuery] int orderId, [FromBody] OrderStatusEnum orderStatus)
+        {
+            try
+            {
+                var rs = await _orderService.UpdateOrderStatus(orderId, orderStatus);
+                return Ok(rs);
+    }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+}
         }
     }
 }

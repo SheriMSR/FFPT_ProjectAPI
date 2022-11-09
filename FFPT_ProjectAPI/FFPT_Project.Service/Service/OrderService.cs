@@ -34,6 +34,7 @@ namespace FFPT_Project.Service.Service
         Task<List<OrderResponse>> CreateOrder(CreateOrderRequest request);
         Task<PagedResults<OrderResponse>> GetOrderByOrderStatus(OrderStatusEnum orderStatus, int customerId, PagingRequest paging);
         Task<PagedResults<OrderResponse>> GetOrders(PagingRequest paging);
+        Task<OrderResponse> UpdateOrderStatus (int orderId, OrderStatusEnum orderStatus);
     }
     public class OrderService : IOrderService
     {
@@ -206,6 +207,27 @@ namespace FFPT_Project.Service.Service
                 throw new CrudException(HttpStatusCode.BadRequest, "Error", ex.Message);
             }
         }
+
+        public async Task<OrderResponse> UpdateOrderStatus(int orderId, OrderStatusEnum orderStatus)
+        {
+            try
+            {
+                var order = await _unitOfWork.Repository<Order>().GetAll()
+                            .Where(x => x.Id == orderId)
+                            .FirstOrDefaultAsync();
+                order.OrderStatus = (int)orderStatus;
+
+                await _unitOfWork.Repository<Order>().UpdateDetached(order);
+                await _unitOfWork.CommitAsync();
+
+                return _mapper.Map<OrderResponse>(order);
+            }
+            catch (Exception e)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Error", e.Message);
+            }
+        }
+
     }
 }
 
