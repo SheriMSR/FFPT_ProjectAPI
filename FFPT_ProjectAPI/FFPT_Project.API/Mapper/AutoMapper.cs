@@ -33,8 +33,7 @@ namespace FFPT_Project.API.Mapper
             CreateMap<CreateOrderRequest, Order>();
             CreateMap<CreateOrderRequest, Order>()
             .ForMember(c => c.Customer, option => option.Ignore())
-            .ForMember(c => c.Room, option => option.Ignore())
-            .ForMember(c => c.OrderDetails, option => option.Ignore());
+            .ForMember(c => c.Room, option => option.Ignore());
             #endregion
 
             #region Product
@@ -49,7 +48,7 @@ namespace FFPT_Project.API.Mapper
             CreateMap<UpdateProductInMenuRequest, ProductInMenu>();
             #endregion
 
-            #region
+            #region settings
             CreateMap<TimeSlot, TimeslotResponse>().ReverseMap();
             #endregion
         }

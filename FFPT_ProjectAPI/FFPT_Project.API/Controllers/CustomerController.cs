@@ -36,7 +36,7 @@ namespace FFPT_Project.API.Controllers
         }
 
         /// <summary>
-        /// Update Product
+        /// Update Customer
         /// </summary>
         /// <param name="id"></param>
         /// <param name="request"></param>

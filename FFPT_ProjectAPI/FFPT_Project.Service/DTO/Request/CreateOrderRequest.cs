@@ -20,7 +20,6 @@ namespace FFPT_Project.Service.DTO.Request
     public class OrderDetailRequest
     {
         public int ProductInMenuId { get; set; }
-        public string ProductName { get; set; }
         public int TimeSlotId { get; set; }
         public int Quantity { get; set; }
         public double? FinalAmount { get; set; }

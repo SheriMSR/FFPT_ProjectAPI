@@ -38,18 +38,17 @@ namespace FFPT_Project.API.Controllers
 ;           }
         }
 
-        /// <summary>
-        /// Send QR to mail
-        /// </summary>
-        /// <param name="mail"></param>
-        /// <param name="orderName"></param>
-        /// <returns></returns>
+        ///// <summary>
+        ///// Send QR to mail
+        ///// </summary>
+        ///// <param name="orderId"></param>
+        ///// <returns></returns>
         //[HttpPost("SendQRToMail")]
-        //public async Task<ActionResult> CreateMailMessage(string mail, string orderName)
+        //public async Task<ActionResult> CreateMailMessage(int orderId)
         //{
         //    try
         //    {
-        //        var result = await _orderService.CreateMailMessage(mail, orderName);
+        //        var result = _orderService.CreateMailMessage(orderId);
         //        return Ok(result);
         //    }
         //    catch (Exception ex)
@@ -57,6 +56,7 @@ namespace FFPT_Project.API.Controllers
         //        throw new Exception(ex.Message);
         //    }
         //}
+
         /// <summary>
         /// Get List Orders By Order Status
         /// </summary>

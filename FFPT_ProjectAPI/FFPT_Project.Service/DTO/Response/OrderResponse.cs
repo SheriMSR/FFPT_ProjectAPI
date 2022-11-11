@@ -10,7 +10,6 @@ namespace FFPT_Project.Service.DTO.Response
 {
     public class OrderResponse
     {
-        public int Id { get; set; }
         public string? OrderName { get; set; }
         public DateTime CheckInDate { get; set; }
         public double TotalAmount { get; set; }
@@ -21,7 +20,9 @@ namespace FFPT_Project.Service.DTO.Response
         public int OrderType { get; set; }
         public int TimeSlotId { get; set; }
         public int RoomId { get; set; }
+        public string? RoomNumber { get; set; }
         public int SupplierStoreId { get; set; }
+        public string StoreName { get; set; }
         public CustomerResponse CustomerInfo { get; set; }
         public virtual ICollection<OrderDetailResponse> OrderDetails { get; set; }
     }

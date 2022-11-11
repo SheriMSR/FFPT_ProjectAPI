@@ -146,7 +146,7 @@ namespace FFPT_Project.Data.Context
                 entity.ToTable("OrderDetail");
 
                 entity.Property(e => e.ProductName)
-                    .HasMaxLength(10)
+                    .HasMaxLength(255)
                     .IsFixedLength();
 
                 entity.HasOne(d => d.Order)
