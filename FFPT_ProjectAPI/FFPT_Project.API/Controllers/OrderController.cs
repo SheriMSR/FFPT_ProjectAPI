@@ -32,10 +32,11 @@ namespace FFPT_Project.API.Controllers
                 var result = await _orderService.CreateOrder(request);
                 return Ok(result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message)
-;           }
+;
+            }
         }
 
         ///// <summary>
@@ -80,7 +81,7 @@ namespace FFPT_Project.API.Controllers
         /// <param name="paging"></param>
         /// <returns></returns>
         [HttpGet("GetListOrderByOrderStatus")]
-        public async Task<ActionResult<PagedResults<OrderResponse>>> GetOrderByOrderStatus([FromQuery]OrderStatusEnum orderStatus, [FromQuery] int customerId, [FromQuery] PagingRequest paging)
+        public async Task<ActionResult<PagedResults<OrderResponse>>> GetOrderByOrderStatus([FromQuery] OrderStatusEnum orderStatus, [FromQuery] int customerId, [FromQuery] PagingRequest paging)
         {
             try
             {
@@ -97,7 +98,7 @@ namespace FFPT_Project.API.Controllers
         /// Get Order By Id
         /// </summary>
         [HttpGet("{Id}")]
-        public async Task<ActionResult<PagedResults<OrderResponse>>> GetOrderById( int Id)
+        public async Task<ActionResult<PagedResults<OrderResponse>>> GetOrderById(int Id)
         {
             try
             {
@@ -113,6 +114,7 @@ namespace FFPT_Project.API.Controllers
         /// <summary>
         /// Update Order 
         /// </summary>
+
         [HttpPut("{orderId}")]
         public async Task<ActionResult<OrderResponse>> UpdateOrderStatus(int orderId, OrderStatusEnum orderStatus)
         {
@@ -120,11 +122,30 @@ namespace FFPT_Project.API.Controllers
             {
                 var rs = await _orderService.UpdateOrderStatus(orderId, orderStatus);
                 return Ok(rs);
-    }
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-}
+            }
+        }
+
+        /// <summary>
+        /// get to update order status
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        [HttpGet("OrderFinish")]
+        public async Task<ActionResult<OrderResponse>> GetToUpdateOrderStatus([FromQuery] int orderId)
+        {
+            try
+            {
+                var rs = await _orderService.GetToUpdateOrderStatus(orderId);
+                return Ok(rs);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

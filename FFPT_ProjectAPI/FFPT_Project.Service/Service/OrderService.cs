@@ -30,6 +30,7 @@ namespace FFPT_Project.Service.Service
         Task<PagedResults<OrderResponse>> GetOrders(PagingRequest paging);
         Task<OrderResponse> GetOrderById(int orderId);
         Task<OrderResponse> UpdateOrderStatus(int orderId, OrderStatusEnum orderStatus);
+        Task<OrderResponse> GetToUpdateOrderStatus(int orderId);
     }
     public class OrderService : IOrderService
     {
@@ -71,7 +72,7 @@ namespace FFPT_Project.Service.Service
         }
         public async Task<bool> CreateMailMessage(OrderResponse order)
         {
-            GeneratedBarcode Qrcode = IronBarCode.QRCodeWriter.CreateQrCode($"https://ffptprojectapi20221008031045.azurewebsites.net/api/v1.0/order/UpdateOrderStatus?orderId={order.Id}&orderStatus=4");
+            GeneratedBarcode Qrcode = IronBarCode.QRCodeWriter.CreateQrCode($"https://ffptprojectapi20221008031045.azurewebsites.net/api/v1.0/order/OrderFinish?orderId={order.Id}");
             Qrcode.AddAnnotationTextAboveBarcode("Scan me o((>ω< ))o");
             Qrcode.SaveAsPng("MyBarCode.png");
 
@@ -108,6 +109,25 @@ namespace FFPT_Project.Service.Service
                 throw new Exception(ex.Message);
             }
             return success;
+        }
+        public async Task<OrderResponse> GetToUpdateOrderStatus(int orderId )
+        {
+            try
+            {
+                var order = await _unitOfWork.Repository<Order>().GetAll()
+                            .Where(x => x.Id == orderId)
+                            .FirstOrDefaultAsync();
+                order.OrderStatus = (int)OrderStatusEnum.Finish;
+
+                await _unitOfWork.Repository<Order>().UpdateDetached(order);
+                await _unitOfWork.CommitAsync();
+
+                return _mapper.Map<OrderResponse>(order);
+            }
+            catch (Exception e)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Error", e.Message);
+            }
         }
         public async Task<List<OrderResponse>> CreateOrder(CreateOrderRequest request)
         {
