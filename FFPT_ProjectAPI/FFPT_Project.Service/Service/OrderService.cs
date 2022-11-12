@@ -170,7 +170,7 @@ namespace FFPT_Project.Service.Service
                     #endregion
                     order.ShippingFee = feeShipping;
                     order.FinalAmount = (double)(order.TotalAmount + order.ShippingFee);
-                    order.OrderStatus = (int)OrderStatusEnum.PreOrder;
+                    order.OrderStatus = (int)OrderStatusEnum.Pending;
                     order.OrderType = request.OrderType;
 
                     order.TimeSlotId = request.TimeSlotId;
@@ -285,7 +285,7 @@ namespace FFPT_Project.Service.Service
             try
             {
                 var orderList =  _unitOfWork.Repository<Order>().GetAll()
-                            .ToList();
+                                 .ToList();
 
                 List<OrderResponse> result = new List<OrderResponse>();
                 foreach (var order in orderList)
