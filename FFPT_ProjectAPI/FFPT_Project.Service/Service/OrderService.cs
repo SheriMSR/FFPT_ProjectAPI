@@ -27,6 +27,7 @@ namespace FFPT_Project.Service.Service
         //Task<bool> CreateMailMessage(int order);
         Task<List<OrderResponse>> CreateOrder(CreateOrderRequest request);
         Task<PagedResults<OrderResponse>> GetOrderByOrderStatus(OrderStatusEnum orderStatus, int customerId, PagingRequest paging);
+        Task<PagedResults<OrderResponse>> GetOrders(PagingRequest paging);
         Task<OrderResponse> GetOrderById(int orderId);
         Task<OrderResponse> UpdateOrderStatus(int orderId, OrderStatusEnum orderStatus);
     }
@@ -278,6 +279,47 @@ namespace FFPT_Project.Service.Service
             else
                 return false;
         }
+
+        public async Task<PagedResults<OrderResponse>> GetOrders( PagingRequest paging)
+        {
+            try
+            {
+                var orderList = await _unitOfWork.Repository<Order>().GetAll()
+                            .ToListAsync();
+
+                List<OrderResponse> result = new List<OrderResponse>();
+                foreach (var order in orderList)
+                {
+                    var store = order.OrderDetails.FirstOrDefault().ProductInMenu.Product;
+                    var orderDetail = _mapper.Map<OrderDetail, List<OrderDetailResponse>>((OrderDetail)order.OrderDetails);
+                    var customerResult = _mapper.Map<Customer, CustomerResponse>(order.Customer);
+                    var orderResult = new OrderResponse()
+                    {
+                        Id = order.Id,
+                        OrderName = order.OrderName,
+                        CheckInDate = order.CheckInDate,
+                        TotalAmount = order.TotalAmount,
+                        ShippingFee = order.ShippingFee,
+                        FinalAmount = order.FinalAmount,
+                        OrderStatus = order.OrderStatus,
+                        DeliveryPhone = order.DeliveryPhone,
+                        OrderType = order.OrderType,
+                        TimeSlotId = order.TimeSlotId,
+                        RoomId = (int)order.RoomId,
+                        RoomNumber = order.Room.RoomNumber,
+                        SupplierStoreId = store.SupplierStoreId,
+                        StoreName = store.Name,
+                        CustomerInfo = customerResult,
+                        OrderDetails = orderDetail
+                    };
+                }
+                return PageHelper<OrderResponse>.Paging(result, paging.Page, paging.PageSize);
+            }
+            catch (Exception ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Error", ex.Message);
+            }
+        }
         public async Task<PagedResults<OrderResponse>> GetOrderByOrderStatus(OrderStatusEnum orderStatus, int customerId, PagingRequest paging)
         {
             try
@@ -320,40 +362,6 @@ namespace FFPT_Project.Service.Service
                 throw new CrudException(HttpStatusCode.BadRequest, "Error", ex.Message);
             }
         }
-
-        //public async Task<PagedResults<OrderResponse>> GetOrders(PagingRequest paging)
-        //{
-        //    try
-        //    {
-        //        var order = await _unitOfWork.Repository<Order>().GetAll()
-        //                                        .ToListAsync();
-        //        var orderResult = new OrderResponse()
-        //        {
-        //            Id = order.Id,
-        //            OrderName = x.OrderName,
-        //            CheckInDate = x.CheckInDate,
-        //            TotalAmount = x.TotalAmount,
-        //            ShippingFee = x.ShippingFee,
-        //            FinalAmount = x.FinalAmount,
-        //            OrderStatus = x.OrderStatus,
-        //            DeliveryPhone = x.DeliveryPhone,
-        //            OrderType = x.OrderType,
-        //            TimeSlotId = x.TimeSlotId,
-        //            RoomId = (int)x.RoomId,
-        //            RoomNumber = x.Room.RoomNumber,
-        //            SupplierStoreId = storeId,
-        //            StoreName = storeResult.Name,
-        //            CustomerInfo = customerResult,
-        //            OrderDetails = listOrderDetailResponse
-        //        };
-
-        //        return PageHelper<OrderResponse>.Paging(order, paging.Page, paging.PageSize);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CrudException(HttpStatusCode.BadRequest, "Error", ex.Message);
-        //    }
-        //}
 
         public async Task<OrderResponse> UpdateOrderStatus(int orderId, OrderStatusEnum orderStatus)
         {
