@@ -113,11 +113,8 @@ namespace FFPT_Project.API.Controllers
         /// <summary>
         /// Update Order 
         /// </summary>
-        /// <param name="orderId"></param>
-        /// <param name="orderStatus"></param>
-        /// <returns></returns>
-        [HttpPut("UpdateOrderStatus")]
-        public async Task<ActionResult<OrderResponse>> UpdateOrderStatus([FromQuery] int orderId, [FromQuery] OrderStatusEnum orderStatus)
+        [HttpPut("{orderId}")]
+        public async Task<ActionResult<OrderResponse>> UpdateOrderStatus(int orderId, OrderStatusEnum orderStatus)
         {
             try
             {
