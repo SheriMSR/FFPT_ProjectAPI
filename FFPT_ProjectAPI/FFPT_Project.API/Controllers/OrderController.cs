@@ -77,16 +77,14 @@ namespace FFPT_Project.API.Controllers
         }
 
         /// <summary>
-        /// Get List Orders
+        /// Get Order By Id
         /// </summary>
-        /// <param name="paging"></param>
-        /// <returns></returns>
-        [HttpGet("GetListOrders")]
-        public async Task<ActionResult<PagedResults<OrderResponse>>> GetOrders([FromQuery] PagingRequest paging)
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<PagedResults<OrderResponse>>> GetOrders([FromQuery] int Id)
         {
             try
             {
-                var rs = await _orderService.GetOrders(paging);
+                var rs = await _orderService.GetOrderById(Id);
                 return Ok(rs);
             }
             catch (Exception ex)
@@ -94,6 +92,7 @@ namespace FFPT_Project.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         /// <summary>
         /// Update Order 
         /// </summary>
