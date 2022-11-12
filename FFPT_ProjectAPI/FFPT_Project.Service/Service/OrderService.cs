@@ -284,8 +284,8 @@ namespace FFPT_Project.Service.Service
         {
             try
             {
-                var orderList = await _unitOfWork.Repository<Order>().GetAll()
-                            .ToListAsync();
+                var orderList =  _unitOfWork.Repository<Order>().GetAll()
+                            .ToList();
 
                 List<OrderResponse> result = new List<OrderResponse>();
                 foreach (var order in orderList)
