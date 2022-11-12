@@ -290,8 +290,9 @@ namespace FFPT_Project.Service.Service
                 List<OrderResponse> result = new List<OrderResponse>();
                 foreach (var order in orderList)
                 {
-                    var store = order.OrderDetails.FirstOrDefault().ProductInMenu.Product;
-                    var orderDetail = _mapper.Map<OrderDetail, List<OrderDetailResponse>>((OrderDetail)order.OrderDetails);
+                    var product = order.OrderDetails.FirstOrDefault().ProductInMenu.Product;
+                    var store = _unitOfWork.Repository<Store>().Find(x => x.Id == product.SupplierStoreId);
+                    var orderDetail = _mapper.Map<List<OrderDetailResponse>>(order.OrderDetails);
                     var customerResult = _mapper.Map<Customer, CustomerResponse>(order.Customer);
                     var orderResult = new OrderResponse()
                     {
@@ -307,11 +308,12 @@ namespace FFPT_Project.Service.Service
                         TimeSlotId = order.TimeSlotId,
                         RoomId = (int)order.RoomId,
                         RoomNumber = order.Room.RoomNumber,
-                        SupplierStoreId = store.SupplierStoreId,
+                        SupplierStoreId = store.Id,
                         StoreName = store.Name,
                         CustomerInfo = customerResult,
                         OrderDetails = orderDetail
                     };
+                    result.Add(orderResult);
                 }
                 return PageHelper<OrderResponse>.Paging(result, paging.Page, paging.PageSize);
             }
@@ -324,16 +326,17 @@ namespace FFPT_Project.Service.Service
         {
             try
             {
-                var orderList = await _unitOfWork.Repository<Order>().GetAll()
+                var orderList = _unitOfWork.Repository<Order>().GetAll()
                             .Where(x => x.OrderStatus == (int)orderStatus
                             && x.Customer.Id == customerId)
-                            .ToListAsync();
+                            .ToList();
 
                 List<OrderResponse> result = new List<OrderResponse>();
                 foreach (var order in orderList)
                 {
-                    var store = order.OrderDetails.FirstOrDefault().ProductInMenu.Product;
-                    var orderDetail = _mapper.Map<OrderDetail, List<OrderDetailResponse>>((OrderDetail)order.OrderDetails);
+                    var product = order.OrderDetails.FirstOrDefault().ProductInMenu.Product;
+                    var store = _unitOfWork.Repository<Store>().Find(x => x.Id == product.SupplierStoreId);
+                    var orderDetail = _mapper.Map<List<OrderDetailResponse>>(order.OrderDetails);
                     var customerResult = _mapper.Map<Customer, CustomerResponse>(order.Customer);
                     var orderResult = new OrderResponse()
                     {
@@ -349,11 +352,12 @@ namespace FFPT_Project.Service.Service
                         TimeSlotId = order.TimeSlotId,
                         RoomId = (int)order.RoomId,
                         RoomNumber = order.Room.RoomNumber,
-                        SupplierStoreId = store.SupplierStoreId,
+                        SupplierStoreId = store.Id,
                         StoreName = store.Name,
                         CustomerInfo = customerResult,
                         OrderDetails = orderDetail
                     };
+                    result.Add(orderResult);
                 }
                 return PageHelper<OrderResponse>.Paging(result, paging.Page, paging.PageSize);
             }
