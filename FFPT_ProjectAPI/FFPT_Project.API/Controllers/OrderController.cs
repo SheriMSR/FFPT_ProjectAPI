@@ -39,6 +39,26 @@ namespace FFPT_Project.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Create PreOrder
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("PreOrder")]
+        public async Task<ActionResult<double>> CreatePreOrder([FromBody] CreateOrderRequest request)
+        {
+            try
+            {
+                var result = await _orderService.CreatePreOrder(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message)
+;
+            }
+        }
+
         ///// <summary>
         ///// Send QR to mail
         ///// </summary>

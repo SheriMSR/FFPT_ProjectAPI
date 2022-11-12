@@ -306,72 +306,6 @@
         "parameters": [
           {
             "in": "query",
-            "name": "Id",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "Name",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "Image",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "Price",
-            "type": "number",
-            "format": "double"
-          },
-          {
-            "in": "query",
-            "name": "Detail",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "Status"
-          },
-          {
-            "in": "query",
-            "name": "CreateAt",
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "in": "query",
-            "name": "UpdatedAt",
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "in": "query",
-            "name": "CategoryId",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "Quantity",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "SupplierStoreId",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "Code",
-            "type": "string"
-          },
-          {
-            "in": "query",
             "name": "Page",
             "type": "integer",
             "format": "int32"
@@ -415,6 +349,11 @@
         "tags": [
           "Product"
         ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
         "produces": [
           "text/plain",
           "application/json",
@@ -422,48 +361,11 @@
         ],
         "parameters": [
           {
-            "in": "query",
-            "name": "Code",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "Name",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "Image",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "Price",
-            "type": "number",
-            "format": "double"
-          },
-          {
-            "in": "query",
-            "name": "Detail",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "CategoryId",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "Quantity",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "SupplierStoreId",
-            "type": "integer",
-            "format": "int32"
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateProductRequest"
+            }
           }
         ],
         "responses": {
@@ -479,6 +381,11 @@
         "tags": [
           "Product"
         ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
         "produces": [
           "text/plain",
           "application/json",
@@ -492,48 +399,11 @@
             "format": "int32"
           },
           {
-            "in": "query",
-            "name": "Name",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "Image",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "Price",
-            "type": "number",
-            "format": "double"
-          },
-          {
-            "in": "query",
-            "name": "Detail",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "CategoryId",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "Quantity",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "SupplierStoreId",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "Code",
-            "type": "string"
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateProductRequest"
+            }
           }
         ],
         "responses": {
@@ -546,7 +416,7 @@
         }
       }
     },
-    "/api/v1.0/product/{id}": {
+    "/api/v1.0/product/GetProductByCode": {
       "get": {
         "tags": [
           "Product"
@@ -559,79 +429,7 @@
         "parameters": [
           {
             "in": "query",
-            "name": "id",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/ProductResponse"
-            }
-          }
-        }
-      }
-    },
-    "/api/v1.0/product/GetProductByStore/{storeId}": {
-      "get": {
-        "tags": [
-          "Product"
-        ],
-        "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "storeId",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "Page",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "PageSize",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "KeySearch",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "SearchBy",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "SortType"
-          },
-          {
-            "in": "query",
-            "name": "ColName",
-            "type": "string"
-          },
-          {
-            "in": "path",
-            "name": "storeId",
-            "required": true,
+            "name": "code",
             "type": "string"
           }
         ],
@@ -645,7 +443,66 @@
         }
       }
     },
-    "/api/v1.0/product/GetProductByTimeSlot/{timeSlotId}": {
+    "/api/v1.0/product/GetProductByStore": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "storeId",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "Page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "PageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "KeySearch",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SearchBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "SortType"
+          },
+          {
+            "in": "query",
+            "name": "ColName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProductResponsePagedResults"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/product/GetProductByTimeSlot": {
       "get": {
         "tags": [
           "Product"
@@ -691,12 +548,6 @@
           {
             "in": "query",
             "name": "ColName",
-            "type": "string"
-          },
-          {
-            "in": "path",
-            "name": "timeSlotId",
-            "required": true,
             "type": "string"
           }
         ],
@@ -828,6 +679,40 @@
           "items": {
             "$ref": "#/definitions/CategoryResponse"
           }
+        }
+      },
+      "additionalProperties": false
+    },
+    "CreateProductRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "price": {
+          "format": "double",
+          "type": "number"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "categoryId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "supplierStoreId": {
+          "format": "int32",
+          "type": "integer"
         }
       },
       "additionalProperties": false
@@ -1093,6 +978,40 @@
           "items": {
             "$ref": "#/definitions/TimeslotResponse"
           }
+        }
+      },
+      "additionalProperties": false
+    },
+    "UpdateProductRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "price": {
+          "format": "double",
+          "type": "number"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "categoryId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "supplierStoreId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "code": {
+          "type": "string"
         }
       },
       "additionalProperties": false

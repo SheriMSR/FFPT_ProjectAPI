@@ -190,7 +190,6 @@ namespace FFPT_Project.Service.Service
 
                     #endregion
                     order.ShippingFee = feeShipping;
-                    order.FinalAmount = (double)(order.TotalAmount + order.ShippingFee);
                     order.OrderStatus = (int)OrderStatusEnum.Pending;
                     order.OrderType = request.OrderType;
 
@@ -233,6 +232,7 @@ namespace FFPT_Project.Service.Service
                         }
                     }
                     #endregion
+                    order.FinalAmount = (double)(order.TotalAmount + order.ShippingFee);
                     order.OrderDetails = listOrderDetail;
 
                     await _unitOfWork.Repository<Order>().InsertAsync(order);

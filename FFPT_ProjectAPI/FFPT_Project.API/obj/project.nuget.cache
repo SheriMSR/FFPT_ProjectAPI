@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5MlDGLJ7AJAH8H90TUyqRDpX4YC+/FC0ovEuSzgdv4VsdRqEYCWoOuW+hrG5iHfYclO0LllRyMAjPPNroqQV1Q==",
+  "dgSpecHash": "KdwzXo5OxlMU/qRcR7qdO0mTHFAazpUq1QLCbbXfeQ0nTuhK0m61Ssd6oyMFCfWy7Rw1E7RE/FVkB1WkEeTgDg==",
   "success": true,
   "projectFilePath": "C:\\Users\\MyTDV\\source\\repoStudy\\FFPT_ProjectAPi\\FFPT_ProjectAPI\\FFPT_Project.API\\FFPT_Project.API.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "C:\\Users\\MyTDV\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\barcode\\2022.10.9871\\barcode.2022.10.9871.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\bitmiracle.libtiff.net\\2.4.649\\bitmiracle.libtiff.net.2.4.649.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\chilkat-x64\\9.5.0.92\\chilkat-x64.9.5.0.92.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
@@ -24,7 +26,10 @@
     "C:\\Users\\MyTDV\\.nuget\\packages\\google.apis.auth\\1.57.0\\google.apis.auth.1.57.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\google.apis.auth.aspnetcore3\\1.57.0\\google.apis.auth.aspnetcore3.1.57.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\google.apis.core\\1.57.0\\google.apis.core.1.57.0.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\hangfire.aspnetcore\\1.7.31\\hangfire.aspnetcore.1.7.31.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\hangfire.core\\1.7.31\\hangfire.core.1.7.31.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\ironsoftware.system.drawing\\2022.10.9851\\ironsoftware.system.drawing.2022.10.9851.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.9\\microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
@@ -163,6 +168,9 @@
     "C:\\Users\\MyTDV\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\scrutor\\3.3.0\\scrutor.3.3.0.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\sixlabors.fonts\\1.0.0-beta18\\sixlabors.fonts.1.0.0-beta18.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\sixlabors.imagesharp\\2.1.3\\sixlabors.imagesharp.2.1.3.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\sixlabors.imagesharp.drawing\\1.0.0-beta15\\sixlabors.imagesharp.drawing.1.0.0-beta15.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\stackexchange.redis\\2.6.66\\stackexchange.redis.2.6.66.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\6.4.0\\swashbuckle.aspnetcore.annotations.6.4.0.nupkg.sha512",
@@ -266,7 +274,9 @@
     "C:\\Users\\MyTDV\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\MyTDV\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Users\\MyTDV\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\MyTDV\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\zxing.net\\0.16.8\\zxing.net.0.16.8.nupkg.sha512",
+    "C:\\Users\\MyTDV\\.nuget\\packages\\zxing.net.bindings.imagesharp.v2\\0.16.14\\zxing.net.bindings.imagesharp.v2.0.16.14.nupkg.sha512"
   ],
   "logs": [
     {

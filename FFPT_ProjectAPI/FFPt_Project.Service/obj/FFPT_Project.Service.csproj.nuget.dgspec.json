@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[12.0.0, )"
             },
+            "BarCode": {
+              "target": "Package",
+              "version": "[2022.10.9871, )"
+            },
             "Google.Apis.Auth": {
               "target": "Package",
               "version": "[1.57.0, )"
@@ -55,6 +59,14 @@
             "Google.Apis.Auth.AspNetCore3": {
               "target": "Package",
               "version": "[1.57.0, )"
+            },
+            "Hangfire.AspNetCore": {
+              "target": "Package",
+              "version": "[1.7.31, )"
+            },
+            "Hangfire.Core": {
+              "target": "Package",
+              "version": "[1.7.31, )"
             },
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",
@@ -169,6 +181,10 @@
               "target": "Package",
               "version": "[12.0.0, )"
             },
+            "BarCode": {
+              "target": "Package",
+              "version": "[2022.10.9871, )"
+            },
             "EntityFramework": {
               "target": "Package",
               "version": "[6.4.4, )"
@@ -180,6 +196,14 @@
             "Google.Apis.Auth.AspNetCore3": {
               "target": "Package",
               "version": "[1.57.0, )"
+            },
+            "Hangfire.AspNetCore": {
+              "target": "Package",
+              "version": "[1.7.31, )"
+            },
+            "Hangfire.Core": {
+              "target": "Package",
+              "version": "[1.7.31, )"
             },
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
