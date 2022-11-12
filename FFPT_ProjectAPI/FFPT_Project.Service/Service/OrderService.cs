@@ -391,12 +391,12 @@ namespace FFPT_Project.Service.Service
         {
             try
             {
-                var order = await _unitOfWork.Repository<Order>().FindAsync(x => x.Id == orderId);
+                var order = _unitOfWork.Repository<Order>().Find(x => x.Id == orderId);
 
                 if (order == null)
                     throw new CrudException(HttpStatusCode.NotFound, "Order Id not found", orderId.ToString());
                 var customerResult = _mapper.Map<Customer, CustomerResponse>(order.Customer);
-                var orderResult = _mapper.Map<OrderDetail, List<OrderDetailResponse>>((OrderDetail)order.OrderDetails);
+                var orderResult = _mapper.Map<List<OrderDetailResponse>>(order.OrderDetails);
 
                 var storeId = order.OrderDetails.FirstOrDefault().ProductInMenu.Product.SupplierStoreId;
                 var storeName = order.OrderDetails.FirstOrDefault().ProductInMenu.Product.SupplierStore.Name;
