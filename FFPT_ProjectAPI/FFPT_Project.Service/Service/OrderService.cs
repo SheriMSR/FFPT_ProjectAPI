@@ -81,7 +81,7 @@ namespace FFPT_Project.Service.Service
             var mess = await getHtml(order);
             bool success = false;
             string to = order.CustomerInfo.Email;
-            string from = "ffpt.ffood@gmail.com";
+            string from = "mytdvse151417@fpt.edu.vn";
             MailMessage message = new MailMessage(from, to);
             message.Subject = "Đơn hàng đây, đơn hàng đây! FFood mang niềm vui đến cho bạn nè!!!!";
             message.Body = mess;
