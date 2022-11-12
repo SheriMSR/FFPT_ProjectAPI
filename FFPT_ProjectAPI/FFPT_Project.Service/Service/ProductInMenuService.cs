@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Azure.Core;
 using FFPT_Project.Data.Entity;
 using FFPT_Project.Data.UnitOfWork;
 using FFPT_Project.Service.DTO.Request;
 using FFPT_Project.Service.DTO.Response;
 using FFPT_Project.Service.Exceptions;
 using FFPT_Project.Service.Helpers;
+using FFPT_Project.Service.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -69,6 +71,7 @@ namespace FFPT_Project.Service.Service
                         CreateAt = x.CreateAt,
                         UpdateAt = x.UpdateAt
                     })
+                    .DynamicFilter(request)
                     .ToListAsync();
 
                 var result = PageHelper<ProductInMenuResponse>.Paging(products, paging.Page, paging.PageSize);
@@ -310,8 +313,27 @@ namespace FFPT_Project.Service.Service
                         UpdateAt = x.UpdateAt
                     })
                     .ToList();
-
-                var result = PageHelper<ProductInMenuResponse>.Paging(productInMenu, paging.Page, paging.PageSize);
+                HashSet<string> listCodeProduct = new HashSet<string>();
+                
+                var resultList = new List<ProductInMenuResponse>();
+                foreach (var product in productInMenu)
+                {
+                    listCodeProduct.Add(product.ProductCode);
+                }
+                foreach(var item in listCodeProduct)
+                {
+                    double amount = 0;
+                    var listPro = productInMenu.Where(x => x.ProductCode == item);
+                    foreach (var pro in listPro)
+                    {
+                        if (amount == 0 || pro.Price < amount)
+                        {
+                            amount = (double)pro.Price;
+                            resultList.Add(pro);
+                        }
+                    }
+                }
+                var result = PageHelper<ProductInMenuResponse>.Paging(resultList, paging.Page, paging.PageSize);
                 return result;
             }
             catch (Exception e)

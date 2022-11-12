@@ -128,7 +128,6 @@ namespace FFPT_Project.Service.Service
                 }
                 var product = _mapper.Map<CreateProductRequest, Product>(request);
 
-                product.Id = _unitOfWork.Repository<Product>().GetAll().Count() + 1;
                 product.Status = (int)ProductStatusEnum.New;
                 product.CreateAt = DateTime.Now;
 
