@@ -173,7 +173,6 @@ namespace FFPT_Project.Service.Service
                     #endregion
 
                     order.CheckInDate = DateTime.Now;
-                    order.TotalAmount = request.TotalAmount;
 
                     #region order delivery shipping fee
                     if (request.OrderType == (int)OrderTypeEnum.Delivery)
@@ -209,8 +208,10 @@ namespace FFPT_Project.Service.Service
                     List<OrderDetailResponse> listOrderDetailResponse = new List<OrderDetailResponse>();
                     foreach (var detail in request.OrderDetails)
                     {
+                        order.TotalAmount = 0;
                         if (detail.SupplierStoreId == storeId)
                         {
+                            order.TotalAmount += (double)detail.FinalAmount;
                             var product = _unitOfWork.Repository<ProductInMenu>().GetAll()
                                 .Include(x => x.Product)
                                 .Where(x => x.Id == detail.ProductInMenuId)
@@ -297,7 +298,6 @@ namespace FFPT_Project.Service.Service
                 // tách đơn 
                 foreach (var storeId in listStore)
                 {
-                    #region order delivery shipping fee
                     if (request.OrderType == (int)OrderTypeEnum.Delivery)
                     {
                         //ShippingFee
