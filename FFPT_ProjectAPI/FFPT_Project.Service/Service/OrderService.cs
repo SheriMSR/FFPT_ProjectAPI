@@ -15,6 +15,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using ZXing.QrCode.Internal;
 using static FFPT_Project.Service.Helpers.Enum;
@@ -281,18 +282,45 @@ namespace FFPT_Project.Service.Service
         {
             try
             {
-                var order = await _unitOfWork.Repository<Order>().GetAll()
+                var orderList = await _unitOfWork.Repository<Order>().GetAll()
                             .Where(x => x.OrderStatus == (int)orderStatus
                             && x.Customer.Id == customerId)
-                            .ProjectTo<OrderResponse>(_mapper.ConfigurationProvider)
                             .ToListAsync();
-                return PageHelper<OrderResponse>.Paging(order, paging.Page, paging.PageSize);
+
+                List<OrderResponse> result = new List<OrderResponse>();
+                foreach (var order in orderList)
+                {
+                    var store = order.OrderDetails.FirstOrDefault().ProductInMenu.Product;
+                    var orderDetail = _mapper.Map<OrderDetail, List<OrderDetailResponse>>((OrderDetail)order.OrderDetails);
+                    var customerResult = _mapper.Map<Customer, CustomerResponse>(order.Customer);
+                    var orderResult = new OrderResponse()
+                    {
+                        Id = order.Id,
+                        OrderName = order.OrderName,
+                        CheckInDate = order.CheckInDate,
+                        TotalAmount = order.TotalAmount,
+                        ShippingFee = order.ShippingFee,
+                        FinalAmount = order.FinalAmount,
+                        OrderStatus = order.OrderStatus,
+                        DeliveryPhone = order.DeliveryPhone,
+                        OrderType = order.OrderType,
+                        TimeSlotId = order.TimeSlotId,
+                        RoomId = (int)order.RoomId,
+                        RoomNumber = order.Room.RoomNumber,
+                        SupplierStoreId = store.SupplierStoreId,
+                        StoreName = store.Name,
+                        CustomerInfo = customerResult,
+                        OrderDetails = orderDetail
+                    };
+                }
+                return PageHelper<OrderResponse>.Paging(result, paging.Page, paging.PageSize);
             }
             catch (Exception ex)
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Error", ex.Message);
             }
         }
+
         //public async Task<PagedResults<OrderResponse>> GetOrders(PagingRequest paging)
         //{
         //    try
