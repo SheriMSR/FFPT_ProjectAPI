@@ -26,6 +26,7 @@ namespace FFPT_Project.Service.Service
     {
         //Task<bool> CreateMailMessage(int order);
         Task<List<OrderResponse>> CreateOrder(CreateOrderRequest request);
+        Task<double> CreatePreOrder(CreateOrderRequest request);
         Task<PagedResults<OrderResponse>> GetOrderByOrderStatus(OrderStatusEnum orderStatus, int customerId, PagingRequest paging);
         Task<PagedResults<OrderResponse>> GetOrders(PagingRequest paging);
         Task<OrderResponse> GetOrderById(int orderId);
@@ -270,6 +271,47 @@ namespace FFPT_Project.Service.Service
                 }
                 return listOrderResult;
 
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
+            }
+            catch (Exception e)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Create Order Error!!!", e.InnerException?.Message);
+            }
+        }
+
+        public async Task<double> CreatePreOrder(CreateOrderRequest request)
+        {
+            try
+            {
+                var feeShipping = 0;
+                //Phân có bao nhiêu store trong order detail
+                HashSet<int> listStore = new HashSet<int>();
+                foreach (var detail in request.OrderDetails)
+                {
+                    listStore.Add(detail.SupplierStoreId);
+                }
+
+                // tách đơn 
+                foreach (var storeId in listStore)
+                {
+                    #region order delivery shipping fee
+                    if (request.OrderType == (int)OrderTypeEnum.Delivery)
+                    {
+                        //ShippingFee
+                        if (feeShipping == 0)
+                        {
+                            feeShipping = 5000;
+                        }
+                        else
+                        {
+                            feeShipping += 2000;
+                        }
+                    }
+                }
+                return feeShipping;
             }
             catch (CrudException ex)
             {
