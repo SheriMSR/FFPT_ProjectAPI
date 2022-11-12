@@ -10,6 +10,7 @@ namespace FFPT_Project.Service.DTO.Response
 {
     public class OrderResponse
     {
+        public int Id { get; set; }
         public string? OrderName { get; set; }
         public DateTime CheckInDate { get; set; }
         public double TotalAmount { get; set; }
