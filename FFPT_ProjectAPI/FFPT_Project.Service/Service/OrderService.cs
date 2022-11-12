@@ -80,7 +80,7 @@ namespace FFPT_Project.Service.Service
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
             SmtpServer.UseDefaultCredentials = false;
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("mytdvse151417@fpt.edu.vn", "070301000119");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("ffpt.ffood@gmail.com", "070301000119");
             SmtpServer.EnableSsl = true;
 
             try
@@ -162,11 +162,9 @@ namespace FFPT_Project.Service.Service
                     order.TimeSlotId = request.TimeSlotId;
                     order.DeliveryPhone = request.DeliveryPhone;
                     
-                    //var customer = _unitOfWork.Repository<Customer>().Find(x => x.Id == request.CustomerId);
                     order.CustomerId = request.CustomerId;
                     order.Customer = _unitOfWork.Repository<Customer>().Find(x => x.Id == request.CustomerId);
 
-                    //var room = _unitOfWork.Repository<Room>().Find(x => x.Id == request.RoomId);
                     order.RoomId = request.RoomId;
                     order.Room = _unitOfWork.Repository<Room>().Find(x => x.Id == request.RoomId);
 
