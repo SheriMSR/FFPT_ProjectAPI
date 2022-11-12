@@ -93,7 +93,9 @@ namespace FFPT_Project.Service.Service
 
             message.IsBodyHtml = true;
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            SmtpServer.Port = 25;
+            SmtpServer.UseDefaultCredentials = true;
+
+            SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("mytdvse151417@fpt.edu.vn", "070301000119");
             SmtpServer.EnableSsl = true;
 
