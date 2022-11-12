@@ -172,8 +172,6 @@ namespace FFPT_Project.Service.Service
                     order.OrderName = refixOrderName + "-" + orderCount.ToString().PadLeft(3, '0');
                     #endregion
 
-                    order.CheckInDate = DateTime.Now;
-
                     #region order delivery shipping fee
                     if (request.OrderType == (int)OrderTypeEnum.Delivery)
                     {
@@ -189,6 +187,8 @@ namespace FFPT_Project.Service.Service
                     }
 
                     #endregion
+
+                    order.CheckInDate = DateTime.Now;
                     order.ShippingFee = feeShipping;
                     order.OrderStatus = (int)OrderStatusEnum.Pending;
                     order.OrderType = request.OrderType;
@@ -205,11 +205,13 @@ namespace FFPT_Project.Service.Service
                     #region Order detail
                     List<OrderDetail> listOrderDetail = new List<OrderDetail>();
                     List<OrderDetailResponse> listOrderDetailResponse = new List<OrderDetailResponse>();
+                    order.TotalAmount = 0;
                     foreach (var detail in request.OrderDetails)
                     {
-                        order.TotalAmount = 0;
+
                         if (detail.SupplierStoreId == storeId)
                         {
+                            
                             order.TotalAmount += (double)detail.FinalAmount;
                             var product = _unitOfWork.Repository<ProductInMenu>().GetAll()
                                 .Include(x => x.Product)
