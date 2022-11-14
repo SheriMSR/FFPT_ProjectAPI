@@ -357,7 +357,7 @@ namespace FFPT_Project.Service.Service
 
                 foreach (var item in request.Products)
                 {
-                    var product = _unitOfWork.Repository<Product>().GetById((int)item.ProductId);
+                    var product = _unitOfWork.Repository<Product>().Find(x => x.Id == (int)item.ProductId);
                     if (product != null)
                     {
                         var productInMenu = new ProductInMenu();
