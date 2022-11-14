@@ -369,8 +369,8 @@ namespace FFPT_Project.Service.Service
 
                         await _unitOfWork.Repository<ProductInMenu>().InsertAsync(productInMenu);
                         await _unitOfWork.CommitAsync();
-                        var rs = _mapper.Map<ProductInMenu, ProductInMenuResponse>(productInMenu);
-                        result.Add(rs);
+                        var mapResult = _mapper.Map<ProductInMenu, ProductInMenuResponse>(productInMenu);
+                        result.Add(mapResult);
                     }
                 }
                 return result;
