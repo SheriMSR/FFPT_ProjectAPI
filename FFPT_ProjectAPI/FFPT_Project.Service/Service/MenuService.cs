@@ -105,7 +105,6 @@ namespace FFPT_Project.Service.Service
             {
                 var menu = _mapper.Map<CreateMenuRequest, Menu>(request);
 
-                menu.Id = _unitOfWork.Repository<Menu>().GetAll().Count() + 1;
                 menu.CreateAt = DateTime.Now;
 
                 await _unitOfWork.Repository<Menu>().InsertAsync(menu);
